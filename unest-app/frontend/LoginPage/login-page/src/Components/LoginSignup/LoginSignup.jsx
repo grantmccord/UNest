@@ -9,7 +9,6 @@ const LoginSignup = () => {
     const [action,setAction] = useState("Login");
     return (
         <div className='outercontainer'>
-            <div className="txt">Welcome to UNest!</div>
             <div className='container'>
                 <div className="header">
                     <div className="text">{action}</div>

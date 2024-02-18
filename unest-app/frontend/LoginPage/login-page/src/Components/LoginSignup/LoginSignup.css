@@ -1,8 +1,5 @@
-.outercountainer{
-    margin: auto;
-    background: black;
-    height: fit-content;
-    overflow-y: auto;
+.outercontainer{
+    margin-top: 50px;
 }
 .container{
     display: flex;
@@ -85,7 +82,7 @@
 .submit-container{
     display: flex;
     gap: 20px;
-    margin: 60px auto;
+    margin: 40px auto;
 }
 .submit{
     display: flex;
@@ -95,7 +92,7 @@
     height: 50px;
     color: bisque;
     background: #EA5455;
-    border-radius: 35px;
+    border-radius: 25px;
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
