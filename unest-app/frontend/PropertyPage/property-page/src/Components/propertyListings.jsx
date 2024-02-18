@@ -81,6 +81,26 @@ const PropertyListings = () => {
           Game Room
         </li>
       </ul>
+      <ul style={{position: "relative", top: "-605px", left: "500px"}}>
+        <li>
+          Keyed Access
+        </li>
+        <li>
+          Pool
+        </li>
+        <li>
+          EV Charging
+        </li>
+        <li>
+          Outdoor Grill
+        </li>
+        <li>
+          Balcony
+        </li>
+        <li>
+          In-Unit Laundry
+        </li>
+      </ul>
         </div>
       );
 };
