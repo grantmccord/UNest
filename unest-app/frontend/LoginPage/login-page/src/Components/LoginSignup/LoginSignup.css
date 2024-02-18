@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 75px;
     background: white;
     width: 800px;
     padding-bottom: 30px;
@@ -22,6 +22,15 @@
     font-weight: 700;
     align-items: center;
 }
+.txt{
+    color: black;
+    font-size: 55px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 50px;
+}
+
+
 .underline{
     width: 270px;
     height: 5px;
@@ -33,6 +42,7 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+    color: black;
 }
 .input{
     display: flex;
@@ -42,9 +52,10 @@
     height: 80px;
     background: bisque;
     border-radius: 5px;
+    color: black;
 }
 .input img{
-    margin: 0px 30px;
+    margin: 0 30px;
 }
 .input input{
     height: 50px;
