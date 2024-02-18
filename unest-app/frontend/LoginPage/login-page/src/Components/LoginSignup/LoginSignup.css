@@ -1,19 +1,23 @@
+.outercountainer{
+    margin: auto;
+    background: black;
+    height: fit-content;
+    overflow-y: auto;
+}
 .container{
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 50px;
     background: white;
-    width: 800px;
-    padding-bottom: 30px;
+    width: 50%;
+    height: 50%;
 }
 .header{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    width: 100%;
-    margin-top: 30px;
+    gap: 5px;
+    margin-top: 15px;
 }
 .text{
     color: black;
@@ -22,25 +26,29 @@
     align-items: center;
     text-align: center;
 }
+
 .txt{
     color: black;
     font-size: 55px;
     font-weight: 200;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
+
 .underline{
     width: 270px;
     height: 5px;
     background: #EA5455;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 .inputs{
-    margin-top: 55px;
     display: flex;
     flex-direction: column;
     gap: 25px;
     color: black;
+    margin-top: 10px;
 }
 .input{
     display: flex;
@@ -61,12 +69,11 @@
     background: transparent;
     border: none;
     outline: none;
-    color: bisque;
+    color: black;
     font-size: 18px;
 }
 .forgot-password{
-    align-items: center;
-    padding-left: 275px;
+    text-align: center;
     margin-top: 27px;
     color: black;
     font-size: 18px;
@@ -93,7 +100,6 @@
     font-weight: 700;
     cursor: pointer;
 }
-
 .gray{
     background: bisque;
     color: gray;

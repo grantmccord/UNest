@@ -9,13 +9,7 @@ const LoginSignup = () => {
     const [action,setAction] = useState("Login");
     return (
         <div className='outercontainer'>
-
-            <div className='title'>
-                <div className="welcome">
-                    <div className="txt">Welcome to UNest!</div>
-                </div>
-            </div>
-
+            <div className="txt">Welcome to UNest!</div>
             <div className='container'>
                 <div className="header">
                     <div className="text">{action}</div>
@@ -45,6 +39,7 @@ const LoginSignup = () => {
                         <img src={lock_icon} alt=""/>
                         <input type="password" placeholder="Password"/>
                     </div>
+
                 </div>
                 {action === "Sign Up" ? <div></div> :
                     <div className="forgot-password">Forgot Password? <span>Click Here!</span></div>}
