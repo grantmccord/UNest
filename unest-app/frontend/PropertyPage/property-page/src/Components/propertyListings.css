@@ -1,0 +1,14 @@
+button {
+    background-color: red;
+    color: white;
+  }
+  .rectangle {
+    position: relative;
+    top: -300px;
+    left: -470px;
+    display: inline-block;
+    width: 500px;
+    height: 500px;
+    background: white;
+    border: 2px solid black;
+  }
