@@ -4,6 +4,7 @@
     margin: auto;
     margin-top: 200px;
     background: white;
+    width: 600px;
     padding-bottom: 30px;
 }
 
@@ -19,9 +20,10 @@
     color: black;
     font-size: 48px;
     font-weight: 700;
+    align-items: center;
 }
 .underline{
-    width: 60px;
+    width: 65px;
     height: 5px;
     background: #EA5455;
     border-radius: 10px;
@@ -31,4 +33,35 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+}
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+    background: bisque;
+    border-radius: 5px;
+}
+.input img{
+    margin: 0px 30px;
+}
+.input input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: bisque;
+    font-size: 18px;
+}
+.forgot-password{
+    padding-left: 62px;
+    margin-top: 27px;
+    color: black;
+    font-size: 18px;
+}
+.forgot-password span{
+    color: #EA5455;
+    cursor: pointer;
 }
