@@ -7,7 +7,6 @@
     width: 800px;
     padding-bottom: 30px;
 }
-
 .header{
     display: flex;
     flex-direction: column;
@@ -21,6 +20,7 @@
     font-size: 48px;
     font-weight: 700;
     align-items: center;
+    text-align: center;
 }
 .txt{
     color: black;
@@ -29,8 +29,6 @@
     text-align: center;
     padding-top: 50px;
 }
-
-
 .underline{
     width: 270px;
     height: 5px;

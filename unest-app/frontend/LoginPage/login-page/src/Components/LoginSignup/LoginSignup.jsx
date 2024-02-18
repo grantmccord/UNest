@@ -4,6 +4,7 @@ import './LoginSignup.css'
 import email_icon from '../Assets/email.png'
 import lock_icon from '../Assets/lock.png'
 import person_icon from '../Assets/person.png'
+import school_icon from '../Assets/school.png'
 const LoginSignup = () => {
     const [action,setAction] = useState("Login");
     return (
@@ -23,7 +24,17 @@ const LoginSignup = () => {
                 <div className="inputs">
                     {action === "Login" ? <div></div> : <div className="input">
                         <img src={person_icon} alt=""/>
-                        <input type="text" placeholder="Name"/>
+                        <input type="text" placeholder="First Name"/>
+                    </div>}
+
+                    {action === "Login" ? <div></div> : <div className="input">
+                        <img src={person_icon} alt=""/>
+                        <input type="text" placeholder="Last Name"/>
+                    </div>}
+
+                    {action === "Login" ? <div></div> : <div className="input">
+                        <img src={school_icon} alt=""/>
+                        <input type="text" placeholder="University Name"/>
                     </div>}
 
                     <div className="input">
