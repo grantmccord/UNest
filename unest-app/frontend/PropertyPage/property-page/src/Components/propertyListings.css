@@ -12,3 +12,14 @@ button {
     background: white;
     border: 2px solid black;
   }
+  
+  ul {
+    position: relative;
+    top: -280px;
+    left: 150px;
+  }
+  
+  ul li {
+    padding: 10px 0px;
+
+  }

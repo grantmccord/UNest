@@ -58,7 +58,29 @@ const PropertyListings = () => {
       Profile
     </p>
       </div>
-      
+      <h3 style={{position: "relative", top: "-280px", left: "180px"}}>
+        Amenities
+      </h3>
+      <ul>
+        <li>
+          In-Unit Laundry
+        </li>
+        <li>
+          Garage Parking
+        </li>
+        <li>
+          Gym
+        </li>
+        <li>
+          Bicycle Storage
+        </li>
+        <li>
+          Maintenance on site
+        </li>
+        <li>
+          Game Room
+        </li>
+      </ul>
         </div>
       );
 };
