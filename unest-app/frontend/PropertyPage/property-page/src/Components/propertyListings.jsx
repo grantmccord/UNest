@@ -101,6 +101,47 @@ const PropertyListings = () => {
           In-Unit Laundry
         </li>
       </ul>
+      <h2 style={{position: "relative", top: "-580px", left: "160px"}}>Users Looking for Roommates Who Viewed this Property</h2>
+      <div className='roommate1' style={{position: "relative", top: "-500px", left: "50px"}}>
+      <h3 style={{ color: "black", textAlign: "center" }}>
+      Insert Profile Pic Here
+      </h3> 
+       <h6 style={{textAlign: "center", position: "relative", top: "30px"}}>John Jones</h6> 
+       <p style={{textAlign: "center"}}>Undergraduate Senior majoring in Computer Science.</p>
+      </div>
+      <div className='roommate2' style={{position: "relative", top: "-500px", left: "80px"}}>
+      <h3 style={{ color: "black", textAlign: "center" }}>
+      Insert Profile Pic Here
+    </h3>
+       <h6 style={{textAlign: "center", position: "relative", top: "30px"}}>Walker Smith</h6>
+       <p style={{textAlign: "center"}}>First Year Masters Student studying Mathmatics.</p>
+      </div>
+      <div className='roommate3' style={{position: "relative", top: "-500px", left: "110px"}}>
+      <h3 style={{ color: "black", textAlign: "center" }}>
+      Insert Profile Pic Here
+      </h3>
+       <h6 style={{textAlign: "center", position: "relative", top: "30px"}}>Pete Day</h6>
+       <p style={{textAlign: "center"}}>Undergraduate Junior majoring in Communications.</p>
+      </div>
+      <div className='roommate4' style={{position: "relative", top: "-500px", left: "140px"}}>
+      <h3 style={{ color: "black", textAlign: "center" }}>
+      Insert Profile Pic Here
+      </h3>
+       <h6 style={{textAlign: "center", position: "relative", top: "30px"}}>Jose Stricker</h6>
+       <p style={{textAlign: "center"}}>Second year Master's Student studying Data Science.</p>
+      </div>
+      <button style={{position: "relative", top: "-500px", left: "50px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      Message
+      </button>
+      <button style={{position: "relative", top: "-500px", left: "90px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      Message
+      </button>
+      <button style={{position: "relative", top: "-500px", left: "120px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      Message
+      </button>
+      <button style={{position: "relative", top: "-500px", left: "160px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      Message
+      </button>
         </div>
       );
 };
