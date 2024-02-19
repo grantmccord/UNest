@@ -1,10 +1,11 @@
 import './App.css';
-import MessagesButton from "./Components/MessagesButton/MessagesButton";
+import Header from "./Components/Header/Header"
 
 function App() {
   return (
     <div>
-      <MessagesButton/>
+      <Header/>
+      {/* <MessagesButton/> */}
     </div>
   );
 }

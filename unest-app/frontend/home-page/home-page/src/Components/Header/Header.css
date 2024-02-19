@@ -1,0 +1,26 @@
+.header {
+    width: 100%;
+    height: 60px;
+    background-color: red;
+    padding: 10px 0px;
+    position: relative;
+}
+
+.overlap {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* border: 2px solid green; */
+}
+
+.msg {
+    /* border: 2px solid blue; */
+    display: flex;
+}
+
+.title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: center;
+    color: white;
+}
