@@ -1,8 +1,31 @@
 import './propertyListings.css'
+import {
+  useNavigate,
+} from "react-router-dom";
+
 
 const PropertyListings = () => {
+  const navigate = useNavigate();
+
+  const navigateToMessages = () => {
+    navigate('/messages', {replace: true});
+  };
+
+  const navigateToOwner = () => {
+    navigate('/messageOwner', {replace: true});
+  };
+
+  const navigateToTour = () => {
+    navigate('/tour', {replace: true});
+  };
+
+  const navigateToListing = () => {
+    navigate('/listing', {replace: true})
+  };
+
     return (
         <div>
+          <div>
         <h1 style={{ color: "red", position: "relative", top: "-40px"}}>
       UNEST Logo
     </h1><button style={{position: "relative", top: "-115px", left: "330px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
@@ -11,7 +34,7 @@ const PropertyListings = () => {
     <button style={{position: "relative", top: "-115px", left: "340px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
-    <button style={{position: "relative", top: "-115px", left: "800px", borderRadius: "10px"}}>
+    <button onClick={navigateToListing} style={{position: "relative", top: "-115px", left: "800px", borderRadius: "10px"}}>
       Add Listing
       </button>
       <button style={{position: "relative", top: "-55px", left: "30px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
@@ -35,9 +58,9 @@ const PropertyListings = () => {
     <h3 style={{ color: "black", position: "relative", top: "50px", left: "550px"}}>
       $500 Monthly Unit Rent
     </h3>
-      <button style={{position: "relative", top: "-275px", left: "540px", borderRadius: "20px", width: "200px", heigtht: "400px"}}>
+      <button onClick={navigateToOwner} style={{position: "relative", top: "-275px", left: "540px", borderRadius: "20px", width: "200px", heigtht: "400px"}}>
       Message Lister
-      </button><button style={{position: "relative", top: "-275px", left: "560px", borderRadius: "20px"}}>
+      </button><button onClick={navigateToTour} style={{position: "relative", top: "-275px", left: "560px", borderRadius: "20px"}}>
       Schedule Tour Appointment
       </button>
       <div className="rectangle">
@@ -51,7 +74,7 @@ const PropertyListings = () => {
       1 Bath
     </h3>
     <input type="text" value="Search" style={{position: "relative", top: "-455px", left: "600px", width: "400px", textAlign: "center"}}/>
-    <p style={{position: "relative", top: "-515px", left: "1200px"}}>
+    <p onClick={navigateToMessages} style={{position: "relative", top: "-515px", left: "1200px"}}>
       Msg
     </p>
     <p style={{position: "relative", top: "-570px", left: "1275px"}}>
@@ -145,6 +168,7 @@ const PropertyListings = () => {
       <button style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px"}}>
       Explore Others Who Viewed this Property
       </button>
+      </div>
         </div>
       );
 };
