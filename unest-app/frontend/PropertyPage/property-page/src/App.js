@@ -4,11 +4,14 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import PropertyListings from './Components/propertyListings'
-import Messages from './Components/Messages'
-import MessageOwner from './Components/MessageOwner' 
-import Tour from './Components/Tour'
-import ListingForm from './Components/ListingForm'
+import PropertyListings from './Components/propertyListings';
+import Messages from './Components/Messages';
+import MessageOwner from './Components/MessageOwner'; 
+import Tour from './Components/Tour';
+import ListingForm from './Components/ListingForm';
+import HomePage from './Components/HomePage';
+import ProfilePage from './Components/ProfilePage';
+import Explore from './Components/Explore';
 
 function App() {
 
@@ -20,6 +23,9 @@ function App() {
         <Route path="/messageOwner" element={<MessageOwner />} />
         <Route path="/tour" element={<Tour />} />
         <Route path="/listing" element={<ListingForm />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} /> 
+        <Route path="/explore" element={<Explore />} /> 
       </Routes>
     </div>
   );

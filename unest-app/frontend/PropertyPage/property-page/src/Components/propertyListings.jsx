@@ -23,15 +23,27 @@ const PropertyListings = () => {
     navigate('/listing', {replace: true})
   };
 
+  const navigateToHome = () => {
+    navigate('/home', {replace: true})
+  }
+
+  const navigateToProfile = () => {
+    navigate('/profile', {replace: true})
+  }
+
+  const navigateToExplore = () => {
+    navigate('/explore', {replace: true})
+  }
+
     return (
         <div>
           <div>
-        <h1 style={{ color: "red", position: "relative", top: "-40px"}}>
+        <h1 style={{color: "#EA5455;", position: "relative", top: "-40px"}}>
       UNEST Logo
-    </h1><button style={{position: "relative", top: "-115px", left: "330px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    </h1><button onClick={navigateToHome} style={{position: "relative", top: "-115px", left: "330px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Properties
     </button>
-    <button style={{position: "relative", top: "-115px", left: "340px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-115px", left: "340px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
     <button onClick={navigateToListing} style={{position: "relative", top: "-115px", left: "800px", borderRadius: "10px"}}>
@@ -40,10 +52,10 @@ const PropertyListings = () => {
       <button style={{position: "relative", top: "-55px", left: "30px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       About
     </button>
-    <button style={{position: "relative", top: "-55px", left: "70px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 700, behavior: "smooth"})} style={{position: "relative", top: "-55px", left: "70px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Amenities
     </button>
-    <button style={{position: "relative", top: "-55px", left: "120px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-55px", left: "120px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
       <h3 style={{ color: "black", position: "relative", top: "-60px", left: "550px"}}>
@@ -77,7 +89,7 @@ const PropertyListings = () => {
     <p onClick={navigateToMessages} style={{position: "relative", top: "-515px", left: "1200px"}}>
       Msg
     </p>
-    <p style={{position: "relative", top: "-570px", left: "1275px"}}>
+    <p onClick={navigateToProfile} style={{position: "relative", top: "-570px", left: "1275px"}}>
       Profile
     </p>
       </div>
@@ -165,7 +177,7 @@ const PropertyListings = () => {
       <button style={{position: "relative", top: "-500px", left: "160px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
-      <button style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px"}}>
+      <button onClick={navigateToExplore} style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px"}}>
       Explore Others Who Viewed this Property
       </button>
       </div>
