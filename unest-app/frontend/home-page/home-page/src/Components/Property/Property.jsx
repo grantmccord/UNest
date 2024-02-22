@@ -13,11 +13,11 @@ import dormroom1 from "../Assets/dorm-room1.jpg";
 
 const Property = () => {
     return (
-        <Card sx={{ width: 325, height: 300, boxShadow: 7 }} className="card">
+        <Card sx={{ width: 325, height: 325, boxShadow: 7 }} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="140"
+                    height="180"
                     image={dormroom1}
                     alt="property"
                 />
@@ -46,7 +46,7 @@ const Property = () => {
                         Jan 7th - May 4th 2024
                     </Typography>
 
-                    <Typography variant="body2" mt={1} color="text.secondary">
+                    <Typography variant="body2" mt={1} mb={1} color="text.secondary">
                         0.1 miles away
                     </Typography>
                 </CardContent>
