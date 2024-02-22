@@ -30,7 +30,7 @@ const Property = () => {
                             whiteSpace: 'normal'
                         }}
                     >
-                        <Typography gutterBottom variant="subtitle1" component="div" overflow="hidden" textOverflow="ellipsis" width='rem' sx={{
+                        <Typography gutterBottom variant="subtitle1" component="div" overflow="hidden" textOverflow="ellipsis" width='11rem' sx={{
                             display: '-webkit-box',
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
