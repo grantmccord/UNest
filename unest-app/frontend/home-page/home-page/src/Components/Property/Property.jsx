@@ -13,7 +13,7 @@ import dormroom1 from "../Assets/dorm-room1.jpg";
 
 const Property = () => {
     return (
-        <Card sx={{ maxWidth: 345, maxHeight: 345, boxShadow: 7 }} className="card">
+        <Card sx={{ width: 325, height: 300, boxShadow: 7 }} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -27,9 +27,14 @@ const Property = () => {
                             display: "flex",
                             flexDirection: "row",
                             justifyContent: "space-between",
+                            whiteSpace: 'normal'
                         }}
                     >
-                        <Typography gutterBottom variant="h6" component="div">
+                        <Typography gutterBottom variant="subtitle1" component="div" overflow="hidden" textOverflow="ellipsis" width='rem' sx={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: '2',
+                            WebkitBoxOrient: 'vertical'
+                        }}>
                             2 Bed Room at Granite Apartments
                         </Typography>
                         <Typography variant="body1" mt={1} ml={3} color="text.secondary">
@@ -46,7 +51,7 @@ const Property = () => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-        </Card>
+        </Card >
     );
 };
 
