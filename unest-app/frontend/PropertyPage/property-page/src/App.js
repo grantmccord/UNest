@@ -12,6 +12,8 @@ import ListingForm from './Components/ListingForm';
 import HomePage from './Components/HomePage';
 import ProfilePage from './Components/ProfilePage';
 import Explore from './Components/Explore';
+import MessageRoommate from './Components/MessageRoommate';
+import RoommateProfile from './Components/RoommateProfile';
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} /> 
         <Route path="/explore" element={<Explore />} /> 
+        <Route path="/message" element={<MessageRoommate />} /> 
+        <Route path="/roommateprofile" element={<RoommateProfile/>} /> 
       </Routes>
     </div>
   );
