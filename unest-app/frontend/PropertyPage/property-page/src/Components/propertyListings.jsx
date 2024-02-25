@@ -2,7 +2,7 @@ import './propertyListings.css'
 import {
   useNavigate,
 } from "react-router-dom";
-
+import apartmentIcon from '../Components/Assets/Apartment.png'
 
 const PropertyListings = () => {
   const navigate = useNavigate();
@@ -189,6 +189,7 @@ const PropertyListings = () => {
       Explore Others Who Viewed this Property
       </button>
       </div>
+      <img src={apartmentIcon} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
         </div>
       );
 };
