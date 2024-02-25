@@ -1,10 +1,13 @@
 import './App.css';
+import Header from "./Header.jsx";
+import HeaderTest from "./HeaderTest.jsx";
 
 function App() {
   return (
-    <div class="bg-red-400 py-3 px-5 text-white font-semibold rounded-lg hover:shadow-lg transition duration-3000 cursor-pointer">
-      <span>Search</span>
-    </div>
+    <HeaderTest/>
+    // <div class="bg-red-400 py-3 px-5 text-white font-semibold rounded-lg hover:shadow-lg transition duration-3000 cursor-pointer">
+    //   <span>Search</span>
+    // </div>
     // <div class="min-h-screen bg-gray-100 flex justify-center items-center px-20">
     //   <div class="space-y-10">
     //     <div class="flex items-center p-6 space-x-6 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
