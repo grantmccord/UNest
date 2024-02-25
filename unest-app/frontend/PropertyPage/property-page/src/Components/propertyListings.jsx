@@ -2,9 +2,12 @@ import './propertyListings.css'
 import {
   useNavigate,
 } from "react-router-dom";
-import apartmentIcon from '../Components/Assets/Apartment.png'
+import apartmentIcon from '../Components/Assets/Apartment.png';
+import {useState} from "react";
 
 const PropertyListings = () => {
+  const [like, setLike] = useState(false);
+
   const navigate = useNavigate();
 
   const navigateToMessages = () => {
@@ -190,6 +193,9 @@ const PropertyListings = () => {
       </button>
       </div>
       <img src={apartmentIcon} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
+      <h2 onClick={() => setLike((prevLike => !prevLike))} style={{position: "relative", top: "-2620px", left: "490px"}}>
+        {like ? "❤️" : "♡"}
+      </h2>
         </div>
       );
 };
