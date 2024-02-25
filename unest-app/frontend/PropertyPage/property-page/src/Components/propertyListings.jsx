@@ -2,8 +2,10 @@ import './propertyListings.css'
 import {
   useNavigate,
 } from "react-router-dom";
-import apartmentIcon from '../Components/Assets/Apartment.png';
 import {useState} from "react";
+import apartmentIcon from '../Components/Assets/Apartment.png';
+import profileIcon from '../Components/Assets/Profile.png';
+import messageIcon from '../Components/Assets/Message.png';
 
 const PropertyListings = () => {
   const [like, setLike] = useState(false);
@@ -49,7 +51,7 @@ const PropertyListings = () => {
     return (
         <div>
           <div>
-        <h1 style={{color: "#EA5455;", position: "relative", top: "-40px"}}>
+        <h1 style={{color: "#EA5455", position: "relative", top: "-40px"}}>
       UNEST Logo
     </h1><button onClick={navigateToHome} style={{position: "relative", top: "-115px", left: "330px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Properties
@@ -96,13 +98,9 @@ const PropertyListings = () => {
     <h3 style={{ color: "black", position: "relative", top: "70px", left: "900px"}}>
       1 Bath
     </h3>
-    <input type="text" value="Search" style={{position: "relative", top: "-455px", left: "600px", width: "400px", textAlign: "center"}}/>
-    <p onClick={navigateToMessages} style={{position: "relative", top: "-515px", left: "1200px"}}>
-      Msg
-    </p>
-    <p onClick={navigateToProfile} style={{position: "relative", top: "-570px", left: "1275px"}}>
-      Profile
-    </p>
+    <input type="text" value="Search" style={{position: "relative", top: "-480px", left: "600px", width: "400px", textAlign: "center"}}/>
+    <img src={messageIcon} onClick={navigateToMessages} style={{position: "relative", top: "-463px", left: "807px"}}/>
+    <img src={profileIcon} onClick={navigateToProfile} style={{position: "relative", top: "-520px", left: "1300px"}} />
       </div>
       <h3 style={{position: "relative", top: "-280px", left: "180px"}}>
         Amenities
@@ -196,7 +194,8 @@ const PropertyListings = () => {
       <h2 onClick={() => setLike((prevLike => !prevLike))} style={{position: "relative", top: "-2620px", left: "490px"}}>
         {like ? "❤️" : "♡"}
       </h2>
-        </div>
+      
+      </div>
       );
 };
 
