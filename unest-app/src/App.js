@@ -88,10 +88,14 @@ const App = () => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
+    function refreshPage(){
+        window.location.reload(false);
+    }
+
     return (
         <div className="app">
             <form onSubmit={handleSubmit}>
-                <h1>Register</h1>
+                <h1>Register for UNest!</h1>
                 <div className="underline"></div>
                 {inputs.map((input) => (
                     <Registration_Input
@@ -101,7 +105,7 @@ const App = () => {
                         onChange={onChange}
                     />
                 ))}
-                <button>Submit</button>
+                <button onClick={refreshPage}>Submit</button> {/*might have to remove*/}
             </form>
         </div>
     );

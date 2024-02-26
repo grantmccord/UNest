@@ -10,8 +10,8 @@
 
 form{
   background-color: white;
-  padding: 0px 60px;
-  border-radius: 10px;
+  padding: 0px 70px;
+  border-radius: 20px;
 }
 
 h1{
@@ -36,9 +36,10 @@ button{
 }
 
 .underline{
-  width: 270px;
+  width: 400px;
   height: 5px;
   background: #EA5455;
   border-radius: 10px;
   margin-bottom: 20px;
+  align-items: center;
 }
