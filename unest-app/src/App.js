@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Registration_Input from "./components/Registration_Input";
 
+
 const App = () => {
     const [values, setValues] = useState({
         username: "",
