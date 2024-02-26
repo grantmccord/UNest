@@ -2,13 +2,26 @@ import './propertyListings.css'
 import {
   useNavigate,
 } from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import apartmentIcon from '../Components/Assets/Apartment.png';
 import profileIcon from '../Components/Assets/Profile.png';
 import messageIcon from '../Components/Assets/Message.png';
+import Logo from '../Components/Assets/Logo.png';
+import Heart from 'react-heart';
 
-const PropertyListings = () => {
-  const [like, setLike] = useState(false);
+
+function PropertyListings() {
+  const [liked, setLiked] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('liked')) || false;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("liked", JSON.stringify(liked));
+  }, [liked]);
+
+  const toggleLiked = () => {
+    setLiked(prevLiked => !prevLiked);
+  };
 
   const navigate = useNavigate();
 
@@ -51,15 +64,15 @@ const PropertyListings = () => {
     return (
         <div>
           <div>
-        <h1 style={{color: "#EA5455", position: "relative", top: "-40px"}}>
+        <h1 style={{color: "white", position: "relative", top: "-40px"}}>
       UNEST Logo
-    </h1><button onClick={navigateToHome} style={{position: "relative", top: "-115px", left: "330px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    </h1><button onClick={navigateToHome} style={{position: "relative", top: "-115px", left: "100px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Properties
     </button>
-    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-115px", left: "340px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-115px", left: "130px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
-    <button onClick={navigateToListing} style={{position: "relative", top: "-115px", left: "800px", borderRadius: "10px"}}>
+    <button onClick={navigateToListing} style={{position: "relative", top: "-117px", left: "800px", borderRadius: "10px"}}>
       Add Listing
       </button>
       <button style={{position: "relative", top: "-55px", left: "30px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
@@ -98,9 +111,9 @@ const PropertyListings = () => {
     <h3 style={{ color: "black", position: "relative", top: "70px", left: "900px"}}>
       1 Bath
     </h3>
-    <input type="text" value="Search" style={{position: "relative", top: "-480px", left: "600px", width: "400px", textAlign: "center"}}/>
-    <img src={messageIcon} onClick={navigateToMessages} style={{position: "relative", top: "-463px", left: "807px"}}/>
-    <img src={profileIcon} onClick={navigateToProfile} style={{position: "relative", top: "-520px", left: "1300px"}} />
+    <input type="text" value="Search" style={{position: "relative", top: "-460px", left: "410px", width: "570px", textAlign: "center"}}/>
+    <img src={messageIcon} onClick={navigateToMessages} style={{position: "relative", top: "-499px", left: "1220px"}}/>
+    <img src={profileIcon} onClick={navigateToProfile} style={{position: "relative", top: "-500px", left: "1260px"}} />
       </div>
       <h3 style={{position: "relative", top: "-280px", left: "180px"}}>
         Amenities
@@ -147,30 +160,22 @@ const PropertyListings = () => {
       </ul>
       <h2 style={{position: "relative", top: "-580px", left: "160px"}}>Users Looking for Roommates Who Viewed this Property</h2>
       <div className='roommate1' style={{position: "relative", top: "-500px", left: "50px"}}>
-      <h3 style={{ color: "black", textAlign: "center" }}>
-      Insert Profile Pic Here
-      </h3> 
+      <img src={profileIcon} style={{position: "relative", top: "40px", left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>John Jones</h6> 
        <p style={{textAlign: "center"}}>Undergraduate Senior majoring in Computer Science.</p>
       </div>
       <div className='roommate2' style={{position: "relative", top: "-500px", left: "80px"}}>
-      <h3 style={{ color: "black", textAlign: "center" }}>
-      Insert Profile Pic Here
-    </h3>
+      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Walker Smith</h6>
        <p style={{textAlign: "center"}}>First Year Masters Student studying Mathmatics.</p>
       </div>
       <div className='roommate3' style={{position: "relative", top: "-500px", left: "110px"}}>
-      <h3 style={{ color: "black", textAlign: "center" }}>
-      Insert Profile Pic Here
-      </h3>
+      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Pete Day</h6>
        <p style={{textAlign: "center"}}>Undergraduate Junior majoring in Communications.</p>
       </div>
       <div className='roommate4' style={{position: "relative", top: "-500px", left: "140px"}}>
-      <h3 style={{ color: "black", textAlign: "center" }}>
-      Insert Profile Pic Here
-      </h3>
+      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Jose Stricker</h6>
        <p style={{textAlign: "center"}}>Second year Master's Student studying Data Science.</p>
       </div>
@@ -191,10 +196,8 @@ const PropertyListings = () => {
       </button>
       </div>
       <img src={apartmentIcon} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
-      <h2 onClick={() => setLike((prevLike => !prevLike))} style={{position: "relative", top: "-2620px", left: "490px"}}>
-        {like ? "❤️" : "♡"}
-      </h2>
-      
+      <Heart isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-2530px", left: "-20px", width: "40px", height: "40px"}}></Heart>
+      <img src={Logo} style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
       </div>
       );
 };
