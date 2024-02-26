@@ -36,7 +36,7 @@ const App = () => {
             type: "text",
             placeholder: "Username",
             errorMessage:
-                "Username should be 5-10 characters. No special characters!",
+                "Username must be 5-10 characters. No special characters!",
             label: "Username",
             pattern: "^[A-Za-z0-9]{5,10}$",
             required: true,
@@ -91,11 +91,10 @@ const App = () => {
     function refreshPage(){
         window.location.reload(false);
     }
-
     return (
         <div className="app">
             <form onSubmit={handleSubmit}>
-                <h1>Register for UNest!</h1>
+                <h1>Sign Up!</h1>
                 <div className="underline"></div>
                 {inputs.map((input) => (
                     <Registration_Input
