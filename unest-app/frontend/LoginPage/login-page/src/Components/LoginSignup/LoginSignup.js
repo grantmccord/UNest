@@ -80,7 +80,7 @@ const LoginSignup = () => {
                     <div className="text">{action}</div>
                     <div className="underline"></div>
                 </div>
-                <form className="inputs">
+                <form className="inputs" onSubmit={{handleSubmit}}>
                     {action === "Login" ? <div></div> : <div className="input">
                         <img src={person_icon} alt=""/>
                         <input type="text" placeholder="First Name"/>
@@ -109,14 +109,14 @@ const LoginSignup = () => {
                     <div className="forgot-password">Forgot Password? <span>Click Here!</span></div>}
 
                 <div className="submit-container">
-                    <div className={action === "Login" ? "submit gray" : "submit"}
+                    <button className={action === "Login" ? "submit gray" : "submit"}
                          onClick={() => {
                              setAction("Sign Up")
                          }}>Sign Up
-                    </div>
-                    <div className={action === "Sign Up" ? "submit gray" : "submit"}
+                    </button>
+                    <button className={action === "Sign Up" ? "submit gray" : "submit"}
                          onClick={() => setAction("Login")}>Login
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

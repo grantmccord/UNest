@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./formInput.css";
+import "./Registration_Input.css";
 
-const FormInput = (props) => {
+const Registration_Input = (props) => {
     const [focused, setFocused] = useState(false);
     const { label, errorMessage, onChange, id, ...inputProps } = props;
 
@@ -26,4 +26,4 @@ const FormInput = (props) => {
     );
 };
 
-export default FormInput;
+export default Registration_Input;
