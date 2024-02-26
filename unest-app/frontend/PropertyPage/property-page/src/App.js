@@ -14,6 +14,7 @@ import ProfilePage from './Components/ProfilePage';
 import Explore from './Components/Explore';
 import MessageRoommate from './Components/MessageRoommate';
 import RoommateProfile from './Components/RoommateProfile';
+import MapComp from './Components/Map'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/explore" element={<Explore />} /> 
         <Route path="/message" element={<MessageRoommate />} /> 
         <Route path="/roommateprofile" element={<RoommateProfile/>} /> 
+        <Route path="/property" element={<MapComp/>} />
       </Routes>
     </div>
   );
