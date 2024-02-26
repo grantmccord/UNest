@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Registration_Input from "./components/Registration_Input";
 
@@ -36,7 +36,7 @@ const App = () => {
             type: "text",
             placeholder: "Username",
             errorMessage:
-                "Username should be 5-10 characters and shouldn't include any special characters!",
+                "Username should be 5-10 characters. No special characters!",
             label: "Username",
             pattern: "^[A-Za-z0-9]{5,10}$",
             required: true,
@@ -46,7 +46,7 @@ const App = () => {
             name: "email",
             type: "email",
             placeholder: "Email",
-            errorMessage: "Must be a valid university email (.edu)!",
+            errorMessage: "Please use a valid university email (.edu)!",
             label: "Email",
             required: true,
         },
@@ -92,6 +92,7 @@ const App = () => {
         <div className="app">
             <form onSubmit={handleSubmit}>
                 <h1>Register</h1>
+                <div className="underline"></div>
                 {inputs.map((input) => (
                     <Registration_Input
                         key={input.id}

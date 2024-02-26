@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(#d59089, #EA5455);
+  background: linear-gradient(#d59089, #d55757);
   background-size: cover;
   background-position: center;
 }
@@ -17,6 +17,7 @@ form{
 h1{
   color: black;
   text-align: center;
+  font-size: 40px;
 }
 
 button{
@@ -32,4 +33,12 @@ button{
   cursor: pointer;
   margin-top: 15px;
   margin-bottom: 30px;
+}
+
+.underline{
+  width: 270px;
+  height: 5px;
+  background: #EA5455;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
