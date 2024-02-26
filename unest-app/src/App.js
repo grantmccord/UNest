@@ -57,6 +57,7 @@ const App = () => {
             type: "date",
             placeholder: "Birthday",
             label: "Birthday",
+            required: true,
         },
         {
             id: 6,
@@ -89,9 +90,19 @@ const App = () => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
+    function forgotPass (){
+        alert("UH-OH, Forgot your Password!")
+    }
+
+    function completeForm (){
+        alert("Thank you for Registering!")
+    }
+
     function refreshPage(){
         window.location.reload(false);
     }
+
+
     return (
         <div className="app">
             <form onSubmit={handleSubmit}>
@@ -105,7 +116,8 @@ const App = () => {
                         onChange={onChange}
                     />
                 ))}
-                <button onClick={refreshPage}>Submit</button> {/*might have to remove*/}
+                <button onClick={forgotPass} className="forgotButton">Forgot Password?</button>
+                <button onClick={completeForm}>Submit</button>
             </form>
         </div>
     );
