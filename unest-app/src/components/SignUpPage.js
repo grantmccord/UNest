@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SignupPage.css";
 import RegistrationInput from "./RegistrationInput";
+import {Link} from "react-router-dom";
 
 
 const App = () => {
@@ -116,7 +117,9 @@ const App = () => {
                         onChange={onChange}
                     />
                 ))}
-                <button onClick={forgotPass} className="forgotButton">Forgot Password?</button>
+                <div className="text-center">
+                    Not a member? <Link className="reg" to={'/login'}>Register Now!</Link>
+                </div>
                 <button onClick={completeForm}>Submit</button>
             </form>
         </div>
