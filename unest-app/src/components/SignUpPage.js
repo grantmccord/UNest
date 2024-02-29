@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./SignupPage.css";
 import RegistrationInput from "./RegistrationInput";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 
 const App = () => {
@@ -83,9 +84,15 @@ const App = () => {
         },
     ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+    function registerUser (ev){
+        ev.preventDefault();
+        const fName = inputs.find(input => input.id === 1);
+        const lName = inputs.find(input => input.id === 2);
+        axios.post('/register',{
+            fName,
+            lName
+        });
+    }
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -106,7 +113,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={registerUser}>
                 <h1>Sign Up!</h1>
                 <div className="underline"></div>
                 {inputs.map((input) => (
@@ -120,7 +127,7 @@ const App = () => {
                 <div className="text-center">
                     Not a member? <Link className="reg" to={'/login'}>Register Now!</Link>
                 </div>
-                <button onClick={completeForm}>Submit</button>
+                <button>Submit</button>
             </form>
         </div>
     );
