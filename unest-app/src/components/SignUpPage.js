@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./SignupPage.css";
 import RegistrationInput from "./RegistrationInput";
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 
 const App = () => {
     const [values, setValues] = useState({
+        firstname: "",
+        lastname: "",
         username: "",
         email: "",
         birthday: "",
@@ -82,9 +86,17 @@ const App = () => {
         },
     ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+    function registerUser (ev){
+        ev.preventDefault();
+        axios.post('/register',{
+            firstname: values.firstname,
+            lastname: values.lastname,
+            username: values.username,
+            email: values.email,
+
+
+        });
+    }
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -105,7 +117,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={registerUser}>
                 <h1>Sign Up!</h1>
                 <div className="underline"></div>
                 {inputs.map((input) => (
@@ -116,8 +128,10 @@ const App = () => {
                         onChange={onChange}
                     />
                 ))}
-                <button onClick={forgotPass} className="forgotButton">Forgot Password?</button>
-                <button onClick={completeForm}>Submit</button>
+                <div className="text-center">
+                    Not a member? <Link className="reg" to={'/login'}>Register Now!</Link>
+                </div>
+                <button>Submit</button>
             </form>
         </div>
     );
