@@ -61,6 +61,10 @@ function PropertyListings() {
     navigate('/roommateprofile', {replace: true})
   }
 
+  const navigateToMap = () => {
+    navigate('/property', {replace: true})
+  }
+
     return (
         <div>
           <div>
@@ -165,17 +169,17 @@ function PropertyListings() {
        <p style={{textAlign: "center"}}>Undergraduate Senior majoring in Computer Science.</p>
       </div>
       <div className='roommate2' style={{position: "relative", top: "-500px", left: "80px"}}>
-      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Walker Smith</h6>
        <p style={{textAlign: "center"}}>First Year Masters Student studying Mathmatics.</p>
       </div>
       <div className='roommate3' style={{position: "relative", top: "-500px", left: "110px"}}>
-      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Pete Day</h6>
        <p style={{textAlign: "center"}}>Undergraduate Junior majoring in Communications.</p>
       </div>
       <div className='roommate4' style={{position: "relative", top: "-500px", left: "140px"}}>
-      <img src={profileIcon} style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Jose Stricker</h6>
        <p style={{textAlign: "center"}}>Second year Master's Student studying Data Science.</p>
       </div>
@@ -195,9 +199,9 @@ function PropertyListings() {
       Explore Others Who Viewed this Property
       </button>
       </div>
-      <img src={apartmentIcon} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
+      <img src={apartmentIcon} onClick={navigateToMap} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
       <Heart isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-2530px", left: "-20px", width: "40px", height: "40px"}}></Heart>
-      <img src={Logo} style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
+      <img src={Logo} alt="" style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
       </div>
       );
 };
