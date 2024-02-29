@@ -19,7 +19,7 @@ const App = () => {
     const inputs = [
         {
             id: 1,
-            name: "First Name",
+            name: "firstname",
             type: "text",
             placeholder: "First Name",
             errorMessage: "Please enter your first name.",
@@ -28,7 +28,7 @@ const App = () => {
         },
         {
             id: 2,
-            name: "Last Name",
+            name: "lastname",
             type: "text",
             placeholder: "Last Name",
             errorMessage: "Please enter your last name.",
@@ -93,8 +93,8 @@ const App = () => {
             lastname: values.lastname,
             username: values.username,
             email: values.email,
-
-
+            birthday: values.birthday,
+            password: values.birthday
         });
     }
 
