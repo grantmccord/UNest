@@ -4,13 +4,14 @@ import { Properties } from "./components/Properties"
 import { Property } from "./components/Property"
 import '@testing-library/jest-dom'
 
-it("renders correctly", () => {
-    // const {queryByTestId} = render(<Properties/>)
-    // console.log("renders correctly")
-    // expect(queryByTestId("property")).toBeTruthy()
+test("renders property grid correctly", () => {
     render(<Properties/>)
-    console.log("renders correctly")
-    // const names = screen.getByText(/2 Bed Room at Granite/i);
-    // expect(names).toBeInTheDocument();
-    expect(screen.getByText(/2 Bed Room at Granite/i)).toBeInTheDocument()
+    const propertyGrid = screen.queryByTestId("propertyGrid")
+    expect(propertyGrid).toBeTruthy()
+});
+
+test ("renders correct number of properties", () => {
+    render(<Properties/>);
+    const listItems = screen.getAllByRole("item")
+    expect(listItems.length).toEqual(4)
 });

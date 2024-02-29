@@ -30,23 +30,23 @@ const Property = () => {
                             whiteSpace: 'normal'
                         }}
                     >
-                        <Typography gutterBottom variant="subtitle1" component="div" overflow="hidden" textOverflow="ellipsis" width='11rem' sx={{
+                        <Typography role="name" gutterBottom variant="subtitle1" component="div" overflow="hidden" textOverflow="ellipsis" width='11rem' sx={{
                             display: '-webkit-box',
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
                         }}>
                             2 Bed Room at Granite Apartments
                         </Typography>
-                        <Typography variant="body1" mt={1} ml={3} color="text.secondary">
+                        <Typography role="price" variant="body1" mt={1} ml={3} color="text.secondary">
                             $849/month
                         </Typography>
                     </Box>
 
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography role="date" variant="body2" color="text.secondary">
                         Jan 7th - May 4th 2024
                     </Typography>
 
-                    <Typography variant="body2" mt={1} mb={1} color="text.secondary">
+                    <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
                         0.1 miles away
                     </Typography>
                 </CardContent>
