@@ -88,14 +88,14 @@ const App = () => {
 
     function registerUser (ev){
         ev.preventDefault();
-        axios.post('/register',{
+        axios.post('/register', {
             firstname: values.firstname,
             lastname: values.lastname,
             username: values.username,
             email: values.email,
             birthday: values.birthday,
-            password: values.birthday
-        });
+            password: values.password,
+        })
     }
 
     const onChange = (e) => {
