@@ -7,6 +7,8 @@ import axios from "axios";
 
 const App = () => {
     const [values, setValues] = useState({
+        firstname: "",
+        lastname: "",
         username: "",
         email: "",
         birthday: "",
@@ -86,11 +88,13 @@ const App = () => {
 
     function registerUser (ev){
         ev.preventDefault();
-        const fName = inputs.find(input => input.id === 1);
-        const lName = inputs.find(input => input.id === 2);
         axios.post('/register',{
-            fName,
-            lName
+            firstname: values.firstname,
+            lastname: values.lastname,
+            username: values.username,
+            email: values.email,
+
+
         });
     }
 
