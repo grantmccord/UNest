@@ -1,6 +1,6 @@
 import './App.css';
 import Header from "./Components/Header/Header"
-import Properties from "./Components/Properties/Properties"
+import Properties from "../../../../src/components/Properties"
 
 function App() {
   return (
