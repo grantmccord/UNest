@@ -86,16 +86,21 @@ const App = () => {
         },
     ];
 
-    function registerUser (ev){
+    async function registerUser (ev){
         ev.preventDefault();
-        axios.post('/register', {
-            firstname: values.firstname,
-            lastname: values.lastname,
-            username: values.username,
-            email: values.email,
-            birthday: values.birthday,
-            password: values.password,
-        })
+        try{
+            await axios.post('/register', {
+                firstname: values.firstname,
+                lastname: values.lastname,
+                username: values.username,
+                email: values.email,
+                birthday: values.birthday,
+                password: values.password,
+            })
+            alert('Thank you for registering! Welcome to UNEST!');
+        } catch (e){
+            alert('Oops! Registration failed. Please try again.');
+        }
     }
 
     const onChange = (e) => {
