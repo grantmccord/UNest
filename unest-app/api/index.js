@@ -3,7 +3,6 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const User = require('./models/User.js');
-const {mongo} = require("mongoose");
 require('dotenv').config();
 const app = express();
 
