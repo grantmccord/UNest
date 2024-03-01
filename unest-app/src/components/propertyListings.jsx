@@ -3,14 +3,14 @@ import {
   useNavigate,
 } from "react-router-dom";
 import {useEffect, useState} from "react";
-import apartmentIcon from '../Components/Assets/Apartment.png';
-import profileIcon from '../Components/Assets/Profile.png';
-import messageIcon from '../Components/Assets/Message.png';
-import Logo from '../Components/Assets/Logo.png';
+import apartmentIcon from '../Assets/Apartment.png';
+import profileIcon from '../Assets/Profile.png';
+import messageIcon from '../Assets/Message.png';
+import Logo from '../Assets/Logo.png';
 import Heart from 'react-heart';
 
 
-function PropertyListings() {
+export const PropertyListings = () => {
   const [liked, setLiked] = useState(() => {
     return JSON.parse(window.localStorage.getItem('liked')) || false;
   });
@@ -100,7 +100,7 @@ function PropertyListings() {
     <h3 style={{ color: "black", position: "relative", top: "50px", left: "550px"}}>
       $500 Monthly Unit Rent
     </h3>
-      <button onClick={navigateToOwner} style={{position: "relative", top: "-275px", left: "540px", borderRadius: "20px", width: "200px", heigtht: "400px"}}>
+      <button testId="message" onClick={navigateToOwner} style={{position: "relative", top: "-275px", left: "540px", borderRadius: "20px", width: "200px", heigtht: "400px"}}>
       Message Lister
       </button><button onClick={navigateToTour} style={{position: "relative", top: "-275px", left: "560px", borderRadius: "20px"}}>
       Schedule Tour Appointment
@@ -116,8 +116,8 @@ function PropertyListings() {
       1 Bath
     </h3>
     <input type="text" value="Search" style={{position: "relative", top: "-460px", left: "410px", width: "570px", textAlign: "center"}}/>
-    <img src={messageIcon} onClick={navigateToMessages} style={{position: "relative", top: "-499px", left: "1220px"}}/>
-    <img src={profileIcon} onClick={navigateToProfile} style={{position: "relative", top: "-500px", left: "1260px"}} />
+    <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", top: "-499px", left: "1220px"}}/>
+    <img src={profileIcon} alt ="" onClick={navigateToProfile} style={{position: "relative", top: "-500px", left: "1260px"}} />
       </div>
       <h3 style={{position: "relative", top: "-280px", left: "180px"}}>
         Amenities
@@ -164,22 +164,22 @@ function PropertyListings() {
       </ul>
       <h2 style={{position: "relative", top: "-580px", left: "160px"}}>Users Looking for Roommates Who Viewed this Property</h2>
       <div className='roommate1' style={{position: "relative", top: "-500px", left: "50px"}}>
-      <img src={profileIcon} style={{position: "relative", top: "40px", left: "100px", width: "100px", height: "100px"}} />
+      <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px", left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>John Jones</h6> 
        <p style={{textAlign: "center"}}>Undergraduate Senior majoring in Computer Science.</p>
       </div>
       <div className='roommate2' style={{position: "relative", top: "-500px", left: "80px"}}>
-      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Walker Smith</h6>
        <p style={{textAlign: "center"}}>First Year Masters Student studying Mathmatics.</p>
       </div>
       <div className='roommate3' style={{position: "relative", top: "-500px", left: "110px"}}>
-      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Pete Day</h6>
        <p style={{textAlign: "center"}}>Undergraduate Junior majoring in Communications.</p>
       </div>
       <div className='roommate4' style={{position: "relative", top: "-500px", left: "140px"}}>
-      <img src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
+      <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Jose Stricker</h6>
        <p style={{textAlign: "center"}}>Second year Master's Student studying Data Science.</p>
       </div>
@@ -199,8 +199,8 @@ function PropertyListings() {
       Explore Others Who Viewed this Property
       </button>
       </div>
-      <img src={apartmentIcon} onClick={navigateToMap} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
-      <Heart isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-2530px", left: "-20px", width: "40px", height: "40px"}}></Heart>
+      <img src={apartmentIcon} data-testid="apartment-image" onClick={navigateToMap} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
+      <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-2530px", left: "-20px", width: "40px", height: "40px"}}></Heart>
       <img src={Logo} alt="" style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
       </div>
       );
