@@ -19,7 +19,7 @@ const App = () => {
     const inputs = [
         {
             id: 1,
-            name: "First Name",
+            name: "firstname",
             type: "text",
             placeholder: "First Name",
             errorMessage: "Please enter your first name.",
@@ -28,7 +28,7 @@ const App = () => {
         },
         {
             id: 2,
-            name: "Last Name",
+            name: "lastname",
             type: "text",
             placeholder: "Last Name",
             errorMessage: "Please enter your last name.",
@@ -86,16 +86,21 @@ const App = () => {
         },
     ];
 
-    function registerUser (ev){
+    async function registerUser (ev){
         ev.preventDefault();
-        axios.post('/register',{
-            firstname: values.firstname,
-            lastname: values.lastname,
-            username: values.username,
-            email: values.email,
-
-
-        });
+        try{
+            await axios.post('/register', {
+                firstname: values.firstname,
+                lastname: values.lastname,
+                username: values.username,
+                email: values.email,
+                birthday: values.birthday,
+                password: values.password,
+            })
+            alert('Thank you for registering! Welcome to UNEST!');
+        } catch (e){
+            alert('Oops! Registration failed. Please try again.');
+        }
     }
 
     const onChange = (e) => {
@@ -129,7 +134,7 @@ const App = () => {
                     />
                 ))}
                 <div className="text-center">
-                    Not a member? <Link className="reg" to={'/login'}>Register Now!</Link>
+                    Already a member? <Link className="reg" to={'/login'}>Sign In Now!</Link>
                 </div>
                 <button>Submit</button>
             </form>
