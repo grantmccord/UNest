@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
-const UserSchema = new Schema({
+const ListingSchema = new Schema({
    name: String,
    price: Int32Array,
    start_date: Date,
@@ -19,6 +19,6 @@ const UserSchema = new Schema({
    roommate_group: Array
 });
 
-const UserModel = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model('Listing', ListingSchema);
 
 module.exports = UserModel;

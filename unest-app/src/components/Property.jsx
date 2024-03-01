@@ -47,7 +47,7 @@ export const Property = () => {
                     </Typography>
 
                     <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
-                        0.1 miles away
+                        0.2 miles away
                     </Typography>
                 </CardContent>
             </CardActionArea>
