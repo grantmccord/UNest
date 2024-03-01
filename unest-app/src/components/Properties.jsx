@@ -10,7 +10,6 @@ export const Properties = () => {
             <Grid item role="item">
                 <Property />
             </Grid>
-
             <Grid item role="item">
                 <Property />
             </Grid>
