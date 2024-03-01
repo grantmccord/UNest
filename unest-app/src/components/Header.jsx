@@ -1,7 +1,22 @@
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
+import {
+    useNavigate,
+  } from "react-router-dom";
+
+  
 
 const Header = () => {
+    const navigate = useNavigate();
+
+    const navigateToMessages = () => {
+      navigate('/messages', {replace: true});
+    };
+
+    const navigateToPostPage = () => {
+        navigate('/post', {replace: true});
+      };
+
     return (
         <div>
             <header className="sticky top-0">
@@ -10,11 +25,11 @@ const Header = () => {
                     <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium">UNest</h1>
                     <SearchBar />
                     <div className=" flex items-center">
-                        <button onclick="location.href = './MessagesPage.jsx'" class="bg-red-400 hover:bg-red-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button onClick={navigateToMessages} className="bg-red-400 hover:bg-red-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <img src={email} width={25} height={25} alt="" />
                             <div>Messages</div>
                         </button>
-                        <button onclick="location.href = './PostPage.jsx'" class="bg-red-400 hover:bg-red-500 text-white-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button onClick={navigateToPostPage} className="bg-red-400 hover:bg-red-500 text-white-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <div>Create Post</div>
                         </button>
                     </div>

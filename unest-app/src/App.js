@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Homepage from "./components/Homepage";
 import MessagesPage from "./components/MessagesPage";
+import PostPage from "./components/PostPage";
 
 import LoginPage from "./components/LoginPage"
 
@@ -23,6 +24,7 @@ function App(){
                 <Route path="/register" element={<SignUpPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/post" element={<PostPage />} />
             </Routes>
         </BrowserRouter>
     )
