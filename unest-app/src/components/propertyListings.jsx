@@ -68,60 +68,85 @@ export const PropertyListings = () => {
     return (
         <div>
           <div>
-        <h1 style={{color: "white", position: "relative", top: "-40px"}}>
-      UNEST Logo
-    </h1><button onClick={navigateToHome} style={{position: "relative", top: "-115px", left: "100px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+         <div className='logo'>   
+        <img src={Logo} alt="" style={{width: "100px", height: "100px"}} />
+      </div>
+      <div className='properties'>
+    <button onClick={navigateToHome} style={{backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Properties
     </button>
-    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-115px", left: "130px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button className = 'rm' onClick={() => window.scrollTo({top: 1500, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-270px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
-    <button onClick={navigateToListing} style={{position: "relative", top: "-117px", left: "800px", borderRadius: "10px"}}>
+    </div>
+    <div classname='s'>
+    <input type="text" value="Search" style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
+    </div>
+    <div className='al'>
+    <button onClick={navigateToListing} style={{position: "relative", borderRadius: "10px"}}>
       Add Listing
       </button>
-      <button style={{position: "relative", top: "-55px", left: "30px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+      <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", width: "50px", height: "50px", top: "15px", left: "50px"}}/>
+      <img src={profileIcon} alt ="" onClick={navigateToProfile} style={{position: "relative", width: "50px", height: "50px", top: "14px", left: "90px"}} />
+      </div>
+      <div className='aar'>
+      <button style={{position: "relative", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       About
     </button>
-    <button onClick={() => window.scrollTo({top: 700, behavior: "smooth"})} style={{position: "relative", top: "-55px", left: "70px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 700, behavior: "smooth"})} style={{position: "relative", left: "-160px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Amenities
     </button>
-    <button onClick={() => window.scrollTo({top: 1100, behavior: "smooth"})} style={{position: "relative", top: "-55px", left: "120px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 1300, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-300px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
-      <h3 style={{ color: "black", position: "relative", top: "-60px", left: "550px"}}>
-      Property Name
-    </h3>
-    <p style={{ color: "black", position: "relative", top: "-70px", left: "555px"}}>
-      Property Address
-    </p>
-    <p style={{ color: "black", position: "relative", top: "-100px", left: "550px"}}>
-      West Lafayette, IN 47906
-    </p>
-    <h3 style={{ color: "black", position: "relative", top: "50px", left: "550px"}}>
-      $500 Monthly Unit Rent
-    </h3>
-      <button testId="message" onClick={navigateToOwner} style={{position: "relative", top: "-275px", left: "540px", borderRadius: "20px", width: "200px", heigtht: "400px"}}>
-      Message Lister
-      </button><button onClick={navigateToTour} style={{position: "relative", top: "-275px", left: "560px", borderRadius: "20px"}}>
-      Schedule Tour Appointment
-      </button>
-      <div className="rectangle">
+    </div>
+    <div className='rectangle'>
     <h1 style={{ color: "black", position: "relative", top: "130px", left: "50px"}}>
       Insert Property Image Here
-    </h1>
-    <h3 style={{ color: "black", position: "relative", top: "90px", left: "900px"}}>
+    </h1> 
+    <img src={apartmentIcon} data-testid="apartment-image" onClick={navigateToMap} style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-550px", left: "450px", width: "40px", height: "40px"}}></Heart>
+    </div>
+    <div className='info'>
+      <h3 style={{ color: "black", position: "relative", fontSize: "40px", fontWeight: "bold"}}>
+      Property Name
+    </h3>
+    </div>
+    <div>
+    <p style={{ color: "black", position: "relative", top: "-660px", left: "615px", fontSize: "30px"}}>
+      Property Address
+    </p> </div>
+    <div>
+    <p style={{ color: "black", position: "relative",  top: "-660px", left: "590px", fontSize: "30px"}}>
+      West Lafayette, IN 47906
+    </p>
+    </div>
+    <div>
+    <h3 style={{ color: "black", position: "relative", top: "-500px", left: "590px", fontSize: "30px"}}>
+      $500 Monthly Unit Rent
+    </h3>
+    </div>
+    <div className='bath'>
+    <h3 style={{ color: "black", position: "relative", top: "50px", fontSize: "30px"}}>
       1 Room
     </h3> 
-    <h3 style={{ color: "black", position: "relative", top: "70px", left: "900px"}}>
+    <h3 style={{ color: "black", position: "relative", top: "80px", left: "-90px", fontSize: "30px"}}>
       1 Bath
     </h3>
-    <input type="text" value="Search" style={{position: "relative", top: "-460px", left: "410px", width: "570px", textAlign: "center"}}/>
-    <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", top: "-499px", left: "1220px"}}/>
-    <img src={profileIcon} alt ="" onClick={navigateToProfile} style={{position: "relative", top: "-500px", left: "1260px"}} />
+    </div>
+    <div className='sta'>
+      <button testId="message" onClick={navigateToOwner} style={{position: "relative", borderRadius: "20px", width: "200px", height: "70px"}}>
+      Message Lister
+      </button><button onClick={navigateToTour} style={{position: "relative", left: "180px", borderRadius: "20px", width: "200px", height: "70px"}}>
+      Schedule Tour Appointment
+      </button>
       </div>
-      <h3 style={{position: "relative", top: "-280px", left: "180px"}}>
+      <div>
+      <h3 style={{position: "relative", top: "-490px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
         Amenities
       </h3>
+      </div>
+      <div>
       <ul>
         <li>
           In-Unit Laundry
@@ -142,7 +167,9 @@ export const PropertyListings = () => {
           Game Room
         </li>
       </ul>
-      <ul style={{position: "relative", top: "-605px", left: "500px"}}>
+      </div>
+      <div className='list'>
+      <ul style={{position: "relative"}}>
         <li>
           Keyed Access
         </li>
@@ -162,45 +189,44 @@ export const PropertyListings = () => {
           In-Unit Laundry
         </li>
       </ul>
-      <h2 style={{position: "relative", top: "-580px", left: "160px"}}>Users Looking for Roommates Who Viewed this Property</h2>
-      <div className='roommate1' style={{position: "relative", top: "-500px", left: "50px"}}>
+      </div>
+      <h2 style={{position: "relative", top: "-470px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
+      <div className='roommate1' style={{position: "relative", top: "-470px", left: "50px"}}>
       <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px", left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>John Jones</h6> 
-       <p style={{textAlign: "center"}}>Undergraduate Senior majoring in Computer Science.</p>
+       <p style={{textAlign: "center", position: "relative", top: "30px"}}>Undergraduate Senior majoring in Computer Science.</p>
       </div>
-      <div className='roommate2' style={{position: "relative", top: "-500px", left: "80px"}}>
+      <div className='roommate2' style={{position: "relative", top: "-470px", left: "80px"}}>
       <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Walker Smith</h6>
-       <p style={{textAlign: "center"}}>First Year Masters Student studying Mathmatics.</p>
+       <p style={{textAlign: "center", position: "relative", top: "30px"}}>First Year Masters Student studying Mathmatics.</p>
       </div>
-      <div className='roommate3' style={{position: "relative", top: "-500px", left: "110px"}}>
+      <div className='roommate3' style={{position: "relative", top: "-470px", left: "110px"}}>
       <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Pete Day</h6>
-       <p style={{textAlign: "center"}}>Undergraduate Junior majoring in Communications.</p>
+       <p style={{textAlign: "center", position: "relative", top: "30px"}}>Undergraduate Junior majoring in Communications.</p>
       </div>
-      <div className='roommate4' style={{position: "relative", top: "-500px", left: "140px"}}>
+      <div className='roommate4' style={{position: "relative", top: "-470px", left: "140px"}}>
       <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px",  left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Jose Stricker</h6>
-       <p style={{textAlign: "center"}}>Second year Master's Student studying Data Science.</p>
+       <p style={{textAlign: "center", position: "relative", top: "30px"}}>Second year Master's Student studying Data Science.</p>
       </div>
-      <button onClick={navigateToRoommate} style={{position: "relative", top: "-500px", left: "50px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      <button onClick={navigateToRoommate} style={{position: "relative", top: "-485px", left: "50px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
-      <button onClick={navigateToRoommate} style={{position: "relative", top: "-500px", left: "90px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      <button onClick={navigateToRoommate} style={{position: "relative", top: "-485px", left: "85px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
-      <button onClick={navigateToRoommate} style={{position: "relative", top: "-500px", left: "120px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      <button onClick={navigateToRoommate} style={{position: "relative", top: "-485px", left: "115px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
-      <button onClick={navigateToRoommate} style={{position: "relative", top: "-500px", left: "160px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+      <button onClick={navigateToRoommate} style={{position: "relative", top: "-485px", left: "145px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
-      <button onClick={navigateToExplore} style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px"}}>
+      <button onClick={navigateToExplore} style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px", border: "2px solid black"}}>
       Explore Others Who Viewed this Property
       </button>
       </div>
-      <img src={apartmentIcon} data-testid="apartment-image" onClick={navigateToMap} style={{position: "relative", top: "-2078px", left: "33px", width: "500px", height: "500px"}} alt=""/>
-      <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-2530px", left: "-20px", width: "40px", height: "40px"}}></Heart>
       <img src={Logo} alt="" style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
       </div>
       );

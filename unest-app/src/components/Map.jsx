@@ -20,7 +20,7 @@ const MapComp = () => {
         </Popup>
       </Marker>
     </MapContainer>
-    <img src={apartmentIcon} style={{position: "relative", top: "-700px", width: "680px", height: "700px", float: "right", zIndex: "1"}} alt=""/>
+    <img src={apartmentIcon} style={{position: "relative", top: "-700px", width: "550px", height: "700px", float: "right", zIndex: "1"}} alt=""/>
     </div>
   );
 };

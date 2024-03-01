@@ -1,12 +1,46 @@
 button {
     background-color: red;
     color: white;
-  }
+}
 
+.logo {
+  z-index: 0;
+}
+
+.properties {
+  z-index: -1;
+  display: flex;
+  position: relative;
+  top: -85px;
+  left: -190px;
+}
+
+.rm {
+  display: flex;
+}
+
+.s {
+  display: flex;
+}
+
+.al {
+  display: flex;
+  float: right;
+  position: relative;
+  top: -255px;
+  left: -120px;
+}
+
+.aar {
+  display: flex;
+  position: relative;
+  top: -150px;
+  left: 400px;
+}
   .rectangle {
     position: relative;
-    top: -300px;
-    left: -470px;
+    top: -170px;
+    left: 50px;
     display: inline-block;
     width: 500px;
     height: 500px;
@@ -14,9 +48,35 @@ button {
     border: 2px solid black;
   }
   
+  .info {
+    display: flex;
+    position: relative;
+    top: -670px;
+    left: 600px;
+  }
+
+  .bath {
+    display: flex;
+    position: relative;
+    top: -600px;
+    left: 1000px;
+  }
+
+  .sta {
+    display: flex;
+    position: relative;
+    top: -500px;
+    left: 600px;
+  }
+
+  .list {
+      display: flex;
+      position: relative;     
+  }
+
   ul {
     position: relative;
-    top: -280px;
+    top: -480px;
     left: 150px;
   }
   
@@ -42,8 +102,7 @@ button {
   }
 
   .roommate3 {
-    float: left;
-    
+    float: left; 
     width: 300px;
     height: 300px;
     background: white;
