@@ -35,7 +35,7 @@ export const Property = () => {
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
                         }}>
-                            2 Bed Room at Granite
+                            2 Bed Room at Granite Apartments
                         </Typography>
                         <Typography role="price" variant="body1" mt={1} ml={3} color="text.secondary">
                             $849/month
