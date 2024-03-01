@@ -4,24 +4,24 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import PropertyListings from './Components/propertyListings';
-import Messages from './Components/Messages';
-import MessageOwner from './Components/MessageOwner'; 
-import Tour from './Components/Tour';
-import ListingForm from './Components/ListingForm';
-import HomePage from './Components/HomePage';
-import ProfilePage from './Components/ProfilePage';
-import Explore from './Components/Explore';
-import MessageRoommate from './Components/MessageRoommate';
-import RoommateProfile from './Components/RoommateProfile';
-import MapComp from './Components/Map'
+import PropertyListing from '../../../../src/components/propertyListing';
+import Messages from '../../../../src/components/Messages';
+import MessageOwner from '../../../../src/components/MessageOwner'; 
+import Tour from '../../../../src/components/Tour';
+import ListingForm from '../../../../src/components/ListingForm';
+import HomePage from '../../../../src/components/HomePages';
+import ProfilePage from '../../../../src/components/ProfilePage';
+import Explore from '../../../../src/components/Explore';
+import MessageRoommate from '../../../../src/components/MessageRoommate';
+import RoommateProfile from '../../../../src/components/RoommateProfile';
+import MapComp from '../../../../src/components/Map'
 
 function App() {
 
   return (
     <div>
        <Routes>
-        <Route path="/" element={<PropertyListings/>} />
+        <Route path="/propertylisting" element={<PropertyListing/>} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/messageOwner" element={<MessageOwner />} />
         <Route path="/tour" element={<Tour />} />

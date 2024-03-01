@@ -134,7 +134,7 @@ const App = () => {
                     />
                 ))}
                 <div className="text-center">
-                    Not a member? <Link className="reg" to={'/login'}>Register Now!</Link>
+                    Already a member? <Link className="reg" to={'/login'}>Sign In Now!</Link>
                 </div>
                 <button>Submit</button>
             </form>
