@@ -30,7 +30,7 @@ function App(){
         <BrowserRouter>
             <Routes>
                 <Route index element={<Homepage />} />
-                <Route path="/homepage" element={<Homepage/>} />
+                <Route path="/home" element={<Homepage/>} />
                 <Route path="/register" element={<SignUpPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/messages" element={<MessagesPage />} />
@@ -40,7 +40,6 @@ function App(){
                 <Route path="/messageOwner" element={<MessageOwner />} />
                 <Route path="/tour" element={<Tour />} />
                 <Route path="/listing" element={<ListingForm />} />
-                <Route path="/home" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage />} /> 
                 <Route path="/explore" element={<Explore />} /> 
                 <Route path="/message" element={<MessageRoommate />} /> 
