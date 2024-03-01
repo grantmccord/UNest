@@ -11,8 +11,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 import dormroom1 from "../Assets/dorm-room1.jpg";
 
-const Property = () => {
-
+export const Property = () => {
     return (
         <Card sx={{ width: 325, height: 325, boxShadow: 7 }} className="card">
             <CardActionArea>
@@ -36,7 +35,7 @@ const Property = () => {
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
                         }}>
-                            2 Bed Room at Granite Apartments
+                            2 Bed Room at Granite
                         </Typography>
                         <Typography role="price" variant="body1" mt={1} ml={3} color="text.secondary">
                             $849/month
