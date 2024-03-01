@@ -11,8 +11,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 import dormroom1 from "../Assets/dorm-room1.jpg";
 
-const Property = () => {
-
+export const Property = () => {
     return (
         <Card sx={{ width: 325, height: 325, boxShadow: 7 }} className="card">
             <CardActionArea>

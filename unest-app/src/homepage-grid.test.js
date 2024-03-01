@@ -39,3 +39,23 @@ test ("renders correct number of milesFromCampus", () => {
     const listMilesFromCampus = screen.getAllByRole("milesFromCampus")
     expect(listMilesFromCampus.length).toEqual(4)
 });
+
+test ("name field is not null", () => {
+    render(<Property/>);
+    expect(screen.getByRole("name")).not.toBeEmptyDOMElement()
+});
+
+test ("price field is not null", () => {
+    render(<Property/>);
+    expect(screen.getByRole("price")).not.toBeEmptyDOMElement()
+});
+
+test ("date field is not null", () => {
+    render(<Property/>);
+    expect(screen.getByRole("date")).not.toBeEmptyDOMElement()
+});
+
+test ("milesFromCampus field is not null", () => {
+    render(<Property/>);
+    expect(screen.getByRole("milesFromCampus")).not.toBeEmptyDOMElement()
+});
