@@ -4,6 +4,8 @@ import {Route, Routes} from "react-router-dom";
 import {BrowserRouter} from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Homepage from "./components/Homepage";
+import MessagesPage from "./components/MessagesPage";
+import PostPage from "./components/PostPage";
 import PropertyListing from './components/propertyListing';
 import Messages from './components/Messages';
 import MessageOwner from './components/MessageOwner'; 
@@ -27,10 +29,12 @@ function App(){
     return(
         <BrowserRouter>
             <Routes>
-                <Route index element={<SignUpPage />} />
+                <Route index element={<Homepage />} />
                 <Route path="/homepage" element={<Homepage/>} />
                 <Route path="/register" element={<SignUpPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/post" element={<PostPage />} />
                 <Route path="/propertylisting" element={<PropertyListing/>} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/messageOwner" element={<MessageOwner />} />

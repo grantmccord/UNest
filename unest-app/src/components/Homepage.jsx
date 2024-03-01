@@ -5,7 +5,7 @@ import Properties from "./Properties"
 function Homepage() {
     return (
         <div>
-            {/* <Header /> */}
+            <Header />
             <Properties />
         </div>
     );
