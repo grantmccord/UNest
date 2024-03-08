@@ -30,7 +30,24 @@ function MessagesPage() {
                 Other Properties
             </h2>
         </div>
-        <hr style={{display: "flex", position: "relative", top: "-190px"}}/>
+        <hr style={{display: "flex", position: "relative", top: "-190px", color: "gray"}}/>
+        <div className="vl"></div>
+        <div className="first">
+        <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black"}}>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+        <p style={{position: "relative", top: "-40px"}}>John Dear</p>
+        <div class="circle">
+        </div>
+        <p style={{position: "relative", top: "-40px"}}>Hi! I am interested in your property.</p>
+      </button>
+      </div>
+      <div className="second"> 
+      <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black", fontWeight: "normal"}}>
+      <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+      <p style={{position: "relative", top: "-40px"}}>Joe Smith</p>
+       <p style={{position: "relative", top: "-40px"}}>Do you have any questions?</p>
+      </button>
+        </div>
         </div>
     );
 }

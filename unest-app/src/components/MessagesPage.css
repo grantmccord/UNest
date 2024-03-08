@@ -33,3 +33,46 @@
     top: -193px;
     left: 900px;
 }
+
+.vl {
+    display: flex;
+    border-left: 1px solid gray;
+    height:500px;
+    position: relative;
+    top: -190px;
+    left: 710px;
+}
+
+.first {
+    display: flex;
+    position: relative;
+    top: -700px;
+    left: 5px;
+}
+
+.second {
+    display: flex;
+    position: relative;
+    top: -845px;
+    left: 715px; 
+}
+
+.circle {
+    display: flex;
+    width: 10px;
+    height: 10px;
+    background-color: lightblue;
+    border-radius: 50%;
+    position: relative;
+    top: -20px;
+    left: 150px;
+  }
+
+  .text {
+    margin: auto;
+  }
+
+  .one {
+    display: flex;
+    position: relative;
+  }
