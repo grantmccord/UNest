@@ -7,7 +7,6 @@ import Homepage from "./components/Homepage";
 import MessagesPage from "./components/MessagesPage";
 import PostPage from "./components/PostPage";
 import PropertyListing from './components/propertyListing';
-import Messages from './components/Messages';
 import MessageOwner from './components/MessageOwner'; 
 import Tour from './components/Tour';
 import ListingForm from './components/ListingForm';
@@ -36,7 +35,6 @@ function App(){
                 <Route path="/messages" element={<MessagesPage />} />
                 <Route path="/post" element={<PostPage />} />
                 <Route path="/propertylisting" element={<PropertyListing/>} />
-                <Route path="/messages" element={<Messages />} />
                 <Route path="/messageOwner" element={<MessageOwner />} />
                 <Route path="/tour" element={<Tour />} />
                 <Route path="/listing" element={<ListingForm />} />
