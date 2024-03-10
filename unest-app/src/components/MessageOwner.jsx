@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {
+    useNavigate,
+  } from "react-router-dom";
 import './MessageOwner.css';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
@@ -15,15 +18,26 @@ const MessageOwner = () => {
         setInputMessage('');
     };
 
+    const navigate = useNavigate();
+
+    const navigateToMsg = () => {
+        navigate('/messages', {replace: true})
+    }
+
+    const navigateToProfile = () => {
+        navigate('/profile', {replace: true})
+    }
+
+
     return (
         <div>
         <div className='back'>
-        <img src={back} alt="" style={{width: "70px", height: "70px"}} />
+        <img src={back} alt="" onClick={navigateToMsg} style={{width: "70px", height: "70px"}} />
         </div>
         <div className='prof'>
-        <img src={profileIcon} alt="" style={{width: "70px", height: "70px"}} />
+        <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "70px", height: "70px"}} />
         </div>
-        <div className="name">
+        <div className="name" onClick={navigateToProfile}>
         <h1>Owner Name</h1>
         <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>username</p>
         </div>

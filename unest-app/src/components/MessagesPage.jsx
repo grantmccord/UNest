@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {
+    useNavigate,
+  } from "react-router-dom";
 import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
@@ -14,6 +17,24 @@ function MessagesPage() {
         setInputSearch('');
     };
 
+    const navigate = useNavigate();
+
+    const navigateToHome = () => {
+        navigate('/homepage', {replace: true})
+    }
+
+    const navigateToProfile = () => {
+        navigate('/profile', {replace: true})
+    }
+
+    const navigateToOwner = () => {
+        navigate('/messageOwner', {replace: true})
+    }
+
+    const navigateToOther = () => {
+        navigate('/message', {replace: true})
+    } 
+
     return (
         <div>
         <div>
@@ -23,10 +44,10 @@ function MessagesPage() {
             <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium" style={{position: "relative", top: "-70px"}}>Chat Messages</h1>
         </div>
         <div className="house">
-        <img src={House} alt="" style={{width: "50px", height: "50px"}} />
+        <img src={House} alt="" onClick={navigateToHome} style={{width: "50px", height: "50px"}} />
         </div>
         <div className="profile">
-        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+        <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "50px", height: "50px"}} />
         </div>
         <div className="search">
         <input type="text" value={inputSearch} onChange={handleInputChange} onClick={handleClick} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
@@ -44,7 +65,7 @@ function MessagesPage() {
         <hr style={{display: "flex", position: "relative", top: "-190px", color: "gray"}}/>
         <div className="vl"></div>
         <div className="first">
-        <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black"}}>
+        <button onClick={navigateToOther} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         <p style={{position: "relative", top: "-40px"}}>John Dear</p>
         <div class="circle">
@@ -53,7 +74,7 @@ function MessagesPage() {
       </button>
       </div>
       <div className="second"> 
-      <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black", fontWeight: "normal"}}>
+      <button onClick={navigateToOwner} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black", fontWeight: "normal"}}>
       <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
       <p style={{position: "relative", top: "-40px"}}>Joe Smith</p>
        <p style={{position: "relative", top: "-40px"}}>Do you have any questions?</p>
