@@ -21,7 +21,7 @@ const App = () => {
             id: 1,
             name: "firstname",
             type: "text",
-            placeholder: "First Name",
+            placeholder: "Ex: Jane",
             errorMessage: "Please enter your first name.",
             label: "First Name",
             required: true,
@@ -30,7 +30,7 @@ const App = () => {
             id: 2,
             name: "lastname",
             type: "text",
-            placeholder: "Last Name",
+            placeholder: "Ex: Doe",
             errorMessage: "Please enter your last name.",
             label: "Last Name",
             required: true,
@@ -39,7 +39,7 @@ const App = () => {
             id: 3,
             name: "username",
             type: "text",
-            placeholder: "Username",
+            placeholder: "Ex: DJane2002",
             errorMessage:
                 "Username must be 5-10 characters. No special characters!",
             label: "Username",
@@ -50,7 +50,7 @@ const App = () => {
             id: 4,
             name: "email",
             type: "email",
-            placeholder: "Email",
+            placeholder: "Ex: jdoe334@purdue.edu",
             errorMessage: "Please use a valid university email (.edu)!",
             label: "Email",
             required: true,
@@ -59,7 +59,7 @@ const App = () => {
             id: 5,
             name: "birthday",
             type: "date",
-            placeholder: "Birthday",
+            placeholder: "xx/xx/xxxx",
             label: "Birthday",
             required: true,
         },
@@ -67,7 +67,7 @@ const App = () => {
             id: 6,
             name: "password",
             type: "password",
-            placeholder: "Password",
+            placeholder: "Ex: **********",
             errorMessage:
                 "Password must be at least 5 characters and include at 1 number and 1 special character!",
             label: "Password",
@@ -78,7 +78,7 @@ const App = () => {
             id: 7,
             name: "confirmPassword",
             type: "password",
-            placeholder: "Confirm Password",
+            placeholder: "Ex: **********",
             errorMessage: "Passwords don't match! Please try again.",
             label: "Confirm Password",
             pattern: values.password,
@@ -136,7 +136,7 @@ const App = () => {
                 <div className="text-center">
                     Already a member? <Link className="reg" to={'/login'}>Sign In Now!</Link>
                 </div>
-                <button>Submit</button>
+                <button className="btn">Submit</button>
             </form>
         </div>
     );

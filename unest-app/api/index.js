@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URL);
 
 
 app.get('/test', (req,res) => {
-    res.json('TESTING PLS WORK');
+    res.json('API is Up');
 });
 
 app.post('/register', async (req,res) =>{
