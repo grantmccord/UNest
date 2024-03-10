@@ -16,13 +16,12 @@ const Header = () => {
 
     const navigateToPostPage = () => {
         navigate('/post', {replace: true});
-      };
+    };
 
     return (
         <div className="sticky top-0">
             <header>
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-                    {/* <Button class = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">name</Button> */}
                     <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium">UNest</h1>
                     <SearchBar />
                     <div className="flex space-x-5">
