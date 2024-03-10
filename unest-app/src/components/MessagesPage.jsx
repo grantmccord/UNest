@@ -18,7 +18,7 @@ function MessagesPage() {
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         </div>
         <div className="search">
-        <input type="text" value="Search" style={{width: "800px", textAlign: "center"}}/>
+        <input type="text" value="Search" style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
         </div>
         <div className="my">
             <h2 style={{fontWeight: "bold", fontSize:"30px"}}>
