@@ -19,6 +19,6 @@ const ListingSchema = new Schema({
    roommate_group: Array
 });
 
-const UserModel = mongoose.model('Listing', ListingSchema);
+const ListingModel = mongoose.model('Listing', ListingSchema);
 
-module.exports = UserModel;
+module.exports = ListingModel;
