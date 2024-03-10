@@ -11,7 +11,9 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 import dormroom1 from "../Assets/dorm-room1.jpg";
 
-export const Property = () => {
+export const Property = ({ listing }) => {
+    const { name, price, startDate, endDate, milesFromCampus } = listing;
+
     return (
         <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
             <CardActionArea>
@@ -35,19 +37,19 @@ export const Property = () => {
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
                         }}>
-                            2 Bed Room at Granite Apartments
+                            {name}
                         </Typography>
                         <Typography role="price" variant="body1" mt={1} ml={3} color="text.secondary">
-                            $849/month
+                            ${price}/month
                         </Typography>
                     </Box>
 
                     <Typography role="date" variant="body2" color="text.secondary">
-                        Jan 7th - May 4th 2024
+                        {startDate} - {endDate}
                     </Typography>
 
                     <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
-                        0.2 miles away
+                        {milesFromCampus} miles away
                     </Typography>
                 </CardContent>
             </CardActionArea>
