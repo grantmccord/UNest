@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const User = require('./models/User.js');
+const Listing = require('../models/Listing');
 require('dotenv').config();
 const app = express();
 
@@ -40,6 +41,17 @@ app.post('/register', async (req,res) =>{
     }
 
 });
+
+app.get('/listing', async(req, res) => {
+    try {
+        const listings = await Listing.find(); // Fetch all listings from the database
+        res.json(listings); // Send the listings as JSON response
+        console.log("executed listings get method")
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+        res.status(500).json({ message: 'Server Error' });
+      }
+})
 
 
 app.listen(4000);
