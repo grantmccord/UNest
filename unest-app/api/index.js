@@ -44,6 +44,7 @@ app.post('/register', async (req,res) =>{
 
 app.get('/listing', async(req, res) => {
     try {
+        console.log("executed listings get method")
         const listings = await Listing.find(); // Fetch all listings from the database
         res.json(listings); // Send the listings as JSON response
         console.log("executed listings get method")
