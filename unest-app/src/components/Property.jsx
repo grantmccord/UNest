@@ -13,7 +13,7 @@ import dormroom1 from "../Assets/dorm-room1.jpg";
 
 export const Property = () => {
     return (
-        <Card sx={{ width: 325, height: 325, boxShadow: 7 }} className="card">
+        <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
