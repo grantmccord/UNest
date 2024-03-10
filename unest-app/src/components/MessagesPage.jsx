@@ -1,8 +1,19 @@
+import React, {useState} from 'react';
 import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
 import profileIcon from '../Assets/Profile.png';
 function MessagesPage() {
+    const [inputSearch, setInputSearch] = useState('Search');
+
+    const handleInputChange = (event) => {
+        setInputSearch(event.target.value);
+    };
+
+    const handleClick = () => {
+        setInputSearch('');
+    };
+
     return (
         <div>
         <div>
@@ -18,7 +29,7 @@ function MessagesPage() {
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         </div>
         <div className="search">
-        <input type="text" value="Search" style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
+        <input type="text" value={inputSearch} onChange={handleInputChange} onClick={handleClick} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
         </div>
         <div className="my">
             <h2 style={{fontWeight: "bold", fontSize:"30px"}}>

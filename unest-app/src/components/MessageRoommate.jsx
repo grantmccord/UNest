@@ -1,8 +1,20 @@
-import './MessageRoommate.css'
-import back from '../Assets/back.png'
+import React, {useState} from 'react';
+import './MessageRoommate.css';
+import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
+import send from '../Assets/send.png';
 
 const MessageRoommate = () => {
+    const [inputMessage, setInputMessage] = useState('Message');
+
+    const handleInputChange = (event) => {
+        setInputMessage(event.target.value);
+    };
+
+    const handleClick = () => {
+        setInputMessage('');
+    };
+
     return (
         <div>
         <div className='back'>
@@ -29,7 +41,8 @@ const MessageRoommate = () => {
         </button>
         </div>
         <div className="search">
-        <input type="text" value="Message" style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
+        <input type="text" value={inputMessage} onChange={handleInputChange} onClick={handleClick} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
+        <img src={send} alt="" style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
         </div>
         </div>
     );
