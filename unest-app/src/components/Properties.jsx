@@ -22,20 +22,31 @@ export const Properties = () => {
     };
 
     return (
+        // <Grid data-testid="propertyGrid" container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={4} columns={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        //     <Grid item role="item">
+        //         <Property />
+        //     </Grid>
+        //     <Grid item role="item">
+        //         <Property />
+        //     </Grid>
+        //     <Grid item role="item">
+        //         <Property />
+        //     </Grid>
+        //     <Grid item role="item">
+        //         <Property />
+        //     </Grid>
+        // </Grid >
+
         <Grid data-testid="propertyGrid" container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={4} columns={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-            <Grid item role="item">
-                <Property />
-            </Grid>
-            <Grid item role="item">
-                <Property />
-            </Grid>
-            <Grid item role="item">
-                <Property />
-            </Grid>
-            <Grid item role="item">
-                <Property />
-            </Grid>
+            <div>
+                {listings.map((listing, index) => (
+                    <Grid item role="item">
+                        <Property key={index} listing={listing} />
+                    </Grid>
+                ))}
+            </div>
         </Grid >
+
     );
 };
 
