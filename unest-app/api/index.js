@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const User = require('./models/User.js');
-const Listing = require('../models/Listing');
+const Listing = require('./models/Listing.js');
 require('dotenv').config();
 const app = express();
 
@@ -42,7 +42,7 @@ app.post('/register', async (req,res) =>{
 
 });
 
-app.get('/listing', async(req, res) => {
+app.get('/api/listings', async(req, res) => {
     try {
         console.log("executed listings get method")
         const listings = await Listing.find(); // Fetch all listings from the database
