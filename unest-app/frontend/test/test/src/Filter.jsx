@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -36,7 +36,7 @@ export default function Example() {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Edit
+                  Bedroom Count
                 </a>
               )}
             </Menu.Item>
@@ -49,39 +49,18 @@ export default function Example() {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Duplicate
+                  Room Type
                 </a>
               )}
             </Menu.Item>
           </div>
-          <div className="py-1">
+          {/* <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Archive
-                </a>
+                <Slider/>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Move
-                </a>
-              )}
-            </Menu.Item>
-          </div>
+          </div> */}
           
         </Menu.Items>
       </Transition>
