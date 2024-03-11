@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const ListingSchema = new Schema({
    name: String,
-   price: Int32Array,
+   price: Number,
    start_date: Date,
    end_date: Date,
-   miles_from_campus: Decimal128,
+   miles_from_campus: Number,
    time: Date,
    address: String,
    university: String,
-   rating: Decimal128,
+   rating: Number,
    description: String,
-   num_rooms: Decimal128,
-   num_baths: Decimal128,
-   total_rooms: Int32Array,
-   total_baths: Int32Array,
+   num_rooms: Number,
+   num_baths: Number,
+   total_rooms: Number,
+   total_baths: Number,
    amenities: Array,
    roommate_group: Array
 });
 
-const UserModel = mongoose.model('Listing', ListingSchema);
+const ListingModel = mongoose.model('Listing', ListingSchema);
 
-module.exports = UserModel;
+module.exports = ListingModel;
