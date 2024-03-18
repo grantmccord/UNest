@@ -76,8 +76,8 @@ function MessagesPage() {
       <div className="second"> 
       <button onClick={navigateToOwner} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black", fontWeight: "normal"}}>
       <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
-      <p style={{position: "relative", top: "-40px"}}>Joe Smith</p>
-       <p style={{position: "relative", top: "-40px"}}>Do you have any questions?</p>
+      <p style={{position: "relative", top: "-40px"}}>Owner Name</p>
+       <p style={{position: "relative", top: "-40px"}}>Yes, what is the surrounding like?</p>
       </button>
         </div>
         </div>

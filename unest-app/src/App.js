@@ -13,8 +13,11 @@ import ListingForm from './components/ListingForm';
 import HomePage from './components/HomePages';
 import ProfilePage from './components/ProfilePage';
 import Explore from './components/Explore';
+import MessageTenant from './components/MessageTenant';
 import MessageRoommate from './components/MessageRoommate';
 import RoommateProfile from './components/RoommateProfile';
+import TenantProfile from './components/TenantProfile';
+import OwnerProfile from './components/OwnerProfile';
 import MapComp from './components/Map'
 import LoginPage from "./components/LoginPage"
 
@@ -41,8 +44,11 @@ function App(){
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage />} /> 
                 <Route path="/explore" element={<Explore />} /> 
-                <Route path="/message" element={<MessageRoommate />} /> 
-                <Route path="/roommateprofile" element={<RoommateProfile/>} /> 
+                <Route path="/message" element={<MessageTenant />} />
+                <Route path="/messagerm" element={<MessageRoommate />} />  
+                <Route path="/roommateprofile" element={<RoommateProfile/>} />
+                <Route path="/tenantprofile" element={<TenantProfile/>} />
+                <Route path="/ownerprofile" element={<OwnerProfile/>} />    
                 <Route path="/property" element={<MapComp/>} />
             </Routes>
         </BrowserRouter>
