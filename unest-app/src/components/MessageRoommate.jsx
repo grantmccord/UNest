@@ -9,13 +9,27 @@ import send from '../Assets/send.png';
 
 const MessageRoommate = () => {
     const [inputMessage, setInputMessage] = useState('Message');
+    const [isFocused, setIsFocused] = useState(false);
 
     const handleInputChange = (event) => {
         setInputMessage(event.target.value);
     };
 
-    const handleClick = () => {
-        setInputMessage('');
+    const handleBlur = () => {
+        if (!inputMessage.trim() && !isFocused) {
+            setInputMessage('Message');
+        }
+    };
+
+    const handleFocus = () => {
+        setIsFocused(true);
+        if (inputMessage === 'Message') {
+            setInputMessage('');
+        }
+    };
+
+    const handleUnFocus = () => {
+        setIsFocused(false);
     };
 
     const navigate = useNavigate();
@@ -54,7 +68,7 @@ const MessageRoommate = () => {
         </button>
         </div>
         <div className="search">
-        <input type="text" value={inputMessage} onChange={handleInputChange} onClick={handleClick} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
+        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
         <img src={send} alt="" style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
         </div>
         </div>
