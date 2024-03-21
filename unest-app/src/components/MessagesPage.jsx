@@ -81,10 +81,10 @@ function MessagesPage() {
         <div className="first">
         <button onClick={navigateToOther} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
-        <p style={{position: "relative", top: "-40px"}}>John Dear</p>
+        <p style={{position: "relative", top: "-40px"}}>Tenant Name</p>
         <div class="circle">
         </div>
-        <p style={{position: "relative", top: "-40px"}}>Hi! I am interested in your property.</p>
+        <p style={{position: "relative", top: "-40px"}}>Yes, I am interested!</p>
       </button>
       </div>
       <div className="second"> 

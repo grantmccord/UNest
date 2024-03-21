@@ -19,18 +19,19 @@
     left: 250px;
 }
 
-.mes1 {
-    display: flex;
-    position: relative;
-    top: -100px;
-    left: 10px;
-}
-
-.mes2 {
+.mess1 {
     display: flex;
     position: relative;
     top: -100px;
     left: 720px;
+}
+
+.mess2 {
+    display: flex;
+    position: relative;
+    top: -100px;
+    left: 10px;
+
 }
 
 .search {
