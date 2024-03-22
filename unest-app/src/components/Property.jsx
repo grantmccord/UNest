@@ -8,11 +8,13 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box, { BoxProps } from "@mui/material/Box";
+import moment from 'moment';
 
 import dormroom1 from "../Assets/dorm-room1.jpg";
+import dormroom2 from "../Assets/triple_bed.jpeg";
 
 export const Property = ({ listing }) => {
-    const { name, price, startDate, endDate, milesFromCampus } = listing;
+    const { name, price, start_date, end_date, miles_from_campus } = listing;
 
     return (
         <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
@@ -45,11 +47,11 @@ export const Property = ({ listing }) => {
                     </Box>
 
                     <Typography role="date" variant="body2" color="text.secondary">
-                        {startDate} - {endDate}
+                        {moment(start_date).format('MM/DD/YYYY')} - {moment(end_date).format('MM/DD/YYYY')}
                     </Typography>
 
                     <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
-                        {milesFromCampus} miles away
+                        {miles_from_campus} miles away
                     </Typography>
                 </CardContent>
             </CardActionArea>
