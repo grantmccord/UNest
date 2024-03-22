@@ -42,6 +42,20 @@ app.post('/register', async (req,res) =>{
 
 });
 
+app.post('/login', async(req,res) => {
+    const {email, password} = req.body;
+    const userDoc = await User.findOne({email:email})
+    if(userDoc) {
+        const checkPass = bcrypt.compareSync(password, userDoc.password);
+        if(checkPass){
+            res.json("Password is Good");
+        } else {
+            res.status(422).json("Wrong Password")
+        }
+    } else{
+        res.json("Not Found")
+    }
+})
 app.get('/api/listings', async(req, res) => {
     try {
         console.log("executed listings get method")
