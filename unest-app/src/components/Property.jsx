@@ -12,7 +12,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 import dormroom1 from "../Assets/dorm-room1.jpg";
 
 export const Property = ({ listing }) => {
-    const { name, price, startDate, endDate, milesFromCampus } = listing;
+    const { name, price, start_date, end_date, miles_from_campus } = listing;
 
     return (
         <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
@@ -45,11 +45,11 @@ export const Property = ({ listing }) => {
                     </Box>
 
                     <Typography role="date" variant="body2" color="text.secondary">
-                        {startDate} - {endDate}
+                        {start_date} - {end_date}
                     </Typography>
 
                     <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
-                        {milesFromCampus} miles away
+                        {miles_from_campus} miles away
                     </Typography>
                 </CardContent>
             </CardActionArea>
