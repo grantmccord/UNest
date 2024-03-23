@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { sizing } from '@mui/system';
 
 function EditableText(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -78,7 +79,7 @@ const ProfilePage = () => {
                     </Typography>
                 </Grid>
                 <Grid item md={6}>
-                    <div className='aboutMe'>
+                    <div className='aboutMeTitle'>
                         <Typography variant="h4" gutterBottom>
                             About Me
                         </Typography>
@@ -91,9 +92,17 @@ const ProfilePage = () => {
                                     value={editedAboutMeText}
                                     onChange={handleAboutMeChange}
                                     autoFocus
+                                    multiline
+                                    placeholder="Description"
+                                    size="medium"
+                                    fullWidth
+                                    sx={{ width: 200, height: 200 }}
                                 />
-                                <Button onClick={handleAboutMeSave}>Save</Button>
-                                <Button onClick={handleAboutMeCancel}>Cancel</Button>
+                                <div className='aboutMeEditButtons'>
+                                    <Button variant="contained" sx={{ width: 20 }} onClick={handleAboutMeSave}>Save</Button>
+                                    <Button variant="outlined" sx={{ width: 20 }} onClick={handleAboutMeCancel}>Cancel</Button>
+                                </div>
+
                             </div>
                         ) : (
                             <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
