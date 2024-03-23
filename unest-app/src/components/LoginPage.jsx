@@ -4,23 +4,28 @@ import email_icon from '../Assets/email.png'
 import lock_icon from '../Assets/lock.png'
 import person_icon from '../Assets/person.png'
 import school_icon from '../Assets/school.png'
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 export default function LoginPage() {
     const [action,setAction] = useState("Login");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
     async function handleLoginSubmit(ev){
         ev.preventDefault();
         try{
             await axios.post('/login', {email, password});
-            alert('Login Successful!')
+            alert('Login Successful!');
+            setRedirect(true);
         } catch (e){
-            alert('Login Failed, Please Try Again')
+            alert('Login Failed, Please Try Again');
         }
-
     }
+
     let navigate = useNavigate();
+    if (redirect){
+        navigate('/')
+    }
     const routeChange = () =>{
         let path = '/register';
         navigate(path);

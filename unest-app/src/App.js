@@ -25,6 +25,7 @@ import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
 
 axios.defaults.baseURL = 'http://localhost:4000/';
+axios.defaults.withCredentials = true;
 
 
 function App(){

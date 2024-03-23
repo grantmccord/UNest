@@ -2,12 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
 const Listing = require('./models/Listing.js');
 require('dotenv').config();
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
+const jwtSecret = 'testingtokensecret';
 
 app.use(express.json());
 
@@ -57,7 +59,10 @@ app.post('/login', async(req,res) => {
     if(userDoc) {
         const checkPass = bcrypt.compareSync(password, userDoc.password);
         if(checkPass){
-            res.json("Password is Good");
+            jwt.sign({email:userDoc.email, id:userDoc._id}, jwtSecret, {}, (err, token)=>{
+                if (err) throw err;
+                res.cookie('token', token).json('Password good');
+            });
         } else {
             res.status(422).json("Wrong Password")
         }
