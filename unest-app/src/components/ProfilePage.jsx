@@ -95,12 +95,11 @@ const ProfilePage = () => {
                                     multiline
                                     placeholder="Description"
                                     size="medium"
-                                    fullWidth
-                                    sx={{ width: 200, height: 200 }}
+                                    sx={{ width: 500, maxHeight: 200 }}
                                 />
                                 <div className='aboutMeEditButtons'>
-                                    <Button variant="contained" sx={{ width: 20 }} onClick={handleAboutMeSave}>Save</Button>
-                                    <Button variant="outlined" sx={{ width: 20 }} onClick={handleAboutMeCancel}>Cancel</Button>
+                                    <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
+                                    <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
                                 </div>
 
                             </div>
