@@ -44,8 +44,8 @@ function EditableText(props) {
 
 const ProfilePage = () => {
     const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
-    const [aboutMeText, setAboutMeText] = useState("This is About Me Description!");
-    const [editedAboutMeText, setEditedAboutMeText] = useState("This is About Me Description!");
+    const [aboutMeText, setAboutMeText] = useState("This is about me description!");
+    const [editedAboutMeText, setEditedAboutMeText] = useState("This is about me description!");
 
     const handleAboutMeEdit = () => {
         console.log("setIsEditingAboutMe is set to true");
@@ -86,7 +86,7 @@ const ProfilePage = () => {
                     </div>
                     <div>
                         {isEditingAboutMe ? (
-                            <>
+                            <div>
                                 <TextField
                                     value={editedAboutMeText}
                                     onChange={handleAboutMeChange}
@@ -94,18 +94,12 @@ const ProfilePage = () => {
                                 />
                                 <Button onClick={handleAboutMeSave}>Save</Button>
                                 <Button onClick={handleAboutMeCancel}>Cancel</Button>
-                            </>
+                            </div>
                         ) : (
-                            <>
-                                <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
-                            </>
+                            <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
                         )}
                     </div>
-                    {/* <Typography variant="body1" gutterBottom>
-                        This is about me description
-                    </Typography> */}
 
-                    {/* <EditableText initialText={aboutMeText} onTextChange={handleAboutMeTextChange} /> */}
                 </Grid>
                 <Grid item md={6}>
                     <div>
