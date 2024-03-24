@@ -7,11 +7,11 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { sizing } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import "./ProfilePage.css";
 import Box from '@mui/material/Box';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 import profileImg from "../Assets/dorm-room1.jpg";
-
+import "./ProfilePage.css";
 
 function EditableText(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -84,9 +84,24 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold", pt: 3 }} gutterBottom>
-                Profile Page
-            </Typography>
+            <Box display="flex" flexDirection='row' sx={{ pt: 3 }}>
+                <Box sx={{ width: "80%" }}>
+                    <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
+                        Profile Page
+                    </Typography>
+                </Box>
+
+                <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
+                    <Button variant="contained" width="10%" color="secondary" sx={{ boxShadow: 3 }}>Add Listing</Button>
+                    <Box sx={{ width: 50 }}></Box>
+                    <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
+                    <Box sx={{ width: 50 }}></Box>
+                    <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40, pl: 5 }} />
+                </Box>
+
+
+            </Box>
+
             <Grid container sx={{ justifyContent: 'space-around', pt: 3, pb: 6, px: 8 }} rowSpacing={5} columnSpacing={12}>
                 <Grid item md={3}>
                     <Box
@@ -99,22 +114,22 @@ const ProfilePage = () => {
                         <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
                             Nivedha Kumar
                         </Typography>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
                             21/Female
                         </Typography>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
                             she/her
                         </Typography>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
                             Purdue
                         </Typography>
-                        <Typography variant="h6" mb={3} gutterBottom>
+                        <Typography variant="h6" sx={{ color: "#606060" }} mb={3} gutterBottom>
                             Computer Science
                         </Typography>
                         <div className='basicInfoButtons'>
                             <Stack spacing={2} direction="column">
-                                <Button variant="contained" color="secondary">Message</Button>
-                                <Button variant="outlined" color="secondary">Properties Viewed</Button>
+                                <Button variant="contained" color="secondary" sx={{ boxShadow: 3 }}>Message</Button>
+                                <Button variant="outlined" color="secondary" sx={{ boxShadow: 3 }}>Properties Viewed</Button>
                             </Stack>
                         </div>
                     </Box>
@@ -171,22 +186,92 @@ const ProfilePage = () => {
                             </Typography>
                             <div className='column'>
                                 <div>
-                                    <TextField label="Class" variant="standard" />
+                                    <TextField label="Class" variant="standard" size="small"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '0.8rem'
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                height: '20px'
+                                            },
+                                            pb: 0.8
+                                        }} />
+                                </div>
+                                {/* InputLabelProps={{
+                                    sx: {
+                                        color: "#518eb9",
+                                        fontSize: "28px",
+                                        fontWeight: 1000,
+                                        "&.MuiOutlinedInput-notchedOutline": { fontSize: "28px" }
+                                    } */}
+                                {/* sx={{ "& .MuiInputBase-input": { fontSize: 17, height: 5, padding: 1.2 } }} */}
+                                <div>
+                                    <TextField label="Major" variant="standard" size="small"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '0.8rem'
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                height: '20px'
+                                            },
+                                            pb: 0.8
+                                        }} />
+                                </div>
+                                {/* <div>
+                                    <TextField label="Major" variant="standard" size="small" sx={{ "& .MuiInputBase-input": { fontSize: 12, height: 5, padding: 1.2 } }} InputLabelProps={{
+                                        sx: {
+                                            fontSize: "12px",
+                                            fontWeight: 30,
+                                            padding: 1
+                                        }
+
+                                    }} />
+                                </div> */}
+                                <div>
+                                    <TextField label="Minor" variant="standard" size="small"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '0.8rem'
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                height: '20px'
+                                            },
+                                            pb: 0.8
+                                        }} />
                                 </div>
                                 <div>
-                                    <TextField label="Major" variant="standard" />
+                                    <TextField label="Hobbies" variant="standard" size="small"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '0.8rem'
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                height: '20px'
+                                            },
+                                            pb: 0.8
+                                        }} />
                                 </div>
                                 <div>
-                                    <TextField label="Minor" variant="standard" />
+                                    <TextField label="Interests" variant="standard" size="small"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '0.8rem'
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                height: '20px'
+                                            },
+                                            pb: 0.8
+                                        }} />
                                 </div>
                                 <div>
-                                    <TextField label="Hobbies" variant="standard" />
-                                </div>
-                                <div>
-                                    <TextField label="Interests" variant="standard" />
-                                </div>
-                                <div>
-                                    <TextField label="Ideal Rent" variant="standard" />
+                                    <TextField label="Ideal Rent" variant="standard" size="small" sx={{
+                                        '& .MuiInputLabel-root': {
+                                            fontSize: '0.8rem'
+                                        },
+                                        '& .MuiInputBase-root': {
+                                            height: '20px'
+                                        },
+                                    }} />
                                 </div>
 
                             </div>
