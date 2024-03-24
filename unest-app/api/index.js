@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const User = require('./models/User.js');
 const Listing = require('./models/Listing.js');
+const Message = require('./models/Message.js');
 require('dotenv').config();
 const app = express();
 
