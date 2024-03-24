@@ -55,6 +55,7 @@ const ProfilePage = () => {
     const handleAboutMeSave = () => {
         setIsEditingAboutMe(false);
         setAboutMeText(editedAboutMeText);
+        console.log("editedAboutMeText: ", editedAboutMeText);
     };
 
     const handleAboutMeCancel = () => {
@@ -66,24 +67,13 @@ const ProfilePage = () => {
         setEditedAboutMeText(e.target.value);
     };
 
-
-
-
-
-    // const [dialog, setDialog] = useState(false);
-    // const [userImage, setUserImage] = useState(null);
-
-    // const toggle = () => {
-    //     setDialog(!dialog)
-    // }
-
     const initialValues = {
-        Class: "Class",
-        Major: "Major",
-        Minor: "Minor",
-        Hobbies: "Hobbies",
-        Interests: "Interests",
-        IdealRent: "Ideal Rent"
+        Class: "",
+        Major: "",
+        Minor: "",
+        Hobbies: "",
+        Interests: "",
+        IdealRent: ""
     };
 
 
@@ -206,35 +196,49 @@ const ProfilePage = () => {
                                 Details
                             </Typography>
                         </Box>
+
+
+
                         <Box sx={{ paddingLeft: 12 }}>
+                            <div>
+                                {isEditingAboutMe ? (
+                                    <Grid container>
+                                        {Object.entries(formValues).map(([key, value]) => (
+                                            <Grid item xs={7} key={key}>
+                                                <TextField variant="standard" size="small"
+                                                    sx={{
+                                                        '& .MuiInputLabel-root': {
+                                                            fontSize: '0.8rem'
+                                                        },
+                                                        '& .MuiInputBase-root': {
+                                                            height: '20px'
+                                                        },
+                                                        pb: 0.8
+                                                    }}
 
-                            <Grid container>
-                                {Object.entries(formValues).map(([key, value]) => (
-                                    <Grid item xs={7} key={key}>
-                                        <TextField variant="standard" size="small"
-                                            sx={{
-                                                '& .MuiInputLabel-root': {
-                                                    fontSize: '0.8rem'
-                                                },
-                                                '& .MuiInputBase-root': {
-                                                    height: '20px'
-                                                },
-                                                pb: 0.8
-                                            }}
-
-                                            name={key}
-                                            label={key}
-                                            value={value}
-                                            onChange={handleChange}
-                                        />
+                                                    name={key}
+                                                    label={key}
+                                                    value={value}
+                                                    onChange={handleChange}
+                                                />
+                                            </Grid>
+                                        ))}
+                                        <Grid item xs={6}>
+                                            <Button variant="contained" color="secondary" onClick={handleSave} fullWidth>
+                                                Save
+                                            </Button>
+                                        </Grid>
                                     </Grid>
-                                ))}
-                                <Grid item xs={6}>
-                                    <Button variant="contained" color="secondary" onClick={handleSave} fullWidth>
-                                        Save
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                                ) : (
+                                    <Grid>
+                                        {
+                                            Object.entries(formValues).map(([key, value]) => (
+                                                <Typography key={key} variant="body1" gutterBottom>{key}: {value}</Typography>
+                                            ))
+                                        }
+                                    </Grid>
+                                )}
+                            </div>
 
                             {/* InputLabelProps={{
                                     sx: {
