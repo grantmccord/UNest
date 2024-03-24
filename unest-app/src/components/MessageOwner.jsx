@@ -54,6 +54,7 @@ const MessageOwner = () => {
         <div className="name" onClick={navigateToProfile}>
         <h1>Owner Name</h1>
         <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>username</p>
+        <p style={{position: "relative", top: "15px", left: "-120px", fontSize: "30px"}}>Property Name</p>
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
         <div className="mes1">

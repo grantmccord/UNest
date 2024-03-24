@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
 const Listing = require('./models/Listing.js');
+const Message = require('./models/Message.js');
 require('dotenv').config();
 const app = express();
 
