@@ -13,48 +13,39 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import profileImg from "../Assets/dorm-room1.jpg";
 import "./ProfilePage.css";
 
-function EditableText(props) {
-    const [isEditing, setIsEditing] = useState(false);
-    const [text, setText] = useState(props.initialText);
+// function EditDetailTextField(props) {
+//     const [isEditingMe, setIsEditing] = useState(false);
+//     const [text, setText] = useState("");
+//     const [editedText, setEditedText] = useState("");
 
-    const handleDoubleClick = () => {
-        setIsEditing(true);
-    };
+//     const handleEdit = () => {
+//         console.log("setIsEditing is set to true");
+//         setIsEditing(true);
+//     };
 
-    const handleChange = (e) => {
-        setText(e.target.value);
-    };
+//     const handleSave = () => {
+//         setIsEditing(false);
+//         setAboutMeText(editedAboutMeText);
+//     };
 
-    const handleBlur = () => {
-        setIsEditing(false);
-        // Here you might want to save the edited text, for example by calling a function passed as a prop
-        if (props.onTextChange) {
-            props.onTextChange(text);
-        }
-    };
+//     const handleCancel = () => {
+//         setIsEditing(false);
+//         setEditedAboutMeText(aboutMeText);
+//     };
 
-    return (
-        <div>
-            {isEditing ? (
-                <TextField
-                    value={text}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    autoFocus
-                />
-            ) : (
-                <Typography variant="body1" onDoubleClick={handleDoubleClick}>{text}</Typography>
-            )}
-        </div>
-    );
-}
+//     const handleChange = (e) => {
+//         setEditedText(e.target.value);
+//     };
+// }
+
+
 
 
 const ProfilePage = () => {
     const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
-    const initialText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
-    const [aboutMeText, setAboutMeText] = useState(initialText);
-    const [editedAboutMeText, setEditedAboutMeText] = useState(initialText);
+    const initialAboutMeText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
+    const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
+    const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
 
     const handleAboutMeEdit = () => {
         console.log("setIsEditingAboutMe is set to true");
@@ -75,12 +66,41 @@ const ProfilePage = () => {
         setEditedAboutMeText(e.target.value);
     };
 
+
+
+
+
     // const [dialog, setDialog] = useState(false);
     // const [userImage, setUserImage] = useState(null);
 
     // const toggle = () => {
     //     setDialog(!dialog)
     // }
+
+    const initialValues = {
+        Class: "Class",
+        Major: "Major",
+        Minor: "Minor",
+        Hobbies: "Hobbies",
+        Interests: "Interests",
+        IdealRent: "Ideal Rent"
+    };
+
+
+    const [formValues, setFormValues] = useState(initialValues);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormValues(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSave = () => {
+        // Do whatever you want with the updated form values
+        console.log("Updated form values:", formValues);
+    };
 
     return (
         <div>
@@ -153,6 +173,7 @@ const ProfilePage = () => {
                                 </Typography>
                                 <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleAboutMeEdit()}></ModeEditIcon>
                             </div>
+
                             <div>
                                 {isEditingAboutMe ? (
                                     <div>
@@ -184,40 +205,47 @@ const ProfilePage = () => {
                             <Typography variant="h5" mt={5} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                 Details
                             </Typography>
-                            <div className='column'>
-                                <div>
-                                    <TextField label="Class" variant="standard" size="small"
-                                        sx={{
-                                            '& .MuiInputLabel-root': {
-                                                fontSize: '0.8rem'
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                height: '20px'
-                                            },
-                                            pb: 0.8
-                                        }} />
-                                </div>
-                                {/* InputLabelProps={{
+                        </Box>
+                        <Box sx={{ paddingLeft: 12 }}>
+
+                            <Grid container>
+                                {Object.entries(formValues).map(([key, value]) => (
+                                    <Grid item xs={7} key={key}>
+                                        <TextField variant="standard" size="small"
+                                            sx={{
+                                                '& .MuiInputLabel-root': {
+                                                    fontSize: '0.8rem'
+                                                },
+                                                '& .MuiInputBase-root': {
+                                                    height: '20px'
+                                                },
+                                                pb: 0.8
+                                            }}
+
+                                            name={key}
+                                            label={key}
+                                            value={value}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+                                ))}
+                                <Grid item xs={6}>
+                                    <Button variant="contained" color="secondary" onClick={handleSave} fullWidth>
+                                        Save
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            {/* InputLabelProps={{
                                     sx: {
                                         color: "#518eb9",
                                         fontSize: "28px",
                                         fontWeight: 1000,
                                         "&.MuiOutlinedInput-notchedOutline": { fontSize: "28px" }
                                     } */}
-                                {/* sx={{ "& .MuiInputBase-input": { fontSize: 17, height: 5, padding: 1.2 } }} */}
-                                <div>
-                                    <TextField label="Major" variant="standard" size="small"
-                                        sx={{
-                                            '& .MuiInputLabel-root': {
-                                                fontSize: '0.8rem'
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                height: '20px'
-                                            },
-                                            pb: 0.8
-                                        }} />
-                                </div>
-                                {/* <div>
+                            {/* sx={{ "& .MuiInputBase-input": { fontSize: 17, height: 5, padding: 1.2 } }} */}
+
+                            {/* <div>
                                     <TextField label="Major" variant="standard" size="small" sx={{ "& .MuiInputBase-input": { fontSize: 12, height: 5, padding: 1.2 } }} InputLabelProps={{
                                         sx: {
                                             fontSize: "12px",
@@ -227,54 +255,7 @@ const ProfilePage = () => {
 
                                     }} />
                                 </div> */}
-                                <div>
-                                    <TextField label="Minor" variant="standard" size="small"
-                                        sx={{
-                                            '& .MuiInputLabel-root': {
-                                                fontSize: '0.8rem'
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                height: '20px'
-                                            },
-                                            pb: 0.8
-                                        }} />
-                                </div>
-                                <div>
-                                    <TextField label="Hobbies" variant="standard" size="small"
-                                        sx={{
-                                            '& .MuiInputLabel-root': {
-                                                fontSize: '0.8rem'
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                height: '20px'
-                                            },
-                                            pb: 0.8
-                                        }} />
-                                </div>
-                                <div>
-                                    <TextField label="Interests" variant="standard" size="small"
-                                        sx={{
-                                            '& .MuiInputLabel-root': {
-                                                fontSize: '0.8rem'
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                height: '20px'
-                                            },
-                                            pb: 0.8
-                                        }} />
-                                </div>
-                                <div>
-                                    <TextField label="Ideal Rent" variant="standard" size="small" sx={{
-                                        '& .MuiInputLabel-root': {
-                                            fontSize: '0.8rem'
-                                        },
-                                        '& .MuiInputBase-root': {
-                                            height: '20px'
-                                        },
-                                    }} />
-                                </div>
 
-                            </div>
                         </Box>
                     </Box>
 
