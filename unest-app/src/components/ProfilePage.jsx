@@ -6,7 +6,12 @@ import Button from '@mui/material/Button'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { sizing } from '@mui/system';
 import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
 import "./ProfilePage.css";
+import Box from '@mui/material/Box';
+
+import profileImg from "../Assets/dorm-room1.jpg";
+
 
 function EditableText(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -69,18 +74,36 @@ const ProfilePage = () => {
         setEditedAboutMeText(e.target.value);
     };
 
+    // const [dialog, setDialog] = useState(false);
+    // const [userImage, setUserImage] = useState(null);
+
+    // const toggle = () => {
+    //     setDialog(!dialog)
+    // }
+
     return (
         <div>
             <Typography variant="h3" sx={{ textAlign: "center", pt: 3 }} gutterBottom>
                 Profile Page
             </Typography>
             <Grid container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={5} columnSpacing={12}>
-                <Grid item md={6}>
-                    <Typography variant="h4" gutterBottom>
+                <Grid item md={3}>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        minHeight="10vh"
+                    >
+                        <Stack spacing={2} direction="column">
+                            <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
+                        </Stack>
+                    </Box>
+
+                    {/* <Typography variant="h4" gutterBottom>
                         Nivedha Kumar
-                    </Typography>
+                    </Typography> */}
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={9}>
                     <div className='aboutMeTitle'>
                         <Typography variant="h4" gutterBottom>
                             About Me
@@ -111,13 +134,28 @@ const ProfilePage = () => {
                     </div>
 
                 </Grid>
-                <Grid item md={6}>
-                    <div>
-                        <Typography variant="h4" gutterBottom>
-                            Basic Info
+                <Grid item md={3}>
+                    <Box
+                        display="flex"
+                        flexDirection='column'
+                        justifyContent="center"
+                        alignItems="center"
+                        minHeight="10vh"
+                    >
+                        <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>
+                            Nivedha Kumar
                         </Typography>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             21/Female
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            she/her
+                        </Typography>
+                        <Typography variant="h6" gutterBottom>
+                            Purdue
+                        </Typography>
+                        <Typography variant="h6" mb={3} gutterBottom>
+                            Computer Science
                         </Typography>
                         <div className='basicInfoButtons'>
                             <Stack spacing={2} direction="column">
@@ -125,11 +163,11 @@ const ProfilePage = () => {
                                 <Button variant="outlined">Properties Viewed</Button>
                             </Stack>
                         </div>
+                    </Box>
 
-                    </div>
                 </Grid>
 
-                <Grid item md={6}>
+                <Grid item md={9}>
                     <Typography variant="h4" gutterBottom>
                         Details
                     </Typography>
