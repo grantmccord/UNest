@@ -5,6 +5,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { sizing } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import "./ProfilePage.css";
 
 function EditableText(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -117,8 +119,13 @@ const ProfilePage = () => {
                         <Typography variant="h5" gutterBottom>
                             21/Female
                         </Typography>
-                        <Button variant="contained" my={3} fullWidth={false}>Message</Button>
-                        <Button variant="outlined" my={3} >Properties Viewed</Button>
+                        <div className='basicInfoButtons'>
+                            <Stack spacing={2} direction="column">
+                                <Button variant="contained">Message</Button>
+                                <Button variant="outlined">Properties Viewed</Button>
+                            </Stack>
+                        </div>
+
                     </div>
                 </Grid>
 
