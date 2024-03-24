@@ -52,8 +52,9 @@ function EditableText(props) {
 
 const ProfilePage = () => {
     const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
-    const [aboutMeText, setAboutMeText] = useState("This is about me description!");
-    const [editedAboutMeText, setEditedAboutMeText] = useState("This is about me description!");
+    const initialText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
+    const [aboutMeText, setAboutMeText] = useState(initialText);
+    const [editedAboutMeText, setEditedAboutMeText] = useState(initialText);
 
     const handleAboutMeEdit = () => {
         console.log("setIsEditingAboutMe is set to true");
@@ -83,66 +84,19 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <Typography variant="h3" sx={{ textAlign: "center", pt: 3 }} gutterBottom>
+            <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold", pt: 3 }} gutterBottom>
                 Profile Page
             </Typography>
-            <Grid container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={5} columnSpacing={12}>
-                <Grid item md={3}>
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        minHeight="10vh"
-                    >
-                        <Stack spacing={2} direction="column">
-                            <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
-                        </Stack>
-                    </Box>
-
-                    {/* <Typography variant="h4" gutterBottom>
-                        Nivedha Kumar
-                    </Typography> */}
-                </Grid>
-                <Grid item md={9}>
-                    <div className='aboutMeTitle'>
-                        <Typography variant="h4" gutterBottom>
-                            About Me
-                        </Typography>
-                        <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleAboutMeEdit()}></ModeEditIcon>
-                    </div>
-                    <div>
-                        {isEditingAboutMe ? (
-                            <div>
-                                <TextField
-                                    value={editedAboutMeText}
-                                    onChange={handleAboutMeChange}
-                                    autoFocus
-                                    multiline
-                                    placeholder="Description"
-                                    size="medium"
-                                    sx={{ width: 500, maxHeight: 200 }}
-                                />
-                                <div className='aboutMeEditButtons'>
-                                    <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
-                                    <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
-                                </div>
-
-                            </div>
-                        ) : (
-                            <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
-                        )}
-                    </div>
-
-                </Grid>
+            <Grid container sx={{ justifyContent: 'space-around', pt: 3, pb: 6, px: 8 }} rowSpacing={5} columnSpacing={12}>
                 <Grid item md={3}>
                     <Box
                         display="flex"
                         flexDirection='column'
                         justifyContent="center"
                         alignItems="center"
-                        minHeight="10vh"
                     >
-                        <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>
+                        <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
                             Nivedha Kumar
                         </Typography>
                         <Typography variant="h6" gutterBottom>
@@ -166,21 +120,89 @@ const ProfilePage = () => {
                     </Box>
 
                 </Grid>
+                <Grid item md={6}>
+                    <Box display="flex"
+                        flexDirection='column'
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{
+                            borderRight: 1,
+                            paddingRight: 4
+                        }}
+                    >
+                        <div className='aboutMeTitle'>
+                            <Box
+                                display="flex"
+                                flexDirection='row'
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Typography variant="h5" sx={{ fontWeight: "bold" }} gutterBottom>
+                                    About Me
+                                </Typography>
+                                <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleAboutMeEdit()}></ModeEditIcon>
+                            </Box>
 
-                <Grid item md={9}>
-                    <Typography variant="h4" gutterBottom>
-                        Details
+                        </div>
+                        <div>
+                            {isEditingAboutMe ? (
+                                <div>
+                                    <TextField
+                                        value={editedAboutMeText}
+                                        onChange={handleAboutMeChange}
+                                        autoFocus
+                                        multiline
+                                        placeholder="Description"
+                                        size="medium"
+                                        sx={{ width: 500, maxHeight: 200 }}
+                                    />
+                                    <div className='aboutMeEditButtons'>
+                                        <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
+                                        <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
+                                    </div>
+
+                                </div>
+                            ) : (
+                                <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
+                            )}
+                        </div>
+
+                        <Typography variant="h5" mt={5} sx={{ fontWeight: "bold" }} gutterBottom>
+                            Details
+                        </Typography>
+                        <div className='column'>
+                            <div>
+                                <TextField label="Class" variant="standard" />
+                            </div>
+                            <div>
+                                <TextField label="Major" variant="standard" />
+                            </div>
+                            <div>
+                                <TextField label="Minor" variant="standard" />
+                            </div>
+                            <div>
+                                <TextField label="Hobbies" variant="standard" />
+                            </div>
+                            <div>
+                                <TextField label="Interests" variant="standard" />
+                            </div>
+                            <div>
+                                <TextField label="Ideal Rent" variant="standard" />
+                            </div>
+
+                        </div>
+                    </Box>
+
+
+                </Grid>
+
+                <Grid item md={3}>
+                    <Typography variant="h5" gutterBottom>
+                        Personal Habits
                     </Typography>
-                    <div className='column'>
-                        <div>
-                            <TextField id="standard-basic" label="Class" variant="standard" />
-                        </div>
-                        <div>
-                            <TextField id="standard-basic" label="Major" variant="standard" />
-                        </div>
-
-                    </div>
-
+                    <Typography variant="h5" mt={17} gutterBottom>
+                        Roommate Preferences
+                    </Typography>
                 </Grid>
             </Grid>
         </div >
