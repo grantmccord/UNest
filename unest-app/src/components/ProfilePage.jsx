@@ -113,94 +113,93 @@ const ProfilePage = () => {
                         </Typography>
                         <div className='basicInfoButtons'>
                             <Stack spacing={2} direction="column">
-                                <Button variant="contained">Message</Button>
-                                <Button variant="outlined">Properties Viewed</Button>
+                                <Button variant="contained" color="secondary">Message</Button>
+                                <Button variant="outlined" color="secondary">Properties Viewed</Button>
                             </Stack>
                         </div>
                     </Box>
 
                 </Grid>
                 <Grid item md={6}>
-                    <Box display="flex"
-                        flexDirection='column'
-                        justifyContent="center"
-                        alignItems="center"
-                        sx={{
-                            borderRight: 1,
-                            paddingRight: 4
-                        }}
-                    >
-                        <div className='aboutMeTitle'>
-                            <Box
-                                display="flex"
-                                flexDirection='row'
-                                justifyContent="center"
-                                alignItems="center"
-                            >
-                                <Typography variant="h5" sx={{ fontWeight: "bold" }} gutterBottom>
+                    <Box sx={{
+                        borderRight: 1,
+                    }}>
+                        <Box display="flex"
+                            flexDirection='column'
+                            justifyContent="center"
+                            alignItems="center"
+                            sx={{
+                                paddingRight: 4
+                            }}
+                        >
+                            <div className='aboutMeTitle'>
+                                <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                     About Me
                                 </Typography>
                                 <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleAboutMeEdit()}></ModeEditIcon>
-                            </Box>
+                            </div>
+                            <div>
+                                {isEditingAboutMe ? (
+                                    <div>
+                                        <TextField
+                                            value={editedAboutMeText}
+                                            onChange={handleAboutMeChange}
+                                            autoFocus
+                                            multiline
+                                            placeholder="Description"
+                                            size="medium"
+                                            sx={{ width: 500, maxHeight: 200 }}
+                                        />
+                                        <div className='aboutMeEditButtons'>
+                                            <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
+                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
+                                        </div>
 
-                        </div>
-                        <div>
-                            {isEditingAboutMe ? (
-                                <div>
-                                    <TextField
-                                        value={editedAboutMeText}
-                                        onChange={handleAboutMeChange}
-                                        autoFocus
-                                        multiline
-                                        placeholder="Description"
-                                        size="medium"
-                                        sx={{ width: 500, maxHeight: 200 }}
-                                    />
-                                    <div className='aboutMeEditButtons'>
-                                        <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
-                                        <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
                                     </div>
+                                ) : (
+                                    <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
+                                )}
+                            </div>
+                        </Box>
 
+                        <Box
+                            sx={{ paddingLeft: 12 }}
+                        >
+
+                            <Typography variant="h5" mt={5} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                                Details
+                            </Typography>
+                            <div className='column'>
+                                <div>
+                                    <TextField label="Class" variant="standard" />
                                 </div>
-                            ) : (
-                                <Typography variant="body1" gutterBottom>{aboutMeText}</Typography>
-                            )}
-                        </div>
+                                <div>
+                                    <TextField label="Major" variant="standard" />
+                                </div>
+                                <div>
+                                    <TextField label="Minor" variant="standard" />
+                                </div>
+                                <div>
+                                    <TextField label="Hobbies" variant="standard" />
+                                </div>
+                                <div>
+                                    <TextField label="Interests" variant="standard" />
+                                </div>
+                                <div>
+                                    <TextField label="Ideal Rent" variant="standard" />
+                                </div>
 
-                        <Typography variant="h5" mt={5} sx={{ fontWeight: "bold" }} gutterBottom>
-                            Details
-                        </Typography>
-                        <div className='column'>
-                            <div>
-                                <TextField label="Class" variant="standard" />
                             </div>
-                            <div>
-                                <TextField label="Major" variant="standard" />
-                            </div>
-                            <div>
-                                <TextField label="Minor" variant="standard" />
-                            </div>
-                            <div>
-                                <TextField label="Hobbies" variant="standard" />
-                            </div>
-                            <div>
-                                <TextField label="Interests" variant="standard" />
-                            </div>
-                            <div>
-                                <TextField label="Ideal Rent" variant="standard" />
-                            </div>
-
-                        </div>
+                        </Box>
                     </Box>
-
 
                 </Grid>
 
                 <Grid item md={3}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                         Personal Habits
                     </Typography>
-                    <Typography variant="h5" mt={17} gutterBottom>
+                    <Typography variant="h5" mt={30} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                         Roommate Preferences
                     </Typography>
                 </Grid>
