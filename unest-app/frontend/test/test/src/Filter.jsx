@@ -54,13 +54,13 @@ export default function Example() {
               )}
             </Menu.Item>
           </div>
-          {/* <div className="py-1">
+          <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <Slider/>
+                <input type="range" min="0" max="100" value="20" class="range w-40" />
               )}
             </Menu.Item>
-          </div> */}
+          </div>
           
         </Menu.Items>
       </Transition>

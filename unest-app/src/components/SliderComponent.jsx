@@ -11,6 +11,7 @@ const SliderComponent = ({ value, onChange }) => {
       min={300}
       max={2000}
       step={25}
+      defaultValue={2000}
       valueLabelDisplay="auto"
     />
   );
