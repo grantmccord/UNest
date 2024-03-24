@@ -19,9 +19,8 @@ app.use(cors({
 
 mongoose.connect(process.env.MONGO_URL);
 
-
 app.get('/UNEST', (req,res) => {
-    res.json('TESTING PLS WORK');
+    res.json('Api is Up');
 });
 
 app.post('/register', async (req,res) =>{
@@ -43,6 +42,30 @@ app.post('/register', async (req,res) =>{
 
 });
 
+app.get('/api/users', async(req, res) => {
+    try {
+        const users = await User.find(); // Fetch all listings from the database
+        res.json(users); // Send the listings as JSON response
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+        res.status(500).json({ message: 'Server Error' });
+      }
+})
+
+app.post('/login', async(req,res) => {
+    const {email, password} = req.body;
+    const userDoc = await User.findOne({email:email})
+    if(userDoc) {
+        const checkPass = bcrypt.compareSync(password, userDoc.password);
+        if(checkPass){
+            res.json("Password is Good");
+        } else {
+            res.status(422).json("Wrong Password")
+        }
+    } else{
+        res.json("Not Found")
+    }
+})
 app.get('/api/listings', async(req, res) => {
     try {
         console.log("executed listings get method")
