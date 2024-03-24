@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const MessageSchema = new Schema({
@@ -12,3 +13,4 @@ const MessageSchema = new Schema({
 const MessageModel = mongoose.model('Message', MessageSchema);
 
 module.exports = MessageModel;
+*/

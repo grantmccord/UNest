@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     useNavigate,
   } from "react-router-dom";
+import axios from 'axios';
 import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
@@ -9,7 +10,9 @@ import profileIcon from '../Assets/Profile.png';
 function MessagesPage() {
     const [inputSearch, setInputSearch] = useState('Search');
     const [isFocused, setIsFocused] = useState(false);
-
+    const [showOptions, setShowOptions] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
+   
     const handleInputChange = (event) => {
         setInputSearch(event.target.value);
     };
@@ -18,6 +21,7 @@ function MessagesPage() {
         if (!inputSearch.trim() && !isFocused) {
             setInputSearch('Search');
         }
+        setShowOptions(false);
     };
 
     const handleFocus = () => {
@@ -25,6 +29,11 @@ function MessagesPage() {
         if (inputSearch === 'Search') {
             setInputSearch('');
         }
+        setShowOptions(true);
+    };
+
+    const fetchUsers = async () => {
+        return fetch("https://jsonplaceholder.typicode.com/users").then((res) => res.json()).then((d) => setSearchResults(d))
     };
 
     const handleUnFocus = () => {
@@ -64,7 +73,20 @@ function MessagesPage() {
         <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "50px", height: "50px"}} />
         </div>
         <div className="search">
-        <input type="text" value={inputSearch} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
+        <input type="text" value={inputSearch} onClick={fetchUsers} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
+        </div>
+        <div className="opt">
+        {showOptions && (
+        <ul>
+          {searchResults.filter(item => {
+            return inputSearch.toLowerCase() === '' ? item : item.name.toLowerCase().includes(inputSearch);
+          }).map((item) => (
+            <li key={item.id}>
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      )}
         </div>
         <div className="my">
             <h2 style={{fontWeight: "bold", fontSize:"30px"}}>
