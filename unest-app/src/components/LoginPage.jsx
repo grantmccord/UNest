@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import './LoginPage.css'
 import email_icon from '../Assets/email.png'
 import lock_icon from '../Assets/lock.png'
@@ -6,15 +6,20 @@ import person_icon from '../Assets/person.png'
 import school_icon from '../Assets/school.png'
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {UserContext} from "../UserContext";
 export default function LoginPage() {
     const [action,setAction] = useState("Login");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
+
+    const {setUser} = useContext(UserContext);
+
     async function handleLoginSubmit(ev){
         ev.preventDefault();
         try{
-            await axios.post('/login', {email, password});
+            const userInfo = await axios.post('/login', {email, password});
+            setUser(userInfo);
             alert('Login Successful!');
             setRedirect(true);
         } catch (e){
