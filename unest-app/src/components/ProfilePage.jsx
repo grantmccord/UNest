@@ -44,31 +44,24 @@ import "./ProfilePage.css";
 
 
 const ProfilePage = () => {
-    const [isEditingAboutMe, setIsEditingAboutMe] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleEdit = () => {
+        console.log("setIsEditing is set to true");
+        setIsEditing(true);
+    };
+
+    //about me section
+
     const initialAboutMeText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
     const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
     const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
-
-    const handleAboutMeEdit = () => {
-        console.log("setIsEditingAboutMe is set to true");
-        setIsEditingAboutMe(true);
-    };
-
-    const handleAboutMeSave = () => {
-        setIsEditingAboutMe(false);
-        setAboutMeText(editedAboutMeText);
-        console.log("editedAboutMeText: ", editedAboutMeText);
-    };
-
-    const handleAboutMeCancel = () => {
-        setIsEditingAboutMe(false);
-        setEditedAboutMeText(aboutMeText);
-    };
 
     const handleAboutMeChange = (e) => {
         setEditedAboutMeText(e.target.value);
     };
 
+    //form values in details section
     const initialValues = {
         Class: "",
         Major: "",
@@ -77,12 +70,10 @@ const ProfilePage = () => {
         Interests: "",
         IdealRent: ""
     };
-
-
     const [formValues, setFormValues] = useState(initialValues);
     const [editedFormValues, setEditedFormValues] = useState(initialValues);
 
-    const handleChange = (event) => {
+    const handleFormValuesChange = (event) => {
         const { name, value } = event.target;
         setEditedFormValues(prevState => ({
             ...prevState,
@@ -91,26 +82,13 @@ const ProfilePage = () => {
         console.log("inside handlechange function for event: ", event);
     };
 
-    const handleCancel = () => {
-        setIsEditingAboutMe(false);
-        setEditedFormValues(formValues);
-    };
-
-    const handleSave = () => {
-        // Do whatever you want with the updated form values
-        setIsEditingAboutMe(false);
-        setFormValues(editedFormValues);
-        console.log("Updated form values:", formValues);
-    };
-
-
     //basic info section
 
     const basicInfoValues = {
-        AgeGender: "",
+        Age: "",
+        Gender: "",
         Pronouns: "",
-        University: "",
-        Major: "",
+        University: ""
     };
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
@@ -125,16 +103,35 @@ const ProfilePage = () => {
         console.log("inside handlebasicinfochange function for event: ", event);
     };
 
-    const handleBasicInfoCancel = () => {
-        setIsEditingAboutMe(false);
-        setEditedBasicInfo(basicInfo);
-    };
+    //save and cancel buttons
 
-    const handleBasicInfoSave = () => {
-        // Do whatever you want with the updated form values
-        setIsEditingAboutMe(false);
+    const handleSave = () => {
+        setIsEditing(false);
+
+        //needed to add back in following line
+        setAboutMeText(editedAboutMeText);
+        //updating about me paragraph description
+        console.log("editedAboutMeText: ", editedAboutMeText);
+
+        //updating form values in detail section
+        setFormValues(editedFormValues);
+        console.log("Updated form values:", formValues);
+
+        //updating basic info section with new values
         setBasicInfo(editedBasicInfo);
         console.log("Updated basic info:", basicInfo);
+    };
+
+    const handleCancel = () => {
+        setIsEditing(false);
+
+        setEditedAboutMeText(aboutMeText);
+
+        //canceling changes to form values in detail section
+        setEditedFormValues(formValues);
+
+        //canceling changes to basic info
+        setEditedBasicInfo(basicInfo);
     };
 
     return (
@@ -167,7 +164,7 @@ const ProfilePage = () => {
                         <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
 
                         <div>
-                            {isEditingAboutMe ? (
+                            {isEditing ? (
                                 <div>
                                     <Box
                                         display="flex"
@@ -199,12 +196,6 @@ const ProfilePage = () => {
                                                     />
                                                 </Grid>
                                             ))}
-                                            <Grid item xs={6}>
-                                                <Button variant="contained" color="secondary" onClick={handleBasicInfoSave} fullWidth>
-                                                    Save
-                                                </Button>
-                                                <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleBasicInfoCancel}>Cancel</Button>
-                                            </Grid>
                                         </Grid>
                                     </Box>
                                 </div>
@@ -256,11 +247,11 @@ const ProfilePage = () => {
                                 <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                     About Me
                                 </Typography>
-                                <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleAboutMeEdit()}></ModeEditIcon>
+                                <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleEdit()}></ModeEditIcon>
                             </div>
 
                             <div>
-                                {isEditingAboutMe ? (
+                                {isEditing ? (
                                     <div>
                                         <TextField
                                             value={editedAboutMeText}
@@ -272,8 +263,8 @@ const ProfilePage = () => {
                                             sx={{ width: 500, maxHeight: 200 }}
                                         />
                                         <div className='aboutMeEditButtons'>
-                                            <Button variant="contained" sx={{ width: 50 }} onClick={handleAboutMeSave}>Save</Button>
-                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleAboutMeCancel}>Cancel</Button>
+                                            <Button variant="contained" sx={{ width: 50 }} onClick={handleSave}>Save</Button>
+                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleCancel}>Cancel</Button>
                                         </div>
 
                                     </div>
@@ -295,7 +286,7 @@ const ProfilePage = () => {
 
                         <Box sx={{ paddingLeft: 12 }}>
                             <div>
-                                {isEditingAboutMe ? (
+                                {isEditing ? (
                                     <Grid container>
                                         {Object.entries(editedFormValues).map(([key, value]) => (
                                             <Grid item xs={7} key={key}>
@@ -313,16 +304,11 @@ const ProfilePage = () => {
                                                     name={key}
                                                     label={key}
                                                     value={value}
-                                                    onChange={handleChange}
+                                                    onChange={handleFormValuesChange}
                                                 />
                                             </Grid>
                                         ))}
-                                        <Grid item xs={6}>
-                                            <Button variant="contained" color="secondary" onClick={handleSave} fullWidth>
-                                                Save
-                                            </Button>
-                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleCancel}>Cancel</Button>
-                                        </Grid>
+
                                     </Grid>
                                 ) : (
                                     <Grid>
