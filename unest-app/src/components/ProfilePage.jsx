@@ -136,12 +136,31 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <Box display="flex" flexDirection='row' sx={{ pt: 3 }}>
-                <Box sx={{ width: "80%" }}>
+            <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
+                <div>
+                    {isEditing ? (
+                        <div>
+                            <Box sx={{ pl: 15, pb: 2 }}>
+                                <div className='aboutMeEditButtons'>
+                                    <Button variant="contained" sx={{ width: 50, height: 40, boxShadow: 3, backgroundColor: "#21b6ae" }} onClick={handleSave}>Save</Button>
+                                    <Button variant="outlined" sx={{ width: 80, marginLeft: 5, height: 40, boxShadow: 3, color: "#21b6ae" }} onClick={handleCancel}>Cancel</Button>
+                                </div>
+                            </Box>
+
+                        </div>
+                    ) : (
+                        <>
+                        </>
+                    )}
+                </div>
+
+                <Box sx={{ width: "80%", pl: 47 }} display="flex" flexDirection='row' >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
                         Profile Page
                     </Typography>
+                    <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleEdit()}></ModeEditIcon>
                 </Box>
+
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
                     <Button variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
@@ -247,7 +266,6 @@ const ProfilePage = () => {
                                 <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                     About Me
                                 </Typography>
-                                <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleEdit()}></ModeEditIcon>
                             </div>
 
                             <div>
@@ -262,10 +280,6 @@ const ProfilePage = () => {
                                             size="medium"
                                             sx={{ width: 500, maxHeight: 200 }}
                                         />
-                                        <div className='aboutMeEditButtons'>
-                                            <Button variant="contained" sx={{ width: 50 }} onClick={handleSave}>Save</Button>
-                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleCancel}>Cancel</Button>
-                                        </div>
 
                                     </div>
                                 ) : (
@@ -354,6 +368,14 @@ const ProfilePage = () => {
                         Roommate Preferences
                     </Typography>
                 </Grid>
+
+                {/* <Box display="flex" flexDirection='row' sx={{ pt: 1 }}>
+                    <div className='aboutMeEditButtons'>
+                        <Button variant="contained" sx={{ width: 50 }} onClick={handleSave}>Save</Button>
+                        <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleCancel}>Cancel</Button>
+                    </div>
+                </Box> */}
+
             </Grid >
         </div >
 
