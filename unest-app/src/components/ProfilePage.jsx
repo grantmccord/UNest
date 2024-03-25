@@ -80,18 +80,26 @@ const ProfilePage = () => {
 
 
     const [formValues, setFormValues] = useState(initialValues);
+    const [editedFormValues, setEditedFormValues] = useState(initialValues);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormValues(prevState => ({
+        setEditedFormValues(prevState => ({
             ...prevState,
             [name]: value
         }));
         console.log("inside handlechange function for event: ", event);
     };
 
+    const handleCancel = () => {
+        setIsEditingAboutMe(false);
+        setEditedFormValues(formValues);
+    };
+
     const handleSave = () => {
         // Do whatever you want with the updated form values
+        setIsEditingAboutMe(false);
+        setFormValues(editedFormValues);
         console.log("Updated form values:", formValues);
     };
 
@@ -106,19 +114,26 @@ const ProfilePage = () => {
     };
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
-
+    const [editedBasicInfo, setEditedBasicInfo] = useState(basicInfoValues);
 
     const handleBasicInfoChange = (event) => {
         const { name, value } = event.target;
-        setBasicInfo(prevState => ({
+        setEditedBasicInfo(prevState => ({
             ...prevState,
             [name]: value
         }));
         console.log("inside handlebasicinfochange function for event: ", event);
     };
 
+    const handleBasicInfoCancel = () => {
+        setIsEditingAboutMe(false);
+        setEditedBasicInfo(basicInfo);
+    };
+
     const handleBasicInfoSave = () => {
         // Do whatever you want with the updated form values
+        setIsEditingAboutMe(false);
+        setBasicInfo(editedBasicInfo);
         console.log("Updated basic info:", basicInfo);
     };
 
@@ -164,7 +179,7 @@ const ProfilePage = () => {
                                             Nivedha Kumar
                                         </Typography>
                                         <Grid container>
-                                            {Object.entries(basicInfo).map(([key, value]) => (
+                                            {Object.entries(editedBasicInfo).map(([key, value]) => (
                                                 <Grid item xs={7} key={key}>
                                                     <TextField variant="standard" size="small"
                                                         sx={{
@@ -188,6 +203,7 @@ const ProfilePage = () => {
                                                 <Button variant="contained" color="secondary" onClick={handleBasicInfoSave} fullWidth>
                                                     Save
                                                 </Button>
+                                                <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleBasicInfoCancel}>Cancel</Button>
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -281,7 +297,7 @@ const ProfilePage = () => {
                             <div>
                                 {isEditingAboutMe ? (
                                     <Grid container>
-                                        {Object.entries(formValues).map(([key, value]) => (
+                                        {Object.entries(editedFormValues).map(([key, value]) => (
                                             <Grid item xs={7} key={key}>
                                                 <TextField variant="standard" size="small"
                                                     sx={{
@@ -305,6 +321,7 @@ const ProfilePage = () => {
                                             <Button variant="contained" color="secondary" onClick={handleSave} fullWidth>
                                                 Save
                                             </Button>
+                                            <Button variant="outlined" sx={{ width: 80, marginLeft: 5 }} onClick={handleCancel}>Cancel</Button>
                                         </Grid>
                                     </Grid>
                                 ) : (
