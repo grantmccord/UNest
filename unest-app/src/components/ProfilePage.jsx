@@ -185,16 +185,16 @@ const ProfilePage = () => {
                         <div>
                             {isEditing ? (
                                 <div>
-                                    <Box
-                                        display="flex"
-                                        flexDirection='column'
-                                        justifyContent="center"
-                                        alignItems="center"
-                                    >
-                                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                            Nivedha Kumar
-                                        </Typography>
-                                        <Grid container>
+                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
+                                        Nivedha Kumar
+                                    </Typography>
+                                    <Grid container>
+                                        <Box
+                                            display="flex"
+                                            flexDirection='column'
+                                            justifyContent="center"
+                                            alignItems="center"
+                                        >
                                             {Object.entries(editedBasicInfo).map(([key, value]) => (
                                                 <Grid item xs={7} key={key}>
                                                     <TextField variant="standard" size="small"
@@ -215,33 +215,37 @@ const ProfilePage = () => {
                                                     />
                                                 </Grid>
                                             ))}
-                                        </Grid>
-                                    </Box>
+                                        </Box>
+                                    </Grid>
+
                                 </div>
                             ) : (
                                 <>
-                                    <Box
-                                        display="flex"
-                                        flexDirection='column'
-                                        justifyContent="center"
-                                        alignItems="center"
-                                    >
-                                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                            Nivedha Kumar
-                                        </Typography>
-                                        <Grid>
+
+                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
+                                        Nivedha Kumar
+                                    </Typography>
+
+                                    <Grid>
+                                        <Box
+                                            display="flex"
+                                            flexDirection='column'
+                                            justifyContent="center"
+                                            alignItems="center"
+                                        >
                                             {
                                                 Object.entries(basicInfo).map(([key, value]) => (
                                                     <Typography key={key} variant="h6" sx={{ color: "#606060" }} gutterBottom>{value}</Typography>
                                                 ))
                                             }
-                                        </Grid>
-                                    </Box>
+                                        </Box>
+                                    </Grid>
+
                                 </>
                             )}
                         </div>
                         <div className='basicInfoButtons'>
-                            <Stack spacing={2} direction="column">
+                            <Stack spacing={2} direction="column" sx={{ pt: 2 }}>
                                 <Button variant="contained" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Message</Button>
                                 <Button variant="outlined" sx={{ boxShadow: 3, color: "#21b6ae", outlineColor: "#21b6ae" }}>Properties Viewed</Button>
                             </Stack>
@@ -278,7 +282,7 @@ const ProfilePage = () => {
                                             multiline
                                             placeholder="Description"
                                             size="medium"
-                                            sx={{ width: 500, maxHeight: 200 }}
+                                            sx={{ width: 550, height: 180 }}
                                         />
 
                                     </div>
@@ -291,7 +295,7 @@ const ProfilePage = () => {
                         <Box
                             sx={{ paddingLeft: 12 }}
                         >
-                            <Typography variant="h5" mt={5} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                            <Typography variant="h5" mt={7} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                 Details
                             </Typography>
                         </Box>
@@ -328,7 +332,7 @@ const ProfilePage = () => {
                                     <Grid>
                                         {
                                             Object.entries(formValues).map(([key, value]) => (
-                                                <Typography key={key} variant="body1" gutterBottom>{key}: {value}</Typography>
+                                                <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{key}: {value}</Typography>
                                             ))
                                         }
                                     </Grid>
