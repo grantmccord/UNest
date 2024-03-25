@@ -9,9 +9,11 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { createTheme } from '@mui/material/styles';
 
-import profileImg from "../Assets/dorm-room1.jpg";
+import profileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
+
 
 // function EditDetailTextField(props) {
 //     const [isEditingMe, setIsEditing] = useState(false);
@@ -85,11 +87,39 @@ const ProfilePage = () => {
             ...prevState,
             [name]: value
         }));
+        console.log("inside handlechange function for event: ", event);
     };
 
     const handleSave = () => {
         // Do whatever you want with the updated form values
         console.log("Updated form values:", formValues);
+    };
+
+
+    //basic info section
+
+    const basicInfoValues = {
+        AgeGender: "",
+        Pronouns: "",
+        University: "",
+        Major: "",
+    };
+
+    const [basicInfo, setBasicInfo] = useState(basicInfoValues);
+
+
+    const handleBasicInfoChange = (event) => {
+        const { name, value } = event.target;
+        setBasicInfo(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        console.log("inside handlebasicinfochange function for event: ", event);
+    };
+
+    const handleBasicInfoSave = () => {
+        // Do whatever you want with the updated form values
+        console.log("Updated basic info:", basicInfo);
     };
 
     return (
@@ -102,7 +132,7 @@ const ProfilePage = () => {
                 </Box>
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
-                    <Button variant="contained" width="10%" color="secondary" sx={{ boxShadow: 3 }}>Add Listing</Button>
+                    <Button variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
                     <Box sx={{ width: 50 }}></Box>
@@ -114,37 +144,86 @@ const ProfilePage = () => {
 
             <Grid container sx={{ justifyContent: 'space-around', pt: 3, pb: 6, px: 8 }} rowSpacing={5} columnSpacing={12}>
                 <Grid item md={3}>
-                    <Box
-                        display="flex"
+                    <Box display="flex"
                         flexDirection='column'
                         justifyContent="center"
                         alignItems="center"
                     >
                         <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
-                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                            Nivedha Kumar
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
-                            21/Female
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
-                            she/her
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#606060" }} gutterBottom>
-                            Purdue
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#606060" }} mb={3} gutterBottom>
-                            Computer Science
-                        </Typography>
+
+                        <div>
+                            {isEditingAboutMe ? (
+                                <div>
+                                    <Box
+                                        display="flex"
+                                        flexDirection='column'
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
+                                            Nivedha Kumar
+                                        </Typography>
+                                        <Grid container>
+                                            {Object.entries(basicInfo).map(([key, value]) => (
+                                                <Grid item xs={7} key={key}>
+                                                    <TextField variant="standard" size="small"
+                                                        sx={{
+                                                            '& .MuiInputLabel-root': {
+                                                                fontSize: '0.8rem'
+                                                            },
+                                                            '& .MuiInputBase-root': {
+                                                                height: '20px'
+                                                            },
+                                                            pb: 0.8
+                                                        }}
+
+                                                        name={key}
+                                                        label={key}
+                                                        value={value}
+                                                        onChange={handleBasicInfoChange}
+                                                    />
+                                                </Grid>
+                                            ))}
+                                            <Grid item xs={6}>
+                                                <Button variant="contained" color="secondary" onClick={handleBasicInfoSave} fullWidth>
+                                                    Save
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </div>
+                            ) : (
+                                <>
+                                    <Box
+                                        display="flex"
+                                        flexDirection='column'
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
+                                            Nivedha Kumar
+                                        </Typography>
+                                        <Grid>
+                                            {
+                                                Object.entries(basicInfo).map(([key, value]) => (
+                                                    <Typography key={key} variant="h6" sx={{ color: "#606060" }} gutterBottom>{value}</Typography>
+                                                ))
+                                            }
+                                        </Grid>
+                                    </Box>
+                                </>
+                            )}
+                        </div>
                         <div className='basicInfoButtons'>
                             <Stack spacing={2} direction="column">
-                                <Button variant="contained" color="secondary" sx={{ boxShadow: 3 }}>Message</Button>
-                                <Button variant="outlined" color="secondary" sx={{ boxShadow: 3 }}>Properties Viewed</Button>
+                                <Button variant="contained" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Message</Button>
+                                <Button variant="outlined" sx={{ boxShadow: 3, color: "#21b6ae", outlineColor: "#21b6ae" }}>Properties Viewed</Button>
                             </Stack>
                         </div>
                     </Box>
-
                 </Grid>
+
+
                 <Grid item md={6}>
                     <Box sx={{
                         borderRight: 1,
@@ -191,7 +270,6 @@ const ProfilePage = () => {
                         <Box
                             sx={{ paddingLeft: 12 }}
                         >
-
                             <Typography variant="h5" mt={5} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                                 Details
                             </Typography>
@@ -273,7 +351,7 @@ const ProfilePage = () => {
                         Roommate Preferences
                     </Typography>
                 </Grid>
-            </Grid>
+            </Grid >
         </div >
 
 
