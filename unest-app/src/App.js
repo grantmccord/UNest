@@ -18,39 +18,41 @@ import MessageRoommate from './components/MessageRoommate';
 import RoommateProfile from './components/RoommateProfile';
 import TenantProfile from './components/TenantProfile';
 import OwnerProfile from './components/OwnerProfile';
-import MapComp from './components/Map'
-import LoginPage from "./components/LoginPage"
+import MapComp from './components/Map';
+import LoginPage from "./components/LoginPage";
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
+import {UserContextProvider} from "./UserContext";
 
 axios.defaults.baseURL = 'http://localhost:4000/';
+axios.defaults.withCredentials = true;
 
 
 function App(){
     return(
         <BrowserRouter>
-            <Routes>
-                <Route index element={<Homepage />} />
-                <Route path="/homepage" element={<Homepage/>} />
-                <Route path="/register" element={<SignUpPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/messages" element={<MessagesPage />} />
-                <Route path="/post" element={<PostPage />} />
-                <Route path="/propertylisting" element={<PropertyListing/>} />
-                <Route path="/messageOwner" element={<MessageOwner />} />
-                <Route path="/tour" element={<Tour />} />
-                <Route path="/listing" element={<ListingForm />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/profile" element={<ProfilePage />} /> 
-                <Route path="/explore" element={<Explore />} /> 
-                <Route path="/message" element={<MessageTenant />} />
-                <Route path="/messagerm" element={<MessageRoommate />} />  
-                <Route path="/roommateprofile" element={<RoommateProfile/>} />
-                <Route path="/tenantprofile" element={<TenantProfile/>} />
-                <Route path="/ownerprofile" element={<OwnerProfile/>} />    
-                <Route path="/property" element={<MapComp/>} />
-            </Routes>
+                <Routes>
+                    <Route index element={<Homepage />} />
+                    <Route path="/homepage" element={<Homepage/>} />
+                    <Route path="/register" element={<SignUpPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/messages" element={<MessagesPage />} />
+                    <Route path="/post" element={<PostPage />} />
+                    <Route path="/propertylisting" element={<PropertyListing/>} />
+                    <Route path="/messageOwner" element={<MessageOwner />} />
+                    <Route path="/tour" element={<Tour />} />
+                    <Route path="/listing" element={<ListingForm />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/explore" element={<Explore />} />
+                    <Route path="/message" element={<MessageTenant />} />
+                    <Route path="/messagerm" element={<MessageRoommate />} />
+                    <Route path="/roommateprofile" element={<RoommateProfile/>} />
+                    <Route path="/tenantprofile" element={<TenantProfile/>} />
+                    <Route path="/ownerprofile" element={<OwnerProfile/>} />
+                    <Route path="/property" element={<MapComp/>} />
+                </Routes>
         </BrowserRouter>
     )
 }

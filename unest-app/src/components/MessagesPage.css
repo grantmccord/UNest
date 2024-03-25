@@ -76,3 +76,10 @@
     display: flex;
     position: relative;
   }
+
+  .opt {
+    display: flex;
+    position: relative;
+    top: 300px;
+    left: 500px;
+  }
