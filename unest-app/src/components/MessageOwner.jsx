@@ -10,6 +10,19 @@ import send from '../Assets/send.png';
 const MessageOwner = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
+    const [enteredValues, setEnteredValues] = useState([]);
+
+    const addEnteredValue = () => {
+        setEnteredValues([...enteredValues, inputMessage]);
+        setInputMessage(''); 
+        //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+    };
+
+    const keyPress = (event) => {
+        if (event.key === 'Enter') {
+            addEnteredValue();
+        }
+    };
 
     const handleInputChange = (event) => {
         setInputMessage(event.target.value);
@@ -69,9 +82,19 @@ const MessageOwner = () => {
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", top: "-30px", left: "630px"}} />
         </button>
         </div>
+        <div>
+        {enteredValues.map((value, index) => (
+            <div className="type1" key={index}>
+            <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
+            <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
+            <p style={{position: "relative", top: "-40px"}}>{value}</p>
+            </button>
+            </div>
+        ))} 
+        </div>
         <div className="search">
-        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
-        <img src={send} alt="" style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
+        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus}  onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
+        <img src={send} alt="" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
         </div>
         </div>
     );

@@ -39,3 +39,10 @@
     position: relative;
     top: 150px;
 }
+
+.type {
+    display: flex;
+    position: relative;
+    top: -120px;
+    left: 720px;    
+}

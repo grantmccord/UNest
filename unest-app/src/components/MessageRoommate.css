@@ -38,3 +38,10 @@
     position: relative;
     top: 150px;
 }
+
+.type1 {
+    display: flex;
+    position: relative;
+    top: -100px;
+    left: 720px;    
+}
