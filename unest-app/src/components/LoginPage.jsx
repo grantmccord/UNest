@@ -19,7 +19,6 @@ export default function LoginPage() {
         ev.preventDefault();
         try{
             const userInfo = await axios.post('/login', {email, password});
-            setUser(userInfo);
             alert('Login Successful!');
             setRedirect(true);
         } catch (e){
@@ -29,7 +28,7 @@ export default function LoginPage() {
 
     let navigate = useNavigate();
     if (redirect){
-        navigate('/')
+       return <Navigate to={'/'}/>
     }
     const routeChange = () =>{
         let path = '/register';

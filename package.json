@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "autoprefixer": "^9.8.8",
+    "jsonwebtoken": "^9.0.2",
     "postcss": "^7.0.39"
   }
 }
