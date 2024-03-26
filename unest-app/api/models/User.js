@@ -13,7 +13,7 @@ const UserSchema = new Schema({
       minors: String,
       hobbies: String,
       interest: String,
-      idealRent: Number
+      ideal_rent: Number
    },
    description: String,
    personal_habits: {
@@ -25,7 +25,6 @@ const UserSchema = new Schema({
    roommate_preferences: {
       gender: String,
       smoking: String,
-      drinking: String,
       drinking: String,
       vegetarian: String,
       sleeping: String

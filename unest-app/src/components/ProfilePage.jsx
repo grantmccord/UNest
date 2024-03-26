@@ -32,7 +32,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
         try {
             const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
-            console.log("fetchUserData: ", response);
+            console.log("fetchUserData: ", response.data);
             setUserData(response.data); // Assuming response contains listing data
             console.log("userData.basic_info: ", userData.basic_info)
         } catch (error) {
@@ -88,11 +88,18 @@ const ProfilePage = () => {
         University: ""
     };
 
+
+
     // const [basicInfo, setBasicInfo] = useState(userData.basic_info);
     // const [editedBasicInfo, setEditedBasicInfo] = useState(userData.basic_info);
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
     const [editedBasicInfo, setEditedBasicInfo] = useState(basicInfoValues);
+
+    useEffect(() => {
+        setBasicInfo(userData.basic_info || basicInfoValues);
+        setEditedBasicInfo(userData.basic_info || basicInfoValues);
+    }, [userData.basic_info]);
 
     const handleBasicInfoChange = (event) => {
         const { name, value } = event.target;
@@ -156,7 +163,8 @@ const ProfilePage = () => {
 
                 <Box sx={{ width: "80%", pl: 47 }} display="flex" flexDirection='row' >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
-                        Profile Page
+                        {/* Profile Page {userData.details.ideal_rent} */}
+                        Profile Page {userData.details ? userData.details.ideal_rent : ''}
                     </Typography>
                     <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleEdit()}></ModeEditIcon>
                 </Box>
