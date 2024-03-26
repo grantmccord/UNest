@@ -153,6 +153,24 @@ const ProfilePage = () => {
         setEditedBasicInfo(basicInfo);
     };
 
+    //field names redefined
+
+    // Mapping object to customize display labels for fields
+    const fieldDisplayLabels = {
+        year: 'Year',
+        minors: 'Minors',
+        hobbies: 'Hobbies',
+        interest: 'Interest',
+        major: 'Major',
+        ideal_rent: 'Ideal Rent',
+        // Add more fields here as needed, using the field name as the key and the desired display label as the value
+    };
+
+    // Function to get the display label for a field
+    const getDetailsFieldDisplayLabel = (fieldName) => {
+        return fieldDisplayLabels[fieldName] || fieldName;
+    };
+
     return (
         <div>
             <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
@@ -175,8 +193,7 @@ const ProfilePage = () => {
 
                 <Box sx={{ width: "80%", pl: 47 }} display="flex" flexDirection='row' >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
-                        {/* Profile Page {userData.details.ideal_rent} */}
-                        Profile Page {userData.details ? userData.details.ideal_rent : ''}
+                        Profile Page
                     </Typography>
                     <ModeEditIcon fontSize="small" color="black" sx={{ marginLeft: 1 }} onClick={() => handleEdit()}></ModeEditIcon>
                 </Box>
@@ -326,8 +343,8 @@ const ProfilePage = () => {
                             <div>
                                 {isEditing ? (
                                     <Grid container>
-                                        {Object.entries(editedFormValues).map(([key, value]) => (
-                                            <Grid item xs={7} key={key}>
+                                        {Object.entries(editedFormValues).map(([fieldName, value]) => (
+                                            <Grid item xs={7} key={fieldName}>
                                                 <TextField variant="standard" size="small"
                                                     sx={{
                                                         '& .MuiInputLabel-root': {
@@ -339,8 +356,8 @@ const ProfilePage = () => {
                                                         pb: 0.8
                                                     }}
 
-                                                    name={key}
-                                                    label={key}
+                                                    name={fieldName}
+                                                    label={getDetailsFieldDisplayLabel(fieldName)}
                                                     value={value}
                                                     onChange={handleFormValuesChange}
                                                 />
@@ -352,7 +369,7 @@ const ProfilePage = () => {
                                     <Grid>
                                         {
                                             Object.entries(formValues).map(([key, value]) => (
-                                                <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{key}: {value}</Typography>
+                                                <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getDetailsFieldDisplayLabel(key)}: {value}</Typography>
                                             ))
                                         }
                                     </Grid>
