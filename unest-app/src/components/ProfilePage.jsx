@@ -153,22 +153,39 @@ const ProfilePage = () => {
         setEditedBasicInfo(basicInfo);
     };
 
-    //field names redefined
+    //Field names redefined
+
+    //basic info section
+
+    //details section
 
     // Mapping object to customize display labels for fields
-    const fieldDisplayLabels = {
+    const fieldBasicInfoDisplayLabels = {
+        age: 'Age',
+        gender: 'Gender',
+        pronouns: 'Pronouns',
+        university: 'University',
+    };
+
+    // Function to get the display label for a field
+    const getBasicInfoFieldDisplayLabel = (fieldName) => {
+        return fieldBasicInfoDisplayLabels[fieldName] || fieldName;
+    };
+
+    //details section
+
+
+    const fieldDetailsDisplayLabels = {
         year: 'Year',
         minors: 'Minors',
         hobbies: 'Hobbies',
         interest: 'Interest',
         major: 'Major',
         ideal_rent: 'Ideal Rent',
-        // Add more fields here as needed, using the field name as the key and the desired display label as the value
     };
 
-    // Function to get the display label for a field
     const getDetailsFieldDisplayLabel = (fieldName) => {
-        return fieldDisplayLabels[fieldName] || fieldName;
+        return fieldDetailsDisplayLabels[fieldName] || fieldName;
     };
 
     return (
@@ -246,7 +263,7 @@ const ProfilePage = () => {
                                                         }}
 
                                                         name={key}
-                                                        label={key}
+                                                        label={getBasicInfoFieldDisplayLabel(key)}
                                                         value={value}
                                                         onChange={handleBasicInfoChange}
                                                     />
