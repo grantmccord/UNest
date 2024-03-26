@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -10,40 +10,37 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { createTheme } from '@mui/material/styles';
+import axios from "axios";
 
 import profileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
 
 
-// function EditDetailTextField(props) {
-//     const [isEditingMe, setIsEditing] = useState(false);
-//     const [text, setText] = useState("");
-//     const [editedText, setEditedText] = useState("");
-
-//     const handleEdit = () => {
-//         console.log("setIsEditing is set to true");
-//         setIsEditing(true);
-//     };
-
-//     const handleSave = () => {
-//         setIsEditing(false);
-//         setAboutMeText(editedAboutMeText);
-//     };
-
-//     const handleCancel = () => {
-//         setIsEditing(false);
-//         setEditedAboutMeText(aboutMeText);
-//     };
-
-//     const handleChange = (e) => {
-//         setEditedText(e.target.value);
-//     };
-// }
-
-
-
-
 const ProfilePage = () => {
+    //fetching user profile data
+    const [userData, setUserData] = useState([]);
+
+    const id = '65c9686f70d91fbd7c84bbf5';
+
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        fetchUserData();
+    }, []);
+
+    const fetchUserData = async () => {
+        try {
+            const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            console.log("fetchUserData: ", response);
+            setUserData(response.data); // Assuming response contains listing data
+            console.log("userData.basic_info: ", userData.basic_info)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = () => {
@@ -63,7 +60,7 @@ const ProfilePage = () => {
 
     //form values in details section
     const initialValues = {
-        Class: "",
+        Year: "",
         Major: "",
         Minor: "",
         Hobbies: "",
@@ -90,6 +87,9 @@ const ProfilePage = () => {
         Pronouns: "",
         University: ""
     };
+
+    // const [basicInfo, setBasicInfo] = useState(userData.basic_info);
+    // const [editedBasicInfo, setEditedBasicInfo] = useState(userData.basic_info);
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
     const [editedBasicInfo, setEditedBasicInfo] = useState(basicInfoValues);

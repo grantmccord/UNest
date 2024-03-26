@@ -49,10 +49,23 @@ app.get('/api/users', async(req, res) => {
         const users = await User.find(); // Fetch all listings from the database
         res.json(users); // Send the listings as JSON response
       } catch (error) {
-        console.error('Error fetching listings:', error);
+        console.error('Error fetching users:', error);
         res.status(500).json({ message: 'Server Error' });
       }
 })
+
+app.get('/api/users/:id', async(req, res) => {
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id) // Fetch all listings from the database
+        res.json(user); // Send the listings as JSON response
+      } catch (error) {
+        console.error('Error fetching specific user:', error);
+        res.status(500).json({ message: 'Server Error' });
+      }
+})
+
+
 
 app.post('/login', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
