@@ -153,11 +153,11 @@ const ProfilePage = () => {
         setEditedBasicInfo(basicInfo);
     };
 
-    //Field names redefined
+
+
+    //Field names redefined for the different sections below
 
     //basic info section
-
-    //details section
 
     // Mapping object to customize display labels for fields
     const fieldBasicInfoDisplayLabels = {
@@ -173,7 +173,6 @@ const ProfilePage = () => {
     };
 
     //details section
-
 
     const fieldDetailsDisplayLabels = {
         year: 'Year',
@@ -208,7 +207,7 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                <Box sx={{ width: "80%", pl: 47 }} display="flex" flexDirection='row' >
+                <Box sx={{ width: "80%", pl: 47, display: "flex", flexDirection: 'row' }} >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
                         Profile Page
                     </Typography>
@@ -250,7 +249,7 @@ const ProfilePage = () => {
                                             alignItems="center"
                                         >
                                             {Object.entries(editedBasicInfo).map(([key, value]) => (
-                                                <Grid item xs={7} key={key}>
+                                                <Grid item xs={12} key={key}>
                                                     <TextField variant="standard" size="small"
                                                         sx={{
                                                             '& .MuiInputLabel-root': {
@@ -361,7 +360,7 @@ const ProfilePage = () => {
                                 {isEditing ? (
                                     <Grid container>
                                         {Object.entries(editedFormValues).map(([fieldName, value]) => (
-                                            <Grid item xs={7} key={fieldName}>
+                                            <Grid item xs={12} key={fieldName}>
                                                 <TextField variant="standard" size="small"
                                                     sx={{
                                                         '& .MuiInputLabel-root': {
