@@ -54,6 +54,11 @@ const ProfilePage = () => {
     const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
     const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
 
+    useEffect(() => {
+        setAboutMeText(userData.description || initialAboutMeText);
+        setEditedAboutMeText(userData.description || initialAboutMeText);
+    }, [userData.description]);
+
     const handleAboutMeChange = (e) => {
         setEditedAboutMeText(e.target.value);
     };
@@ -67,8 +72,14 @@ const ProfilePage = () => {
         Interests: "",
         IdealRent: ""
     };
+
     const [formValues, setFormValues] = useState(initialValues);
     const [editedFormValues, setEditedFormValues] = useState(initialValues);
+
+    useEffect(() => {
+        setFormValues(userData.details || initialValues);
+        setEditedFormValues(userData.details || initialValues);
+    }, [userData.details]);
 
     const handleFormValuesChange = (event) => {
         const { name, value } = event.target;
@@ -87,11 +98,6 @@ const ProfilePage = () => {
         Pronouns: "",
         University: ""
     };
-
-
-
-    // const [basicInfo, setBasicInfo] = useState(userData.basic_info);
-    // const [editedBasicInfo, setEditedBasicInfo] = useState(userData.basic_info);
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
     const [editedBasicInfo, setEditedBasicInfo] = useState(basicInfoValues);
@@ -118,16 +124,22 @@ const ProfilePage = () => {
         //needed to add back in following line
         setAboutMeText(editedAboutMeText);
         //updating about me paragraph description
-        console.log("editedAboutMeText: ", editedAboutMeText);
+
 
         //updating form values in detail section
         setFormValues(editedFormValues);
-        console.log("Updated form values:", formValues);
 
-        //updating basic info section with new values
+        // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
-        console.log("Updated basic info:", basicInfo);
+
     };
+
+    useEffect(() => {
+        // This effect will run after formValues has been updated
+        console.log("aboutMeText: ", aboutMeText);
+        console.log("Updated form values:", formValues);
+        console.log("Updated basic info:", basicInfo);
+    }, [aboutMeText, formValues, basicInfo]);
 
     const handleCancel = () => {
         setIsEditing(false);
