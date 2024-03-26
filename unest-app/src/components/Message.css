@@ -1,0 +1,34 @@
+.back {
+    display: flex;
+    position: relative;
+    top: 10px;
+    left: 50px;
+}
+
+.prof {
+    display: flex;
+    position: relative;
+    top: -60px;
+    left: 150px; 
+}
+
+.name {
+    display: flex;
+    position: relative;
+    top: -130px;
+    left: 250px;
+}
+
+.search1 {
+    display: flex;
+    position: relative;
+    top: 450px;
+    left: 300px;
+}
+
+.type {
+    display: flex;
+    position: relative;
+    top: -120px;
+    left: 720px;    
+}

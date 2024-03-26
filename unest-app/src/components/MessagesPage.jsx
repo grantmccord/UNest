@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-    useNavigate,
+    useNavigate
   } from "react-router-dom";
 import axios from 'axios';
 import './MessagesPage.css';
@@ -12,7 +12,7 @@ function MessagesPage() {
     const [isFocused, setIsFocused] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
-   
+
     const handleInputChange = (event) => {
         setInputSearch(event.target.value);
     };
@@ -21,7 +21,7 @@ function MessagesPage() {
         if (!inputSearch.trim() && !isFocused) {
             setInputSearch('Search');
         }
-        setShowOptions(false);
+
     };
 
     const handleFocus = () => {
@@ -37,7 +37,7 @@ function MessagesPage() {
     };
 
     const handleUnFocus = () => {
-        setIsFocused(false);
+      setIsFocused(false);
     };
 
     const navigate = useNavigate();
@@ -73,7 +73,7 @@ function MessagesPage() {
         <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "50px", height: "50px"}} />
         </div>
         <div className="search">
-        <input type="text" value={inputSearch} onClick={fetchUsers} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
+        <input type="text" value={inputSearch} onClick={fetchUsers} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
         </div>
         <div className="opt">
         {showOptions && (
@@ -81,8 +81,8 @@ function MessagesPage() {
           {searchResults.filter(item => {
             return inputSearch.toLowerCase() === '' ? item : item.name.toLowerCase().includes(inputSearch);
           }).map((item) => (
-            <li key={item.id}>
-              {item.name}
+            <li className="listItem" key={item.id} onClick={handleUnFocus}>
+              <a href={`/message/${encodeURIComponent(item.name)}?data=${encodeURIComponent(JSON.stringify({a1: item.name, a2: item.username}))}`}>{item.name}</a>
             </li>
           ))}
         </ul>
@@ -112,7 +112,7 @@ function MessagesPage() {
       <div className="second"> 
       <button onClick={navigateToOwner} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid black", fontWeight: "normal"}}>
       <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
-      <p style={{position: "relative", top: "-40px"}}>Owner Name</p>
+      <p style={{position: "relative", top: "-40px"}}>Owner Name : Property Name</p>
        <p style={{position: "relative", top: "-40px"}}>Yes, what is the surrounding like?</p>
       </button>
         </div>

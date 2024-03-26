@@ -1,17 +1,22 @@
-import React, {useRef, useState, useParams} from 'react';
+import React, {useRef, useState} from 'react';
 import {
-    useNavigate,
+    useNavigate, useParams
   } from "react-router-dom";
-import './MessageTenant.css';
+import './Message.css';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
 
-const MessageTenant = () => {
+const Message = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
     //const divRef = useRef(null);
+
+    const {itemName} = useParams();
+    const queryParams = new URLSearchParams(window.location.search);
+    const encodedData = queryParams.get('data');
+    const decodedData = JSON.parse(decodeURIComponent(encodedData));
 
     const addEnteredValue = () => {
         setEnteredValues([...enteredValues, inputMessage]);
@@ -65,22 +70,10 @@ const MessageTenant = () => {
         <img src={profileIcon} alt="" onClick={navigateToTProfile} style={{width: "70px", height: "70px"}} />
         </div>
         <div className="name" onClick={navigateToTProfile}>
-        <h1>Tenant Name</h1>
-        <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>username</p>
+        <h1>{itemName}</h1>
+        <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>{decodedData.a2}</p>
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
-        <div className="mess1">
-        <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
-        <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
-        <p style={{position: "relative", top: "-40px"}}>Hi! Are you interested in this property?</p>
-        </button>
-        </div>
-        <div className="mess2">
-        <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
-        <p style={{position: "relative", top: "20px"}}>Yes, I am interested!</p>
-        <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", top: "-30px"}} />
-        </button>
-        </div>
         <div>
         {enteredValues.map((value, index) => (
             <div className="type" key={index}>
@@ -92,14 +85,13 @@ const MessageTenant = () => {
         ))} 
         </div>
         <div>
-        <div className="search">
+        <div className="search1">
         <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
         <img src={send} alt="" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
         </div>
         </div>
         </div>
-    );
+        );
 };
 
-
-export default MessageTenant;
+export default Message;

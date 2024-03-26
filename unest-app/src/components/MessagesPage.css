@@ -80,6 +80,13 @@
   .opt {
     display: flex;
     position: relative;
-    top: 300px;
+    top: 305px;
     left: 500px;
+  }
+
+  .listItem {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 3px;
   }
