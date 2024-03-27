@@ -125,17 +125,42 @@ const ProfilePage = () => {
         setAboutMeText(editedAboutMeText);
         //updating about me paragraph description
 
-
         //updating form values in detail section
         setFormValues(editedFormValues);
 
         // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
-
+        updateUser()
     };
+
+    async function updateUser() {
+        try {
+            const updatedUserData = {
+                id: id,
+                basic_info: {
+                    ...editedBasicInfo
+                },
+                details: {
+                    ...editedFormValues
+                },
+                description: editedAboutMeText
+            };
+
+            console.log("basic_info in updateUser(): ", updatedUserData.basic_info);
+            console.log("details in updateUser(): ", updatedUserData.details);
+            await axios.put(`/profile`, updatedUserData); // Assuming you need to include the user ID in the request URL
+            alert('User profile has been successfully updated!');
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+            alert('Oops! User profile failed to update. Please try again.');
+        }
+    }
 
     useEffect(() => {
         // This effect will run after formValues has been updated
+        // userData.basic_info = basicInfo;
+        // userData.details = formValues;
+        // userData.description = aboutMeText;
         console.log("aboutMeText: ", aboutMeText);
         console.log("Updated form values:", formValues);
         console.log("Updated basic info:", basicInfo);
