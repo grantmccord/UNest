@@ -8,12 +8,16 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box, { BoxProps } from "@mui/material/Box";
+import moment from 'moment';
 
 import dormroom1 from "../Assets/dorm-room1.jpg";
+import dormroom2 from "../Assets/triple_bed.jpeg";
 
-export const Property = () => {
+export const Property = ({ listing }) => {
+    const { name, price, start_date, end_date, miles_from_campus } = listing;
+
     return (
-        <Card sx={{ width: 325, height: 325, boxShadow: 7 }} className="card">
+        <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -35,19 +39,19 @@ export const Property = () => {
                             WebkitLineClamp: '2',
                             WebkitBoxOrient: 'vertical'
                         }}>
-                            2 Bed Room at Granite Apartments
+                            {name}
                         </Typography>
                         <Typography role="price" variant="body1" mt={1} ml={3} color="text.secondary">
-                            $849/month
+                            ${price}/month
                         </Typography>
                     </Box>
 
                     <Typography role="date" variant="body2" color="text.secondary">
-                        Jan 7th - May 4th 2024
+                        {moment(start_date).format('MM/DD/YYYY')} - {moment(end_date).format('MM/DD/YYYY')}
                     </Typography>
 
                     <Typography role="milesFromCampus" variant="body2" mt={1} mb={1} color="text.secondary">
-                        0.2 miles away
+                        {miles_from_campus} miles away
                     </Typography>
                 </CardContent>
             </CardActionArea>

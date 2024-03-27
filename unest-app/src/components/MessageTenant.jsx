@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useRef, useState, useParams} from 'react';
 import {
     useNavigate,
   } from "react-router-dom";
-import './MessageOwner.css';
+import './MessageTenant.css';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
 
-const MessageOwner = () => {
+const MessageTenant = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
+    //const divRef = useRef(null);
 
     const addEnteredValue = () => {
         setEnteredValues([...enteredValues, inputMessage]);
@@ -25,7 +26,7 @@ const MessageOwner = () => {
     };
 
     const handleInputChange = (event) => {
-        setInputMessage(event.target.value);
+        setInputMessage(event.target.value); 
     };
 
     const handleBlur = () => {
@@ -49,12 +50,11 @@ const MessageOwner = () => {
 
     const navigateToMsg = () => {
         navigate('/messages', {replace: true})
-    }
+    };
 
-    const navigateToProfile = () => {
-        navigate('/ownerprofile', {replace: true})
-    }
-
+    const navigateToTProfile = () => {
+        navigate('/tenantprofile', {replace: true})
+    };
 
     return (
         <div>
@@ -62,29 +62,28 @@ const MessageOwner = () => {
         <img src={back} alt="" onClick={navigateToMsg} style={{width: "70px", height: "70px"}} />
         </div>
         <div className='prof'>
-        <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "70px", height: "70px"}} />
+        <img src={profileIcon} alt="" onClick={navigateToTProfile} style={{width: "70px", height: "70px"}} />
         </div>
-        <div className="name" onClick={navigateToProfile}>
-        <h1>Owner Name</h1>
+        <div className="name" onClick={navigateToTProfile}>
+        <h1>Tenant Name</h1>
         <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>username</p>
-        <p style={{position: "relative", top: "15px", left: "-120px", fontSize: "30px"}}>Property Name</p>
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
-        <div className="mes1">
+        <div className="mess1">
         <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
-        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
-        <p style={{position: "relative", top: "-40px"}}>Do you have any questions?</p>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
+        <p style={{position: "relative", top: "-40px"}}>Hi! Are you interested in this property?</p>
         </button>
         </div>
-        <div className="mes2">
+        <div className="mess2">
         <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
-        <p style={{position: "relative", top: "20px"}}>Yes, what is the surrounding like?</p>
-        <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", top: "-30px", left: "630px"}} />
+        <p style={{position: "relative", top: "20px"}}>Yes, I am interested!</p>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", top: "-30px"}} />
         </button>
         </div>
         <div>
         {enteredValues.map((value, index) => (
-            <div className="type1" key={index}>
+            <div className="type" key={index}>
             <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
@@ -92,12 +91,15 @@ const MessageOwner = () => {
             </div>
         ))} 
         </div>
+        <div>
         <div className="search">
-        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus}  onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
+        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
         <img src={send} alt="" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
+        </div>
         </div>
         </div>
     );
 };
 
-export default MessageOwner;
+
+export default MessageTenant;

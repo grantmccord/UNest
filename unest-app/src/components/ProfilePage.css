@@ -1,0 +1,41 @@
+.column {
+    flex-direction: column;
+    height: 400px;
+  }
+
+  .aboutMeTitle{
+    /* padding: 30px 0; */
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+  }
+  
+  .aboutMeEditButtons{
+      /* padding: 30px 0; */
+      display: flex;
+      flex-direction: row;
+      margin-top: 20px;
+    }
+  
+  .basicInfoButtons{
+      /* align-items: center; */
+      /* display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 400;
+      margin: 10px; */
+  
+      /* display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #A0C5E8;
+    padding: 10px 0; */
+  
+    
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+  
+  }

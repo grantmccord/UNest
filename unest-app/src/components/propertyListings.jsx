@@ -11,6 +11,30 @@ import Heart from 'react-heart';
 
 
 export const PropertyListings = () => {
+  const [inputSearch, setInputSearch] = useState('Search');
+  const [isFocused, setIsFocused] = useState(false);
+
+    const handleInputChange = (event) => {
+        setInputSearch(event.target.value);
+    };
+
+    const handleBlur = () => {
+      if (!inputSearch.trim() && !isFocused) {
+          setInputSearch('Search');
+      }
+  };
+
+  const handleFocus = () => {
+      setIsFocused(true);
+      if (inputSearch === 'Search') {
+          setInputSearch('');
+      }
+  };
+
+  const handleUnFocus = () => {
+      setIsFocused(false);
+  };
+
   const [liked, setLiked] = useState(() => {
     return JSON.parse(window.localStorage.getItem('liked')) || false;
   });
@@ -54,7 +78,7 @@ export const PropertyListings = () => {
   }
 
   const navigateToRoommate = () => {
-    navigate('/message', {replace: true})
+    navigate('/messagerm', {replace: true})
   }
 
   const navigateToRoommateProfile = () => {
@@ -80,7 +104,7 @@ export const PropertyListings = () => {
     </button>
     </div>
     <div classname='s'>
-    <input type="text" value="Search" style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
+    <input type="text" value={inputSearch} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
     </div>
     <div className='al'>
     <button onClick={navigateToListing} style={{position: "relative", borderRadius: "10px"}}>

@@ -1,0 +1,48 @@
+.back {
+    display: flex;
+    position: relative;
+    top: 10px;
+    left: 50px;
+}
+
+.prof {
+    display: flex;
+    position: relative;
+    top: -60px;
+    left: 150px; 
+}
+
+.name {
+    display: flex;
+    position: relative;
+    top: -130px;
+    left: 250px;
+}
+
+.mess1 {
+    display: flex;
+    position: relative;
+    top: -100px;
+    left: 720px;
+}
+
+.mess2 {
+    display: flex;
+    position: relative;
+    top: -100px;
+    left: 10px;
+
+}
+
+.search {
+    display: flex;
+    position: relative;
+    top: 150px;
+}
+
+.type {
+    display: flex;
+    position: relative;
+    top: -120px;
+    left: 720px;    
+}
