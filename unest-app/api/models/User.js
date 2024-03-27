@@ -31,10 +31,10 @@ const UserSchema = new Schema({
    },
    sign_up_date: Date,
    basic_info: {
-      Age: String,
-      Gender: String,
-      Pronouns: String,
-      University: String
+      age: String,
+      gender: String,
+      pronouns: String,
+      university: String
    }
 });
 

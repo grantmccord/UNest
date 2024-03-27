@@ -65,12 +65,12 @@ const ProfilePage = () => {
 
     //form values in details section
     const initialValues = {
-        Year: "",
-        Major: "",
-        Minor: "",
-        Hobbies: "",
-        Interests: "",
-        IdealRent: ""
+        year: "",
+        major: "",
+        minor: "",
+        hobbies: "",
+        interests: "",
+        ideal_rent: ""
     };
 
     const [formValues, setFormValues] = useState(initialValues);
@@ -93,10 +93,10 @@ const ProfilePage = () => {
     //basic info section
 
     const basicInfoValues = {
-        Age: "",
-        Gender: "",
-        Pronouns: "",
-        University: ""
+        age: "",
+        gender: "",
+        pronouns: "",
+        university: ""
     };
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
