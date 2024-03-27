@@ -201,9 +201,9 @@ const ProfilePage = () => {
 
     const fieldDetailsDisplayLabels = {
         year: 'Year',
-        minors: 'Minors',
+        minor: 'Minors',
         hobbies: 'Hobbies',
-        interest: 'Interest',
+        interests: 'Interest',
         major: 'Major',
         ideal_rent: 'Ideal Rent',
     };

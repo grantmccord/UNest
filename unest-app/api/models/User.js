@@ -10,9 +10,9 @@ const UserSchema = new Schema({
    details: {
       year: String,
       major: String,
-      minors: String,
+      minor: String,
       hobbies: String,
-      interest: String,
+      interests: String,
       ideal_rent: Number
    },
    description: String,
