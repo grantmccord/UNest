@@ -37,7 +37,11 @@ const Header = () => {
                         <button onClick={navigateToPostPage} className="bg-red-400 hover:bg-red-500 text-white-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <div>Create Post</div>
                         </button>
-
+                        {!!user && (
+                            <div>
+                                {user.first_name}
+                            </div>
+                        )}
                     </div>
                 </nav>
             </header>

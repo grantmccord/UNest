@@ -8,11 +8,6 @@ function Homepage() {
     const {user} = useContext(UserContext);
     return (
         <div>
-            {!!user && (
-                <div>
-                    {user.first_name}
-                </div>
-            )}
             <Header />
             <Properties />
         </div>

@@ -6,13 +6,15 @@ const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
 const jwtSecret = 'flase53q73bafvwpuesud';
 
-app.use(express.json());
+app.use(express.json())
+app.use(cookieParser())
 
 app.use(cors({
     credentials: true,
@@ -72,6 +74,19 @@ app.post('/login', async(req,res) => {
         res.json("Not Found")
     }
 })
+
+app.get('/profile',(req,res)=>{
+    const {token} = req.cookies;
+    if(token){
+        jwt.verify(token, jwtSecret, {}, (err, user)=>{
+            if(err) throw err;
+            res.json(user);
+        })
+    }
+    res.json({token});
+})
+
+
 app.get('/api/listings', async(req, res) => {
     try {
         console.log("executed listings get method")
