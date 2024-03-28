@@ -1,9 +1,11 @@
+import React, {useContext, useState} from 'react'
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import bird from "../Assets/bird.jpg";
 import {
     useNavigate,
   } from "react-router-dom";
+import {UserContext} from "../UserContext";
 
   
 
@@ -17,6 +19,8 @@ const Header = () => {
     const navigateToPostPage = () => {
         navigate('/post', {replace: true});
       };
+
+    const {user} = useContext(UserContext);
 
     return (
         <div className="sticky top-0">
@@ -33,6 +37,7 @@ const Header = () => {
                         <button onClick={navigateToPostPage} className="bg-red-400 hover:bg-red-500 text-white-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <div>Create Post</div>
                         </button>
+
                     </div>
                 </nav>
             </header>

@@ -26,13 +26,14 @@ import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
 import {UserContextProvider} from "./UserContext";
 
-axios.defaults.baseURL = 'http://localhost:4000/';
+axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true;
 
 
 function App(){
     return(
         <BrowserRouter>
+            <UserContextProvider>
                 <Routes>
                     <Route index element={<Homepage />} />
                     <Route path="/homepage" element={<Homepage/>} />
@@ -55,6 +56,7 @@ function App(){
                     <Route path="/property" element={<MapComp/>} />
                     <Route path="/message/:itemName" element={<Message/>} />
                 </Routes>
+            </UserContextProvider>
         </BrowserRouter>
     )
 }

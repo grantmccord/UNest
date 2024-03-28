@@ -10,7 +10,7 @@ require('dotenv').config();
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
-const jwtSecret = 'testingtokensecret';
+const jwtSecret = 'flase53q73bafvwpuesud';
 
 app.use(express.json());
 
