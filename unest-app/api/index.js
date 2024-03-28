@@ -44,6 +44,7 @@ app.post('/register', async (req,res) =>{
 
 });
 
+/*
 app.post('/sendMessage', async(req, res) => {
     const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body
 
@@ -63,6 +64,7 @@ app.post('/sendMessage', async(req, res) => {
         res.status(422).json(e);
     }
 })
+*/
 
 app.get('/api/users', async(req, res) => {
     try {
