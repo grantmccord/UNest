@@ -40,10 +40,11 @@ export default function PlacesPage(){
         await axios.post('/places',{
             title, university, address, addedPhotos, description, perks, checkIn, checkOut, price});
         setRedirectPlacesList(true);
+        alert("Your listing has been posted!")
     }
 
     if(redirectToPlacesList && action!=='new'){
-        return <Navigate to={'myplaces'}/>
+        return <Navigate to={'/myplaces'}/>
     }
 
     return(
