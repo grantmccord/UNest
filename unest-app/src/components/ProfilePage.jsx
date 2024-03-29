@@ -29,6 +29,8 @@ const ProfilePage = () => {
         fetchUserData();
     }, []);
 
+    //get user data for a specific user from the database
+
     const fetchUserData = async () => {
         try {
             const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
