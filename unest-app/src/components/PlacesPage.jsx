@@ -15,7 +15,8 @@ export default function PlacesPage(){
     const [perks, setPerks] = useState([]);
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
-    const [price, setPrice] = useState(1);
+    const [price, setPrice] = useState(0);
+    const [redirectToPlacesList, setRedirectPlacesList] = useState(false);
 
     function uploadPhoto(ev){
         const files = ev.target.files;
@@ -32,6 +33,18 @@ export default function PlacesPage(){
             });
         })
     }
+    async function addNewPlace(ev){
+        ev.preventDefault();
+        await axios.post('/places',{
+            title, university, address, addedPhotos, description, perks, checkIn, checkOut, price});
+        setRedirectPlacesList(true);
+    }
+
+    if(redirectToPlacesList && action!=='new'){
+        return <Navigate to={'myplaces'}/>
+    }
+
+
 
     return(
         <div>
@@ -78,8 +91,8 @@ export default function PlacesPage(){
                             <h2 className="text-xl mt-4">Photos</h2>
                             <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                 {addedPhotos.length > 0 && addedPhotos.map(link => (
-                                    <div style={{background:"black"}}>
-                                        <img src={'http://localhost:4000/uploads'+link} alt=""/>
+                                    <div key={link} style={{background:"transparent"}}>
+                                        <img src={'http://localhost:4000/uploads'+link} alt="Image"/>
                                     </div>
                                 ))}
                                 <label
@@ -122,7 +135,7 @@ export default function PlacesPage(){
                             <input style={{width: 1300, background: "white"}} type='number'
                                    placeholder="What's the cost to stay?"
                                    value={price} onChange={ev => setPrice(ev.target.value)}/>
-                            <button style={{width: 1300, background: "#d55757"}} className="primary my-4">Save
+                            <button onClick={addNewPlace} style={{width: 1300, background: "#d55757"}} className="primary my-4">Save
                             </button>
                         </form>
                     </div>

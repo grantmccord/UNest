@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
+const Place = require('./models/Place.js')
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
@@ -154,12 +155,15 @@ app.post('/login', async(req,res) => {
 app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
     if(token){
-        jwt.verify(token, jwtSecret, {}, (err, user)=>{
+        jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
             if(err) throw err;
-            res.json(user);
-        })
+            const userDoc = await User.findById(userData.id);
+            res.json(userDoc);
+        });
+    } else {
+        res.json(null);
     }
-    res.json({token});
+    //res.json({token});
 });
 
 
@@ -188,6 +192,22 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
     }
     res.json(uploadedFiles);
 });
+
+app.post('/places', (req,res) => {
+    const {token} = req.cookies;
+    const {title, university, address, addPhotos, description,
+    perks, checkIn, checkOut, price} = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+        if(err) throw err;
+        const placeDoc = await Place.create({
+            owner:userData.id,
+            title,university,address,addPhotos,description,
+            perks,checkIn,checkOut,price,
+        })
+        res.json(placeDoc);
+
+    })
+})
 
 
 app.listen(4000);
