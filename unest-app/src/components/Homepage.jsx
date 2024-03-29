@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
 import bird from "../Assets/bird.png";
+import {UserContext} from "../UserContext";
+
 import {
     useNavigate,
   } from "react-router-dom";
@@ -19,10 +21,9 @@ const Header = () => {
     setInputValue(data);
   };
 // import './App.css';
-import Header from "./Header"
-import Properties from "./Properties"
-import React, {useContext} from "react";
-import {UserContext} from "../UserContext";
+
+//import Properties from "./Properties"
+//import React, {useContext} from "react";
 
   function handleFilter(data) {
     setFilterValue(data);
@@ -43,7 +44,7 @@ import {UserContext} from "../UserContext";
     };
 
     const navigateToPostPage = () => {
-        navigate('/post', {replace: true});
+        navigate('/myplaces', {replace: true});
       };
 
       // React.useEffect(() => {
