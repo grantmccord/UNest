@@ -66,12 +66,47 @@ app.post('/sendMessage', async(req, res) => {
 })
 */
 
+app.put('/profile', async (req,res) =>{
+    mongoose.connect(process.env.MONGO_URL);
+    const { id, basic_info, details, description } = req.body;
+    console.log("basic_info in app.put(): ");
+    console.log("details in app.put(): ");
+    
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            basic_info: { ...basic_info },
+            details: { ...details },
+            description: description
+        }, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(updatedUser);
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 app.get('/api/users', async(req, res) => {
     try {
         const users = await User.find(); // Fetch all listings from the database
         res.json(users); // Send the listings as JSON response
       } catch (error) {
-        console.error('Error fetching listings:', error);
+        console.error('Error fetching users:', error);
+        res.status(500).json({ message: 'Server Error' });
+      }
+})
+
+app.get('/api/users/:id', async(req, res) => {
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id) // Fetch all listings from the database
+        res.json(user); // Send the listings as JSON response
+      } catch (error) {
+        console.error('Error fetching specific user:', error);
         res.status(500).json({ message: 'Server Error' });
       }
 })
@@ -88,6 +123,8 @@ app.post('/findUser', async(req, res) => {
         res.status(422).json('Could not fetch');
     }
 })
+
+
 
 app.post('/login', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
