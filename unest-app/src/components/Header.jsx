@@ -17,7 +17,7 @@ const Header = () => {
     };
 
     const navigateToPostPage = () => {
-        navigate('/post', {replace: true});
+        navigate('/myplaces', {replace: true});
       };
 
     const {user} = useContext(UserContext);
