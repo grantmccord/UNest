@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {
     useNavigate, useParams
   } from "react-router-dom";
@@ -18,15 +18,28 @@ const Message = () => {
     const encodedData = queryParams.get('data');
     const decodedData = JSON.parse(decodeURIComponent(encodedData));
 
-    const addEnteredValue = () => {
-        setEnteredValues([...enteredValues, inputMessage]);
-        setInputMessage(''); 
-        //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+    useEffect(() => {
+        const savedEnteredValues = localStorage.getItem(`enteredValues-${itemName}`);
+        if (savedEnteredValues) {
+            setEnteredValues(JSON.parse(savedEnteredValues));
+        }
+    }, []);
+
+    const addEnteredValue = (event) => {
+        event.preventDefault();
+        if (inputMessage.trim() !== '') {
+            const newValues = [...enteredValues, inputMessage];
+            localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
+            setEnteredValues(newValues);
+            setInputMessage(''); 
+            //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+        }
+        
     };
 
     const keyPress = (event) => {
         if (event.key === 'Enter') {
-            addEnteredValue();
+            addEnteredValue(event);
         }
     };
 
@@ -70,8 +83,8 @@ const Message = () => {
         <img src={profileIcon} alt="" onClick={navigateToTProfile} style={{width: "70px", height: "70px"}} />
         </div>
         <div className="name" onClick={navigateToTProfile}>
-        <h1>{itemName}</h1>
-        <p style={{position: "relative", top: "30px", left: "-165px", fontSize: "30px"}}>{decodedData.a2}</p>
+        <h1>{itemName} {decodedData.a2}</h1>
+        <p style={{display: "flex", position: "relative", top: "30px", left: "-150px", fontSize: "30px"}}>{decodedData.a3}</p>
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
         <div>
@@ -86,8 +99,10 @@ const Message = () => {
         </div>
         <div>
         <div className="search1">
-        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
-        <img src={send} alt="" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
+        <form onSubmit={(e) => addEnteredValue(e)}>
+        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={(e) => keyPress(e)} style={{width: "1200px", textAlign: "center", position: "relative", left:"-240px"}}/>
+        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "-62px", left: "908px", cursor: "pointer"}} /> 
+        </form>
         </div>
         </div>
         </div>

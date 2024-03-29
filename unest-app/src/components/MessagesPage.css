@@ -36,7 +36,6 @@
 
 .vl {
     display: flex;
-    border-left: 1px solid gray;
     height:500px;
     position: relative;
     top: -190px;
@@ -65,7 +64,7 @@
     border-radius: 50%;
     position: relative;
     top: -20px;
-    left: 150px;
+    left: 570px;
   }
 
   .text {
@@ -89,4 +88,21 @@
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 3px;
+  }
+
+  .click {
+    background-color: white;
+    color: black;
+    width: 1415px; 
+    height: 100px;
+    border: 2px solid black;
+  }
+
+  .unclick {
+    background-color: "white";
+     color: "black";
+     width: "1415px"; 
+     height: "100px"; 
+     border: "2px solid black";
+     font-weight: "normal";
   }
