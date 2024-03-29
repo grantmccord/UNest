@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
+import Properties from "./Properties.jsx";
 import bird from "../Assets/bird.jpg";
 import {
     useNavigate,
@@ -18,7 +19,7 @@ const Header = () => {
         navigate('/post', {replace: true});
       };
 
-    return (
+    return ( <div>
         <div className="sticky top-0">
             <header>
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -34,10 +35,11 @@ const Header = () => {
                             <div>Create Post</div>
                         </button>
                     </div>
-        
                 </nav>
             </header>
             
+        </div>
+        <Properties />
         </div>
     );
 }

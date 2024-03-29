@@ -6,7 +6,7 @@ function Homepage() {
     return (
         <div>
             <Header />
-            <Properties />
+            {/* <Properties /> */}
         </div>
     );
 }
