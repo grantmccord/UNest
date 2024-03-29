@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
@@ -41,8 +41,15 @@ const Header = () => {
         navigate('/post', {replace: true});
       };
 
+      // React.useEffect(() => {
+      //   document.body.style.overflow = "hidden";
+      //   return () => {
+      //     document.body.style.overflow = "scroll";
+      //   };
+      // }, []);
+
     return ( <div>
-        <div className="sticky top-0">
+        <div className="sticky top-0 z-20 bg-white">
             <header>
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                     <img src={bird} width={100} height={100} alt="" />
