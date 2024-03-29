@@ -33,12 +33,12 @@ app.get('/UNEST', (req,res) => {
 });
 
 app.post('/register', async (req,res) =>{
-    const {firstname, lastname, birthday, username, email, password} = req.body
+    const {first_name, last_name, birthday, username, email, password} = req.body
 
     try{
         const userDoc = await User.create({
-            firstname,
-            lastname,
+            first_name,
+            last_name,
             birthday,
             username,
             email,

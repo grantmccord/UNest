@@ -14,6 +14,7 @@ import axios from "axios";
 
 import profileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
+import {useNavigate} from "react-router-dom";
 
 
 const ProfilePage = () => {
@@ -41,6 +42,12 @@ const ProfilePage = () => {
             console.error('Error fetching data:', error);
         }
     };
+
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = '/myplaces/new';
+        navigate(path);
+    }
 
 
     const [isEditing, setIsEditing] = useState(false);
@@ -243,7 +250,7 @@ const ProfilePage = () => {
 
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
-                    <Button variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
+                    <Button onClick={routeChange} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
                     <Box sx={{ width: 50 }}></Box>

@@ -1,6 +1,6 @@
 import {Link, useParams} from 'react-router-dom'
 import Perks from "./Perks"
-import React from "react";
+import React, {useEffect} from "react";
 import {useState}  from "react";
 import {Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -17,6 +17,8 @@ export default function PlacesPage(){
     const [checkOut, setCheckOut] = useState('');
     const [price, setPrice] = useState(0);
     const [redirectToPlacesList, setRedirectPlacesList] = useState(false);
+
+    const [places, setPlaces] = useState([]);
 
     function uploadPhoto(ev){
         const files = ev.target.files;
@@ -44,8 +46,6 @@ export default function PlacesPage(){
         return <Navigate to={'myplaces'}/>
     }
 
-
-
     return(
         <div>
             <div style={{width:10000}} className="underline"></div>
@@ -60,6 +60,13 @@ export default function PlacesPage(){
                         </svg>
                         Create New Listing
                     </Link>
+                    <div>
+                        {places.length > 0 && places.map(place => (
+                            <div>
+                                {places.title}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
             {action === 'new' && (
