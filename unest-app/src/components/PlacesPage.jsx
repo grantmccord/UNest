@@ -26,9 +26,9 @@ export default function PlacesPage(){
         axios.post('/upload', data, {
             headers: {'Content-type':'multipart/form-data'}
         }).then(response =>{
-            const{data:filename} = response;
+            const{data:filenames} = response;
             setAddedPhotos(prev => {
-                return [...prev, filename];
+                return [...prev, ...filenames];
             });
         })
     }
@@ -77,10 +77,15 @@ export default function PlacesPage(){
                                    value={address} onChange={ev => setAddress(ev.target.value)} />
                             <h2 className="text-xl mt-4">Photos</h2>
                             <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                                {addedPhotos.length > 0 && addedPhotos.map(link => (
+                                    <div style={{background:"transparent"}}>
+                                        <img src={'http://localhost:4000/uploads'+link} alt=""/>
+                                    </div>
+                                ))}
                                 <label
                                     className='cursor-pointer flex justify-center text-left border bg-white text-black rounded-2xl p-8
                                     text-2xl text-gray-600'
-                                    style={{width: 1300}}>
+                                    style={{width: 700}}>
                                     <input type="file" multiple className='hidden' onChange={uploadPhoto}/>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">

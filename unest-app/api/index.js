@@ -8,6 +8,8 @@ const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
+const fs = require('fs');
+
 require('dotenv').config();
 const app = express();
 
@@ -16,6 +18,7 @@ const jwtSecret = 'flase53q73bafvwpuesud';
 
 app.use(express.json())
 app.use(cookieParser())
+app.use('/uploads', express.static(__dirname+'/uploads'))
 
 app.use(cors({
     credentials: true,
@@ -174,7 +177,16 @@ app.get('/api/listings', async(req, res) => {
 
 const photosMiddleware = multer({dest:'uploads/'});
 app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
-    res.json(req.files);
+    const uploadedFiles = [];
+    for(let i = 0; i < req.files.length; i++){
+        const {path, originalname} = req.files[i];
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+        uploadedFiles.push(newPath.replace('uploads/',''));
+    }
+    res.json(uploadedFiles);
 });
 
 
