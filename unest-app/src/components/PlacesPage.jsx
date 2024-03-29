@@ -20,7 +20,9 @@ export default function PlacesPage(){
     function uploadPhoto(ev){
         const files = ev.target.files;
         const data = new FormData();
-        data.set('photos', files)
+        for(let i = 0; i < files.length; i++){
+            data.append('photos', files[i]);
+        }
         axios.post('/upload', data, {
             headers: {'Content-type':'multipart/form-data'}
         }).then(response =>{
@@ -79,7 +81,7 @@ export default function PlacesPage(){
                                     className='cursor-pointer flex justify-center text-left border bg-white text-black rounded-2xl p-8
                                     text-2xl text-gray-600'
                                     style={{width: 1300}}>
-                                    <input type="file" className='hidden' onChange={uploadPhoto}/>
+                                    <input type="file" multiple className='hidden' onChange={uploadPhoto}/>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          strokeWidth={1.5} stroke="currentColor" className="w-9 h-9">
                                         <path strokeLinecap="round" strokeLinejoin="round"

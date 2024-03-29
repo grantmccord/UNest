@@ -7,6 +7,7 @@ const User = require('./models/User.js');
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
 require('dotenv').config();
 const app = express();
 
@@ -156,7 +157,7 @@ app.get('/profile',(req,res)=>{
         })
     }
     res.json({token});
-})
+});
 
 
 app.get('/api/listings', async(req, res) => {
@@ -169,7 +170,12 @@ app.get('/api/listings', async(req, res) => {
         console.error('Error fetching listings:', error);
         res.status(500).json({ message: 'Server Error' });
       }
-})
+});
+
+const photosMiddleware = multer({dest:'uploads/'});
+app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
+    res.json(req.files);
+});
 
 
 app.listen(4000);

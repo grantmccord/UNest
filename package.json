@@ -6,6 +6,7 @@
   "dependencies": {
     "autoprefixer": "^9.8.8",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "postcss": "^7.0.39"
   }
 }
