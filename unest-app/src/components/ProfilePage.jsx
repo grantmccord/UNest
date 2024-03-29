@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -10,40 +10,39 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { createTheme } from '@mui/material/styles';
+import axios from "axios";
 
 import profileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
 
 
-// function EditDetailTextField(props) {
-//     const [isEditingMe, setIsEditing] = useState(false);
-//     const [text, setText] = useState("");
-//     const [editedText, setEditedText] = useState("");
-
-//     const handleEdit = () => {
-//         console.log("setIsEditing is set to true");
-//         setIsEditing(true);
-//     };
-
-//     const handleSave = () => {
-//         setIsEditing(false);
-//         setAboutMeText(editedAboutMeText);
-//     };
-
-//     const handleCancel = () => {
-//         setIsEditing(false);
-//         setEditedAboutMeText(aboutMeText);
-//     };
-
-//     const handleChange = (e) => {
-//         setEditedText(e.target.value);
-//     };
-// }
-
-
-
-
 const ProfilePage = () => {
+    //fetching user profile data
+    const [userData, setUserData] = useState([]);
+
+    const id = '65c9686f70d91fbd7c84bbf5';
+
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        fetchUserData();
+    }, []);
+
+    //get user data for a specific user from the database
+
+    const fetchUserData = async () => {
+        try {
+            const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            console.log("fetchUserData: ", response.data);
+            setUserData(response.data); // Assuming response contains listing data
+            console.log("userData.basic_info: ", userData.basic_info)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
     const [isEditing, setIsEditing] = useState(false);
 
     const handleEdit = () => {
@@ -57,21 +56,32 @@ const ProfilePage = () => {
     const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
     const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
 
+    useEffect(() => {
+        setAboutMeText(userData.description || initialAboutMeText);
+        setEditedAboutMeText(userData.description || initialAboutMeText);
+    }, [userData.description]);
+
     const handleAboutMeChange = (e) => {
         setEditedAboutMeText(e.target.value);
     };
 
     //form values in details section
     const initialValues = {
-        Class: "",
-        Major: "",
-        Minor: "",
-        Hobbies: "",
-        Interests: "",
-        IdealRent: ""
+        year: "",
+        major: "",
+        minor: "",
+        hobbies: "",
+        interests: "",
+        ideal_rent: ""
     };
+
     const [formValues, setFormValues] = useState(initialValues);
     const [editedFormValues, setEditedFormValues] = useState(initialValues);
+
+    useEffect(() => {
+        setFormValues(userData.details || initialValues);
+        setEditedFormValues(userData.details || initialValues);
+    }, [userData.details]);
 
     const handleFormValuesChange = (event) => {
         const { name, value } = event.target;
@@ -85,14 +95,19 @@ const ProfilePage = () => {
     //basic info section
 
     const basicInfoValues = {
-        Age: "",
-        Gender: "",
-        Pronouns: "",
-        University: ""
+        age: "",
+        gender: "",
+        pronouns: "",
+        university: ""
     };
 
     const [basicInfo, setBasicInfo] = useState(basicInfoValues);
     const [editedBasicInfo, setEditedBasicInfo] = useState(basicInfoValues);
+
+    useEffect(() => {
+        setBasicInfo(userData.basic_info || basicInfoValues);
+        setEditedBasicInfo(userData.basic_info || basicInfoValues);
+    }, [userData.basic_info]);
 
     const handleBasicInfoChange = (event) => {
         const { name, value } = event.target;
@@ -111,16 +126,47 @@ const ProfilePage = () => {
         //needed to add back in following line
         setAboutMeText(editedAboutMeText);
         //updating about me paragraph description
-        console.log("editedAboutMeText: ", editedAboutMeText);
 
         //updating form values in detail section
         setFormValues(editedFormValues);
-        console.log("Updated form values:", formValues);
 
-        //updating basic info section with new values
+        // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
-        console.log("Updated basic info:", basicInfo);
+        updateUser()
     };
+
+    async function updateUser() {
+        try {
+            const updatedUserData = {
+                id: id,
+                basic_info: {
+                    ...editedBasicInfo
+                },
+                details: {
+                    ...editedFormValues
+                },
+                description: editedAboutMeText
+            };
+
+            console.log("basic_info in updateUser(): ", updatedUserData.basic_info);
+            console.log("details in updateUser(): ", updatedUserData.details);
+            await axios.put(`/profile`, updatedUserData); // Assuming you need to include the user ID in the request URL
+            alert('User profile has been successfully updated!');
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+            alert('Oops! User profile failed to update. Please try again.');
+        }
+    }
+
+    useEffect(() => {
+        // This effect will run after formValues has been updated
+        // userData.basic_info = basicInfo;
+        // userData.details = formValues;
+        // userData.description = aboutMeText;
+        console.log("aboutMeText: ", aboutMeText);
+        console.log("Updated form values:", formValues);
+        console.log("Updated basic info:", basicInfo);
+    }, [aboutMeText, formValues, basicInfo]);
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -132,6 +178,40 @@ const ProfilePage = () => {
 
         //canceling changes to basic info
         setEditedBasicInfo(basicInfo);
+    };
+
+
+
+    //Field names redefined for the different sections below
+
+    //basic info section
+
+    // Mapping object to customize display labels for fields
+    const fieldBasicInfoDisplayLabels = {
+        age: 'Age',
+        gender: 'Gender',
+        pronouns: 'Pronouns',
+        university: 'University',
+    };
+
+    // Function to get the display label for a field
+    const getBasicInfoFieldDisplayLabel = (fieldName) => {
+        return fieldBasicInfoDisplayLabels[fieldName] || fieldName;
+    };
+
+    //details section
+
+    const fieldDetailsDisplayLabels = {
+        year: 'Year',
+        minor: 'Minors',
+        hobbies: 'Hobbies',
+        interests: 'Interest',
+        major: 'Major',
+        ideal_rent: 'Ideal Rent',
+    };
+
+    const getDetailsFieldDisplayLabel = (fieldName) => {
+        return fieldDetailsDisplayLabels[fieldName] || fieldName;
     };
 
     return (
@@ -154,7 +234,7 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                <Box sx={{ width: "80%", pl: 47 }} display="flex" flexDirection='row' >
+                <Box sx={{ width: "80%", pl: 47, display: "flex", flexDirection: 'row' }} >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
                         Profile Page
                     </Typography>
@@ -196,7 +276,7 @@ const ProfilePage = () => {
                                             alignItems="center"
                                         >
                                             {Object.entries(editedBasicInfo).map(([key, value]) => (
-                                                <Grid item xs={7} key={key}>
+                                                <Grid item xs={12} key={key}>
                                                     <TextField variant="standard" size="small"
                                                         sx={{
                                                             '& .MuiInputLabel-root': {
@@ -209,7 +289,7 @@ const ProfilePage = () => {
                                                         }}
 
                                                         name={key}
-                                                        label={key}
+                                                        label={getBasicInfoFieldDisplayLabel(key)}
                                                         value={value}
                                                         onChange={handleBasicInfoChange}
                                                     />
@@ -306,8 +386,8 @@ const ProfilePage = () => {
                             <div>
                                 {isEditing ? (
                                     <Grid container>
-                                        {Object.entries(editedFormValues).map(([key, value]) => (
-                                            <Grid item xs={7} key={key}>
+                                        {Object.entries(editedFormValues).map(([fieldName, value]) => (
+                                            <Grid item xs={12} key={fieldName}>
                                                 <TextField variant="standard" size="small"
                                                     sx={{
                                                         '& .MuiInputLabel-root': {
@@ -319,8 +399,8 @@ const ProfilePage = () => {
                                                         pb: 0.8
                                                     }}
 
-                                                    name={key}
-                                                    label={key}
+                                                    name={fieldName}
+                                                    label={getDetailsFieldDisplayLabel(fieldName)}
                                                     value={value}
                                                     onChange={handleFormValuesChange}
                                                 />
@@ -332,7 +412,7 @@ const ProfilePage = () => {
                                     <Grid>
                                         {
                                             Object.entries(formValues).map(([key, value]) => (
-                                                <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{key}: {value}</Typography>
+                                                <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getDetailsFieldDisplayLabel(key)}: {value}</Typography>
                                             ))
                                         }
                                     </Grid>
