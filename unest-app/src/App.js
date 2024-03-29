@@ -25,7 +25,6 @@ import Message from './components/Message';
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
 import {UserContextProvider} from "./UserContext";
-import Header from "./components/Header";
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
@@ -35,8 +34,8 @@ function App(){
     return(
         <BrowserRouter>
                 <Routes>
-                    <Route index element={<Header />} />
-                    <Route path="/homepage" element={<Header/>} />
+                    <Route index element={<Homepage />} />
+                    <Route path="/homepage" element={<Homepage/>} />
                     <Route path="/register" element={<SignUpPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
