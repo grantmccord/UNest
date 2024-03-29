@@ -20,6 +20,7 @@ import TenantProfile from './components/TenantProfile';
 import OwnerProfile from './components/OwnerProfile';
 import MapComp from './components/Map';
 import LoginPage from "./components/LoginPage";
+import Message from './components/Message';
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
@@ -52,6 +53,7 @@ function App(){
                     <Route path="/tenantprofile" element={<TenantProfile/>} />
                     <Route path="/ownerprofile" element={<OwnerProfile/>} />
                     <Route path="/property" element={<MapComp/>} />
+                    <Route path="/message/:itemName" element={<Message/>} />
                 </Routes>
         </BrowserRouter>
     )

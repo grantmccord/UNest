@@ -34,8 +34,10 @@ const Header = () => {
                             <div>Create Post</div>
                         </button>
                     </div>
+        
                 </nav>
             </header>
+            
         </div>
     );
 }

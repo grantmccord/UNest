@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useEffect, useState, useParams} from 'react';
 import {
     useNavigate,
   } from "react-router-dom";
@@ -12,16 +12,28 @@ const MessageTenant = () => {
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
     //const divRef = useRef(null);
+    useEffect(() => {
+        const savedEnteredValues = localStorage.getItem('enteredValues');
+        if (savedEnteredValues) {
+            setEnteredValues(JSON.parse(savedEnteredValues));
+        }
+    }, []);
 
-    const addEnteredValue = () => {
-        setEnteredValues([...enteredValues, inputMessage]);
-        setInputMessage(''); 
-        //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+    
+    const addEnteredValue = (event) => {
+        event.preventDefault();
+        if (inputMessage.trim() !== '') {
+            const newValues = [...enteredValues, inputMessage];
+            localStorage.setItem('enteredValues', JSON.stringify(newValues)); 
+            setEnteredValues(newValues);
+            setInputMessage(''); 
+            //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+        }
     };
 
     const keyPress = (event) => {
         if (event.key === 'Enter') {
-            addEnteredValue();
+            addEnteredValue(event);
         }
     };
 
@@ -93,8 +105,10 @@ const MessageTenant = () => {
         </div>
         <div>
         <div className="search">
-        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={keyPress} style={{width: "1200px", textAlign: "center", position: "relative", left:"-185px"}}/>
-        <img src={send} alt="" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-237px"}} /> 
+        <form onSubmit={(e) => addEnteredValue(e)}>
+        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={(e) => keyPress(e)} style={{width: "1200px", textAlign: "center", position: "relative", left:"-240px"}}/>
+        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "-62px", left: "908px", cursor: "pointer"}} /> 
+        </form>
         </div>
         </div>
         </div>

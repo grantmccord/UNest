@@ -44,6 +44,28 @@ app.post('/register', async (req,res) =>{
 
 });
 
+/*
+app.post('/sendMessage', async(req, res) => {
+    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body
+
+    try{
+        const userDoc = await Message.create({
+            text,
+            time,
+            senderfn,
+            senderln,
+            senderUsername, 
+            receiverfn,
+            receiverln, 
+            receiverUsername,
+        });
+        res.json(userDoc);
+    } catch (e){
+        res.status(422).json(e);
+    }
+})
+*/
+
 app.put('/profile', async (req,res) =>{
     mongoose.connect(process.env.MONGO_URL);
     const { id, basic_info, details, description } = req.body;
@@ -87,6 +109,19 @@ app.get('/api/users/:id', async(req, res) => {
         console.error('Error fetching specific user:', error);
         res.status(500).json({ message: 'Server Error' });
       }
+})
+
+app.post('/findUser', async(req, res) => {
+    mongoose.connect(process.env.MONGO_URL);
+    const {user} = req.body;
+    try {
+        mongoose.connect(process.env.MONGO_URL);
+        const {user} = req.body;
+        const find = await User.findOne({user:user});
+        res.json(find);
+    } catch(error) {
+        res.status(422).json('Could not fetch');
+    }
 })
 
 
