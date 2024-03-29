@@ -5,7 +5,7 @@ import axios from "axios";
 
 import Grid from '@mui/material/Grid';
 
-export const Properties = () => {
+export const Properties = ({ inputValue, filterValue, sliderValue }) => {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
@@ -41,11 +41,21 @@ export const Properties = () => {
 
     return (
         <Grid data-testid="propertyGrid" container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={4} columns={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-            {listings.map((listing, index) => (
-                <Grid item role="item">
-                    <Property key={index} listing={listing} />
-                </Grid>
-            ))}
+            {console.log(filterValue)}
+            {(filterValue === "Bedroom Count" ? listings.toSorted((a, b) => a.num_rooms - b.num_rooms) : filterValue === "Room Type" ? listings.toSorted((a, b) => a.num_baths - b.num_baths) : listings)
+                .filter((obj) => 
+                    // do processing here (for each)
+                    obj?.name?.toString().substring(0, inputValue.length) === inputValue || obj?.university?.toString().substring(0, inputValue.length) === inputValue
+                    // return what should be kept
+                )
+                .filter((obj) =>
+                    obj?.price <= sliderValue
+                )
+                .map((listing, index) => (
+                    <Grid item role="item">
+                        <Property key={index} listing={listing} />
+                    </Grid>
+                ))}
         </Grid >
 
     );
