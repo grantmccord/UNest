@@ -78,7 +78,7 @@ export default function PlacesPage(){
                             <h2 className="text-xl mt-4">Photos</h2>
                             <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                 {addedPhotos.length > 0 && addedPhotos.map(link => (
-                                    <div style={{background:"transparent"}}>
+                                    <div style={{background:"black"}}>
                                         <img src={'http://localhost:4000/uploads'+link} alt=""/>
                                     </div>
                                 ))}

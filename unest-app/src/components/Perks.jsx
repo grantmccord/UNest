@@ -1,11 +1,20 @@
 import React from "react";
 
 export default function Perks({selected,onChange}) {
+    function handleCbClick(ev){
+        const {checked,name} = ev.target;
+        if(checked){
+            onChange([...selected, name]);
+        } else {
+            onChange([...selected.filter(selectedName=>selectedName !== name)]);
+        }
+
+    }
 
     return (
         <>
                 <label className='px-5 cursor-pointer'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="wifi" onChange={handleCbClick}/>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -15,7 +24,7 @@ export default function Perks({selected,onChange}) {
                 </label>
 
                 <label className='px-5 cursor-pointer'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="parking" onChange={handleCbClick}/>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -25,7 +34,7 @@ export default function Perks({selected,onChange}) {
                 </label>
 
                 <label className='px-5 cursor-pointer'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="pet" onChange={handleCbClick}/>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -36,7 +45,7 @@ export default function Perks({selected,onChange}) {
                 </label>
 
                 <label className='px-5 cursor-pointer'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="maintenance" onChange={handleCbClick}/>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -48,7 +57,7 @@ export default function Perks({selected,onChange}) {
                 </label>
 
                 <label className='px-5 cursor-pointer'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="pest" onChange={handleCbClick}/>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round"
