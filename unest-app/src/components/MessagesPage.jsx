@@ -35,7 +35,7 @@ function MessagesPage() {
         else {
             setOwnerMsg('Yes, what is the surrounding like?');
         }
-        const buttonClicked = localStorage.getItem('isButtonClicked1');
+        const buttonClicked = localStorage.getItem('isButtonClicked2');
         if (buttonClicked) {
             setIsClicked(true);
         }
@@ -117,7 +117,7 @@ function MessagesPage() {
 
     const navigateToOther = () => {
         setIsClicked(true);
-        localStorage.setItem('isButtonClicked1', true);
+        localStorage.setItem('isButtonClicked2', true);
         navigate('/message', {replace: true});
     } 
 
