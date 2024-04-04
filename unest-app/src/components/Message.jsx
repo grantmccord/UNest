@@ -11,6 +11,8 @@ const Message = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
+    const [showOptions, setShowOptions] = useState(false);
+    const [buttonIndex, setButtonIndex] = useState(null);
     //const divRef = useRef(null);
 
     const {itemName} = useParams();
@@ -24,6 +26,25 @@ const Message = () => {
             setEnteredValues(JSON.parse(savedEnteredValues));
         }
     }, []);
+
+    const deleteMessage = (index) => {
+        setButtonIndex(index);
+        setShowOptions(true);
+    };
+
+    const updateChat = () => {
+        setEnteredValues((prev) => {
+            const updateMsg = [...prev];
+            updateMsg.splice(buttonIndex, 1);
+            const newArr = JSON.parse(localStorage.getItem('enteredValues'));
+            // if (Array.isArray(newArr) && newArr.length > 0) {
+            //     newArr.pop();
+            // }
+            // localStorage.setItem('enteredValues', JSON.stringify(newArr));
+            return updateMsg;
+        });
+        setShowOptions(false);
+    };
 
     const addEnteredValue = (event) => {
         event.preventDefault();
@@ -90,10 +111,17 @@ const Message = () => {
         <div>
         {enteredValues.map((value, index) => (
             <div className="type" key={index}>
-            <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
+            <button onClick={() =>deleteMessage(index)} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
             </button>
+            {showOptions && buttonIndex === index && (
+                <div style={{ position: 'absolute', top: '100%', left: 0 }}>
+                    <button onClick={updateChat} style={{position: "relative", top: "-30px", left: "600px"}}>
+                        Delete
+                    </button>
+                </div>
+            )}
             </div>
         ))} 
         </div>
