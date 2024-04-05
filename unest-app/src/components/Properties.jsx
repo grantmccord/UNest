@@ -28,7 +28,6 @@ export const Properties = ({ inputValue, filterValue, sliderValue }) => {
 
     return (
         <Grid data-testid="propertyGrid" container sx={{ justifyContent: 'space-around', py: 6, px: 8 }} rowSpacing={4} columns={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-            {console.log(filterValue)}
             {(filterValue === "Bedroom Count" ? listings.toSorted((a, b) => a.num_rooms - b.num_rooms) : filterValue === "Room Type" ? listings.toSorted((a, b) => a.num_baths - b.num_baths) : listings)
                 .filter((obj) => 
                     // do processing here (for each)

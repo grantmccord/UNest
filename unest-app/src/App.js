@@ -21,6 +21,7 @@ import OwnerProfile from './components/OwnerProfile';
 import MapComp from './components/Map';
 import LoginPage from "./components/LoginPage";
 import Message from './components/Message';
+import HomeMap from './components/HomeMap';
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
@@ -58,6 +59,7 @@ function App(){
                     <Route path="/ownerprofile" element={<OwnerProfile/>} />
                     <Route path="/property" element={<MapComp/>} />
                     <Route path="/message/:itemName" element={<Message/>} />
+                    <Route path="/homemap" element={<HomeMap/>} />
                 </Routes>
             </UserContextProvider>
         </BrowserRouter>

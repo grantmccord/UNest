@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
 import bird from "../Assets/bird.png";
-import {UserContext} from "../UserContext";
 
 import {
     useNavigate,
