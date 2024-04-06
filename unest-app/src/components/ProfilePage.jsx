@@ -24,7 +24,7 @@ const ProfilePage = () => {
     const id = '65c9686f70d91fbd7c84bbf5';
 
     useEffect(() => {
-        if (!id) {
+        if (!id)  {
             return;
         }
         fetchUserData();
