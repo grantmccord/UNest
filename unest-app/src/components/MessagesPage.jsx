@@ -17,6 +17,8 @@ function MessagesPage() {
     const [isClicked, setIsClicked] = useState(false);
     const [msg, setmsg] = useState('');
     const [ownerMsg, setOwnerMsg] = useState('');
+    const [rmMsg, setRmMsg] = useState('');
+    const [chatStr, setChatStr] = useState([]);
 
     useEffect(() => {
         const messages = JSON.parse(localStorage.getItem('enteredValues')) || [];
@@ -38,6 +40,13 @@ function MessagesPage() {
         const buttonClicked = localStorage.getItem('isButtonClicked1');
         if (buttonClicked) {
             setIsClicked(true);
+        }
+
+        const rm = JSON.parse(localStorage.getItem('enteredValues3')) || [];
+        setChatStr(rm);
+        if (rm) {
+          const lstRm = rm[rm.length - 1];
+          setRmMsg(lstRm);
         }
         /*
         getInfo().then((d) => {
@@ -114,6 +123,10 @@ function MessagesPage() {
     const navigateToOwner = () => {
         navigate('/messageOwner', {replace: true})
     }
+
+    const navigateToRM = () => {
+      navigate('/messagerm', {replace: true})
+  }
 
     const navigateToOther = () => {
         setIsClicked(true);
@@ -212,6 +225,15 @@ function MessagesPage() {
         <p style={{position: "relative", top: "-40px"}}>I like your property.</p>
       </button>
       </div>
+      {chatStr.length > 0 && (
+      <div className="first"> 
+      <button onClick={navigateToRM} style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal"}}>
+      <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+      <p style={{position: "relative", top: "-40px"}}>RM Name</p>
+      <p style={{position: "relative", top: "-40px"}}>{rmMsg}</p>
+      </button>
+      </div> 
+       )}
         </div>
         
         
@@ -257,9 +279,9 @@ function MessagesPage() {
       <p style={{position: "relative", top: "-40px"}}>Meredith Johnson : Hub</p>
       <p style={{position: "relative", top: "-40px"}}>What does the room come with?</p>
       </button>
-      </div>  
       </div>
-        )
+      </div>
+      )
         }
         </div>
     );

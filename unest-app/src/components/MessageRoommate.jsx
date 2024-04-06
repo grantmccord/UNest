@@ -119,7 +119,7 @@ const MessageRoommate = () => {
             </button>
             {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
                 <div style={{ position: 'absolute', top: '100%', left: 0 }}>
-                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", position: "relative", top: "-30px", left: "600px"}}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
                         Delete
                     </button>
                 </div>
