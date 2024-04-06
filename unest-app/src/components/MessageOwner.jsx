@@ -23,20 +23,16 @@ const MessageOwner = () => {
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
-        setShowOptions(true);
+        if (index === enteredValues.length - 1) {
+            setShowOptions(true);
+        }
     };
 
     const updateChat = () => {
-        setEnteredValues((prev) => {
-            const updateMsg = [...prev];
-            updateMsg.splice(buttonIndex, 1);
-            const newArr = JSON.parse(localStorage.getItem('enteredValues'));
-            // if (Array.isArray(newArr) && newArr.length > 0) {
-            //     newArr.pop();
-            // }
-            // localStorage.setItem('enteredValues', JSON.stringify(newArr));
-            return updateMsg;
-        });
+        const delMsg = [...enteredValues];
+        delMsg.pop();
+        localStorage.setItem('enteredValues2', JSON.stringify(delMsg));
+        setEnteredValues(delMsg);
         setShowOptions(false);
     };
 
@@ -123,9 +119,9 @@ const MessageOwner = () => {
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
             </button>
-            {showOptions && buttonIndex === index && (
+            {showOptions && buttonIndex === index && index == enteredValues.length - 1 && (
                 <div style={{ position: 'absolute', top: '100%', left: 0 }}>
-                    <button onClick={updateChat} style={{position: "relative", top: "-30px", left: "600px"}}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", position: "relative", top: "-30px", left: "600px"}}>
                         Delete
                     </button>
                 </div>
