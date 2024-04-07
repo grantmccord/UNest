@@ -212,6 +212,9 @@ const ProfilePage = () => {
 
         //canceling changes to basic info
         setEditedBasicInfo(basicInfo);
+
+        //canceling changes to roommate preferences section
+        setEditedRoommatePref(roommatePref);
     };
 
 
