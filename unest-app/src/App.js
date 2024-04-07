@@ -21,6 +21,7 @@ import OwnerProfile from './components/OwnerProfile';
 import MapComp from './components/Map';
 import LoginPage from "./components/LoginPage";
 import Message from './components/Message';
+import PassPage from "./components/PassPage";
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
@@ -40,6 +41,7 @@ function App(){
                     <Route path="/homepage" element={<Homepage/>} />
                     <Route path="/register" element={<SignUpPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/forgotpass" element={<PassPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/post" element={<PostPage />} />
                     <Route path="/myplaces" element={<PlacesPage/>} />
