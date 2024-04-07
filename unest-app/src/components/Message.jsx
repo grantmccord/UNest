@@ -7,6 +7,7 @@ import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
 
+
 const Message = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
@@ -25,7 +26,9 @@ const Message = () => {
         if (savedEnteredValues) {
             setEnteredValues(JSON.parse(savedEnteredValues));
         }
-    }, []);
+        const saveLastMsg = localStorage.getItem(`lastMessage-${itemName}`);
+
+    }, [itemName]);
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
@@ -38,6 +41,12 @@ const Message = () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
         localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(delMsg));
+        if (delMsg.length > 0) {
+            localStorage.setItem(`lastMessage-${itemName}`, delMsg[delMsg.length - 1]);
+        }
+        else {
+            localStorage.setItem(`lastMessage-${itemName}`, ''); 
+        }
         setEnteredValues(delMsg);
         setShowOptions(false);
     };
@@ -48,6 +57,7 @@ const Message = () => {
             const newValues = [...enteredValues, inputMessage];
             localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
             setEnteredValues(newValues);
+            localStorage.setItem(`lastMessage-${itemName}`, inputMessage);
             setInputMessage(''); 
             //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
         }
@@ -135,4 +145,5 @@ const Message = () => {
         );
 };
 
+//export {savedEnteredValues};
 export default Message;

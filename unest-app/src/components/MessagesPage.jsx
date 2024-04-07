@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-    useNavigate
+    useNavigate, useParams, Link
   } from "react-router-dom";
 import axios from 'axios';
 import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
 import profileIcon from '../Assets/Profile.png';
+import { savedEnteredValues } from './Message';
+
 function MessagesPage() {
     const [inputSearch, setInputSearch] = useState('Search');
     const [isFocused, setIsFocused] = useState(false);
@@ -19,6 +21,8 @@ function MessagesPage() {
     const [ownerMsg, setOwnerMsg] = useState('');
     const [rmMsg, setRmMsg] = useState('');
     const [chatStr, setChatStr] = useState([]);
+    const [lastMsg, setLastMsg] = useState({});
+    const {itemName} = useParams();
 
     useEffect(() => {
         const messages = JSON.parse(localStorage.getItem('enteredValues')) || [];
@@ -48,13 +52,24 @@ function MessagesPage() {
           const lstRm = rm[rm.length - 1];
           setRmMsg(lstRm);
         }
+        const allName = ['john-jones', 'walker-smith', 'pete-day', 'jose-stricker'];
+        const msg = {};
+        allName.forEach((name) => {
+            const lst = localStorage.getItem(`lastMessage-${name}`);
+            console.log("Name: ", name);
+            if (lst) {
+              msg[name] = lst;
+            }
+        });
+        console.log("Msg: ", msg);
+        setLastMsg(msg);
         /*
         getInfo().then((d) => {
             console.log(d);
              setUser(d);})
              .catch(error => {console.error('Error fetching', error);});
              */
-    }, []);
+    }, [itemName]);
 
     
         const getInfo = async () => {
@@ -234,6 +249,28 @@ function MessagesPage() {
       </button>
       </div> 
        )}
+        <div>
+       {Object.entries(lastMsg).map(([name, message]) => (
+          message && ( <div className="first" key={name}> 
+          <Link to={`/message/${name.toLowerCase().replace(/\s+/g, '-')}`}>
+           <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
+           <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+           <p style={{position: "relative", top: "-40px"}}>{name.replace(/-/g, ' ').slice(0).replace(/\b\w/g, (name) => name.toUpperCase())}</p>
+           <p style={{position: "relative", top: "-40px"}}>{message}</p>
+           </button>
+           </Link>
+           </div> 
+       )))}
+       </div>
+       {/*(
+      <div className="first"> 
+      <button onClick={navigateToRM} style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal"}}>
+      <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+      <p style={{position: "relative", top: "-40px"}}>{itemName}</p>
+      <p style={{position: "relative", top: "-40px"}}>{diffChat}</p>
+      </button>
+      </div> 
+       )*/}
         </div>
         
         
