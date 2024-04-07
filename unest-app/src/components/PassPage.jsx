@@ -9,9 +9,8 @@ const ForgotPassword = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Check if username, email, and secretAnswer match the expected values
         if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
-            // Set showPassword to true to display the password
+            // NEED TO CHANGE TI FETCH FROM DATABASE
             setShowPassword(true);
         } else {
             alert('Invalid username, email, or secret answer.');
