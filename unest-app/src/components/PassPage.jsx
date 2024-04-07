@@ -9,10 +9,13 @@ const ForgotPassword = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // You can add your logic to handle form submission here
-        console.log('Submitted:', { username, email, secretAnswer });
-        // Set showPassword to true to display the password
-        setShowPassword(true);
+        // Check if username, email, and secretAnswer match the expected values
+        if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
+            // Set showPassword to true to display the password
+            setShowPassword(true);
+        } else {
+            alert('Invalid username, email, or secret answer.');
+        }
     };
 
     return (
