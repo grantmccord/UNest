@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ21jY29yZDY1MDIiLCJhIjoiY2x1bHpxeDVjMTg5cTJqbzN5bGozbzgwaiJ9.-TGy73Y_CF2rZEBKGIKTJw';
 
-export default function HomeMap() {
+export default function HomeMap({ listings }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(-86.929);
