@@ -7,10 +7,13 @@ import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
 
+
 const Message = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
+    const [showOptions, setShowOptions] = useState(false);
+    const [buttonIndex, setButtonIndex] = useState(null);
     //const divRef = useRef(null);
 
     const {itemName} = useParams();
@@ -23,7 +26,30 @@ const Message = () => {
         if (savedEnteredValues) {
             setEnteredValues(JSON.parse(savedEnteredValues));
         }
-    }, []);
+        const saveLastMsg = localStorage.getItem(`lastMessage-${itemName}`);
+
+    }, [itemName]);
+
+    const deleteMessage = (index) => {
+        setButtonIndex(index);
+        if (index === enteredValues.length - 1) {
+            setShowOptions(true);
+        }
+    };
+
+    const updateChat = () => {
+        const delMsg = [...enteredValues];
+        delMsg.pop();
+        localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(delMsg));
+        if (delMsg.length > 0) {
+            localStorage.setItem(`lastMessage-${itemName}`, delMsg[delMsg.length - 1]);
+        }
+        else {
+            localStorage.setItem(`lastMessage-${itemName}`, ''); 
+        }
+        setEnteredValues(delMsg);
+        setShowOptions(false);
+    };
 
     const addEnteredValue = (event) => {
         event.preventDefault();
@@ -31,6 +57,7 @@ const Message = () => {
             const newValues = [...enteredValues, inputMessage];
             localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
             setEnteredValues(newValues);
+            localStorage.setItem(`lastMessage-${itemName}`, inputMessage);
             setInputMessage(''); 
             //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
         }
@@ -83,17 +110,26 @@ const Message = () => {
         <img src={profileIcon} alt="" onClick={navigateToTProfile} style={{width: "70px", height: "70px"}} />
         </div>
         <div className="name" onClick={navigateToTProfile}>
-        <h1>{itemName} {decodedData.a2}</h1>
+        <h1>{itemName} {decodedData?.a2}</h1>
+        {decodedData?.a3 && (
         <p style={{display: "flex", position: "relative", top: "30px", left: "-150px", fontSize: "30px"}}>{decodedData.a3}</p>
+        )}
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
         <div>
         {enteredValues.map((value, index) => (
             <div className="type" key={index}>
-            <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
+            <button onClick={() =>deleteMessage(index)} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
             </button>
+            {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
+                <div style={{ position: 'absolute', top: '100%', left: 0 }}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
+                        Delete
+                    </button>
+                </div>
+            )}
             </div>
         ))} 
         </div>
@@ -109,4 +145,5 @@ const Message = () => {
         );
 };
 
+//export {savedEnteredValues};
 export default Message;
