@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #EA5455;
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.inputContainer {
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.button {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    background-color: #EA5455;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.passwordContainer {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.passwordLabel {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.password {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+}
