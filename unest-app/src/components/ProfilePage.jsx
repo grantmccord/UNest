@@ -118,6 +118,34 @@ const ProfilePage = () => {
         console.log("inside handlebasicinfochange function for event: ", event);
     };
 
+
+    //roommate preferences section
+    const initialRoommatePref = {
+        gender: "",
+        smoking: "",
+        drinking: "",
+        vegetarian: "",
+        sleeping: "",
+    };
+
+    const [roommatePref, setRoommatePref] = useState(initialRoommatePref);
+    const [editedRoommatePref, setEditedRoommatePref] = useState(initialRoommatePref);
+
+    useEffect(() => {
+        setRoommatePref(userData.roommate_preferences || initialRoommatePref);
+        setEditedRoommatePref(userData.roommate_preferences || initialRoommatePref);
+    }, [userData.details]);
+
+    const handleRoommatePrefChange = (event) => {
+        const { name, value } = event.target;
+        setEditedRoommatePref(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        console.log("inside handlechange function for event: ", event);
+    };
+
+
     //save and cancel buttons
 
     const handleSave = () => {
@@ -132,6 +160,8 @@ const ProfilePage = () => {
 
         // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
+
+        setRoommatePref(editedRoommatePref);
         updateUser()
     };
 
@@ -145,11 +175,15 @@ const ProfilePage = () => {
                 details: {
                     ...editedFormValues
                 },
+                roommate_preferences: {
+                    ...editedRoommatePref
+                },
                 description: editedAboutMeText
             };
 
             console.log("basic_info in updateUser(): ", updatedUserData.basic_info);
             console.log("details in updateUser(): ", updatedUserData.details);
+            console.log("roommate_preferences in updateUser(): ", updatedUserData.roommate_preferences);
             await axios.put(`/profile`, updatedUserData); // Assuming you need to include the user ID in the request URL
             alert('User profile has been successfully updated!');
         } catch (error) {
@@ -212,6 +246,20 @@ const ProfilePage = () => {
 
     const getDetailsFieldDisplayLabel = (fieldName) => {
         return fieldDetailsDisplayLabels[fieldName] || fieldName;
+    };
+
+    //roommate preferences
+
+    const fieldRoommatePrefLabels = {
+        gender: "Gender",
+        smoking: "Smoking",
+        drinking: "Drinking",
+        vegetarian: "Vegetarian",
+        sleeping: "Sleeping"
+    };
+
+    const getRoommatePrefLabel = (fieldName) => {
+        return fieldRoommatePrefLabels[fieldName] || fieldName;
     };
 
     return (
@@ -445,13 +493,57 @@ const ProfilePage = () => {
                 </Grid>
 
                 <Grid item md={3}>
-                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                    {/* <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                         Personal Habits
-                    </Typography>
+                    </Typography> */}
+                    <Box>
+                        <Typography variant="h6" mt={1} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                            Roommate Preferences
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <div>
+                            {isEditing ? (
+                                <Grid container>
+                                    {Object.entries(editedRoommatePref).map(([fieldName, value]) => (
+                                        <Grid item xs={12} key={fieldName}>
+                                            <TextField variant="standard" size="small"
+                                                sx={{
+                                                    '& .MuiInputLabel-root': {
+                                                        fontSize: '0.8rem'
+                                                    },
+                                                    '& .MuiInputBase-root': {
+                                                        height: '20px'
+                                                    },
+                                                    pb: 0.8
+                                                }}
+
+                                                name={fieldName}
+                                                label={getRoommatePrefLabel(fieldName)}
+                                                value={value}
+                                                onChange={handleRoommatePrefChange}
+                                            />
+                                        </Grid>
+                                    ))}
+
+                                </Grid>
+                            ) : (
+                                <Grid>
+                                    {
+                                        Object.entries(roommatePref).map(([key, value]) => (
+                                            <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getRoommatePrefLabel(key)}: {value}</Typography>
+                                        ))
+                                    }
+                                </Grid>
+                            )}
+                        </div>
+                    </Box>
                     <Typography variant="h5" mt={30} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                         Roommate Preferences
                     </Typography>
                 </Grid>
+
 
                 {/* <Box display="flex" flexDirection='row' sx={{ pt: 1 }}>
                     <div className='aboutMeEditButtons'>
