@@ -1,6 +1,6 @@
 import './propertyListings.css'
 import {
-  useNavigate,
+  useNavigate, Link
 } from "react-router-dom";
 import {useEffect, useState} from "react";
 import apartmentIcon from '../Assets/Apartment.png';
@@ -13,6 +13,13 @@ import Heart from 'react-heart';
 export const PropertyListings = () => {
   const [inputSearch, setInputSearch] = useState('Search');
   const [isFocused, setIsFocused] = useState(false);
+
+  const roommateData = [
+    { name: 'John Jones', description: 'Undergraduate Senior majoring in Computer Science' },
+    { name: 'Walker Smith', description: 'First Year Masters Student studying Mathematics' },
+    { name: 'Pete Day', description: 'Undergraduate Junior majoring in Communications' },
+    { name: 'Jose Stricker', description: "Second year Master's Student studying Data Science" }
+];
 
     const handleInputChange = (event) => {
         setInputSearch(event.target.value);
@@ -215,6 +222,21 @@ export const PropertyListings = () => {
       </ul>
       </div>
       <h2 style={{position: "relative", top: "-470px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
+      <div>
+            {roommateData.map((roommate, index) => (
+                <div className={`roommate${index + 1}`} style={{ position: "relative", top: "-470px", left: `${50 + (30 * index)}px` }} key={index}>
+                <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{ position: "relative", top: "40px", left: "100px", width: "100px", height: "100px" }} />
+                <h6 onClick={navigateToRoommateProfile} style={{ textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline" }}>{roommate.name}</h6>
+                <p style={{ textAlign: "center", position: "relative", top: "30px" }}>{roommate.description}</p>
+                <Link to={`/message/${roommate.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                <button style={{position: "relative", top: "112px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+                  Message
+                  </button> 
+                </Link>
+                </div>
+            ))}
+        </div>
+      {/*
       <div className='roommate1' style={{position: "relative", top: "-470px", left: "50px"}}>
       <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{position: "relative", top: "40px", left: "100px", width: "100px", height: "100px"}} />
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>John Jones</h6> 
@@ -235,6 +257,8 @@ export const PropertyListings = () => {
        <h6 onClick={navigateToRoommateProfile} style={{textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline"}}>Jose Stricker</h6>
        <p style={{textAlign: "center", position: "relative", top: "30px"}}>Second year Master's Student studying Data Science.</p>
       </div>
+    */}
+    {/*
       <button onClick={navigateToRoommate} style={{position: "relative", top: "-485px", left: "50px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
       Message
       </button>
@@ -250,6 +274,7 @@ export const PropertyListings = () => {
       <button onClick={navigateToExplore} style={{backgroundColor: "white", color: "black", position: "relative", top: "-450px", left: "230px", width: "1000px", height: "100px", border: "2px solid black"}}>
       Explore Others Who Viewed this Property
       </button>
+  */}
       </div>
       <img src={Logo} alt="" style={{position: "relative", top: "-2640px", left: "-540px", width: "100px", height: "100px"}} />
       </div>

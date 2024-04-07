@@ -100,8 +100,10 @@ const Message = () => {
         <img src={profileIcon} alt="" onClick={navigateToTProfile} style={{width: "70px", height: "70px"}} />
         </div>
         <div className="name" onClick={navigateToTProfile}>
-        <h1>{itemName} {decodedData.a2}</h1>
+        <h1>{itemName} {decodedData?.a2}</h1>
+        {decodedData?.a3 && (
         <p style={{display: "flex", position: "relative", top: "30px", left: "-150px", fontSize: "30px"}}>{decodedData.a3}</p>
+        )}
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
         <div>
