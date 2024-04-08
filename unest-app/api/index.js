@@ -68,15 +68,17 @@ app.post('/sendMessage', async(req, res) => {
 
 app.put('/profile', async (req,res) =>{
     mongoose.connect(process.env.MONGO_URL);
-    const { id, basic_info, details, roommate_preferences, description } = req.body;
+    const { id, basic_info, details, personal_habits, roommate_preferences, description } = req.body;
     console.log("basic_info in app.put(): ");
     console.log("details in app.put(): ");
+    console.log("personal_habits in app.put(): ");
     console.log("roommate_preferences in app.put(): ");
     
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
             basic_info: { ...basic_info },
             details: { ...details },
+            personal_habits: { ...personal_habits },
             roommate_preferences: { ...roommate_preferences },
             description: description
         }, { new: true });

@@ -118,6 +118,31 @@ const ProfilePage = () => {
         console.log("inside handlebasicinfochange function for event: ", event);
     };
 
+    //personal habits section
+    const initialHabits = {
+        smoking: "",
+        drinking: "",
+        vegetarian: "",
+        sleeping: ""
+    };
+
+    const [habits, setHabits] = useState(initialHabits);
+    const [editedHabits, setEditedHabits] = useState(initialHabits);
+
+    useEffect(() => {
+        setHabits(userData.personal_habits || initialHabits);
+        setEditedHabits(userData.personal_habits || initialHabits);
+    }, [userData.personal_habits]);
+
+    const handleHabitsChange = (event) => {
+        const { name, value } = event.target;
+        setEditedHabits(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        console.log("inside handlechange function for event: ", event);
+    };
+
 
     //roommate preferences section
     const initialRoommatePref = {
@@ -134,7 +159,7 @@ const ProfilePage = () => {
     useEffect(() => {
         setRoommatePref(userData.roommate_preferences || initialRoommatePref);
         setEditedRoommatePref(userData.roommate_preferences || initialRoommatePref);
-    }, [userData.details]);
+    }, [userData.roommate_preferences]);
 
     const handleRoommatePrefChange = (event) => {
         const { name, value } = event.target;
@@ -161,7 +186,10 @@ const ProfilePage = () => {
         // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
 
+        setHabits(editedHabits);
+
         setRoommatePref(editedRoommatePref);
+
         updateUser()
     };
 
@@ -175,6 +203,9 @@ const ProfilePage = () => {
                 details: {
                     ...editedFormValues
                 },
+                personal_habits: {
+                    ...editedHabits
+                },
                 roommate_preferences: {
                     ...editedRoommatePref
                 },
@@ -183,6 +214,7 @@ const ProfilePage = () => {
 
             console.log("basic_info in updateUser(): ", updatedUserData.basic_info);
             console.log("details in updateUser(): ", updatedUserData.details);
+            console.log("personal_habits in updateUser(): ", updatedUserData.personal_habits);
             console.log("roommate_preferences in updateUser(): ", updatedUserData.roommate_preferences);
             await axios.put(`/profile`, updatedUserData); // Assuming you need to include the user ID in the request URL
             alert('User profile has been successfully updated!');
@@ -200,7 +232,9 @@ const ProfilePage = () => {
         console.log("aboutMeText: ", aboutMeText);
         console.log("Updated form values:", formValues);
         console.log("Updated basic info:", basicInfo);
-    }, [aboutMeText, formValues, basicInfo]);
+        console.log("Updated personal habits:", habits);
+        console.log("Updated roommmate preferences:", roommatePref);
+    }, [aboutMeText, formValues, basicInfo, habits, roommatePref]);
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -212,6 +246,9 @@ const ProfilePage = () => {
 
         //canceling changes to basic info
         setEditedBasicInfo(basicInfo);
+
+        //canceling changes to personal habits section
+        setEditedHabits(habits);
 
         //canceling changes to roommate preferences section
         setEditedRoommatePref(roommatePref);
@@ -251,6 +288,20 @@ const ProfilePage = () => {
         return fieldDetailsDisplayLabels[fieldName] || fieldName;
     };
 
+    //personal habits
+
+    const fieldHabitsLabels = {
+        smoking: "Smoking",
+        drinking: "Drinking",
+        vegetarian: "Vegetarian",
+        sleeping: "Sleeping Type"
+    };
+
+    const getHabitsLabel = (fieldName) => {
+        return fieldHabitsLabels[fieldName] || fieldName;
+    };
+
+
     //roommate preferences
 
     const fieldRoommatePrefLabels = {
@@ -258,7 +309,7 @@ const ProfilePage = () => {
         smoking: "Smoking",
         drinking: "Drinking",
         vegetarian: "Vegetarian",
-        sleeping: "Sleeping"
+        sleeping: "Sleeping Type"
     };
 
     const getRoommatePrefLabel = (fieldName) => {
@@ -297,8 +348,8 @@ const ProfilePage = () => {
                     <Button variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
-                    <Box sx={{ width: 50 }}></Box>
-                    <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40, pl: 5 }} />
+                    <Box sx={{ width: 50, pl: 6 }}></Box>
+                    {/* <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40 }} /> */}
                 </Box>
 
 
@@ -394,7 +445,7 @@ const ProfilePage = () => {
                             justifyContent="center"
                             alignItems="center"
                             sx={{
-                                paddingRight: 4
+                                paddingRight: 10
                             }}
                         >
                             <div className='aboutMeTitle'>
@@ -496,11 +547,54 @@ const ProfilePage = () => {
                 </Grid>
 
                 <Grid item md={3}>
-                    {/* <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
-                        Personal Habits
-                    </Typography> */}
+
                     <Box>
                         <Typography variant="h6" mt={1} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                            Personal Habits
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <div>
+                            {isEditing ? (
+                                <Grid container>
+                                    {Object.entries(editedHabits).map(([fieldName, value]) => (
+                                        <Grid item xs={12} key={fieldName}>
+                                            <TextField variant="standard" size="small"
+                                                sx={{
+                                                    '& .MuiInputLabel-root': {
+                                                        fontSize: '0.8rem'
+                                                    },
+                                                    '& .MuiInputBase-root': {
+                                                        height: '20px'
+                                                    },
+                                                    pb: 0.8
+                                                }}
+
+                                                name={fieldName}
+                                                label={getHabitsLabel(fieldName)}
+                                                value={value}
+                                                onChange={handleHabitsChange}
+                                            />
+                                        </Grid>
+                                    ))}
+
+                                </Grid>
+                            ) : (
+                                <Grid>
+                                    {
+                                        Object.entries(habits).map(([key, value]) => (
+                                            <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getHabitsLabel(key)}: {value}</Typography>
+                                        ))
+                                    }
+                                </Grid>
+                            )}
+                        </div>
+                    </Box>
+
+
+                    <Box>
+                        <Typography variant="h6" mt={8} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
                             Roommate Preferences
                         </Typography>
                     </Box>
@@ -542,9 +636,6 @@ const ProfilePage = () => {
                             )}
                         </div>
                     </Box>
-                    <Typography variant="h5" mt={30} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
-                        Roommate Preferences
-                    </Typography>
                 </Grid>
 
 
