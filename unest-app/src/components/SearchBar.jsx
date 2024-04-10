@@ -34,7 +34,7 @@ function SearchBar({ handleFilter, handleSlider, handleChange, handleClick, slid
           <div className="flex-row">
             Sort by:
             <div className='space-x-4'>
-              <Radio onChange={(e) => handleButtons(e.target.value)} name="type" label="Room Type" value='Room Type' />
+              <Radio onChange={(e) => handleButtons(e.target.value)} name="type" label="Bath Count" value='Room Type' />
               <Radio onChange={(e) => handleButtons(e.target.value)} name="type" label="Bedroom Count" value='Bedroom Count' />
             </div>
             <div>

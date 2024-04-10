@@ -81,11 +81,18 @@ export default function PlacesPage(){
 
                         </div>
                     </div>
-                    <div style={{background:"lightgrey"}} className="py-10">
+                    <div style={{background: "antiquewhite"}} className="py-10">
                         {places.length > 0 && places.map(place => (
-                            <h1 className="py-5" style={{fontWeight: 15, fontStyle:"italic"}}>
-                                {place.title}
-                            </h1>
+                            <Link to={'/propertylisting'}>
+                                <h1 className="py-5" style={{fontWeight: 15, fontStyle: "italic"}}>
+                                    <div className="bg-gray-200">
+                                        {places.length > 0 && (
+                                            <img src={'http://localhost:4000/uploads/'+place.photos[0]} alt=""/>
+                                        )}
+                                    </div>
+                                    {place.title}: {place.address}
+                                </h1>
+                            </Link>
                         ))}
                     </div>
                 </div>
