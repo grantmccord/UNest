@@ -4,15 +4,22 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
+const Place = require('./models/Place.js')
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
+const cookieParser = require('cookie-parser');
+const multer = require('multer');
+const fs = require('fs');
+
 require('dotenv').config();
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(8);
-const jwtSecret = 'testingtokensecret';
+const jwtSecret = 'flase53q73bafvwpuesud';
 
-app.use(express.json());
+app.use(express.json())
+app.use(cookieParser())
+app.use('/uploads', express.static(__dirname+'/uploads'))
 
 app.use(cors({
     credentials: true,
@@ -26,12 +33,12 @@ app.get('/UNEST', (req,res) => {
 });
 
 app.post('/register', async (req,res) =>{
-    const {firstname, lastname, birthday, username, email, password} = req.body
+    const {first_name, last_name, birthday, username, email, password} = req.body
 
     try{
         const userDoc = await User.create({
-            firstname,
-            lastname,
+            first_name,
+            last_name,
             birthday,
             username,
             email,
@@ -148,6 +155,22 @@ app.post('/login', async(req,res) => {
         res.json("Not Found")
     }
 })
+
+app.get('/profile',(req,res)=>{
+    const {token} = req.cookies;
+    if(token){
+        jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+            if(err) throw err;
+            const userDoc = await User.findById(userData.id);
+            res.json(userDoc);
+        });
+    } else {
+        res.json(null);
+    }
+    //res.json({token});
+});
+
+
 app.get('/api/listings', async(req, res) => {
     try {
         console.log("executed listings get method")
@@ -158,6 +181,45 @@ app.get('/api/listings', async(req, res) => {
         console.error('Error fetching listings:', error);
         res.status(500).json({ message: 'Server Error' });
       }
+});
+
+const photosMiddleware = multer({dest:'uploads/'});
+app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
+    const uploadedFiles = [];
+    for(let i = 0; i < req.files.length; i++){
+        const {path, originalname} = req.files[i];
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+        uploadedFiles.push(newPath.replace('uploads/',''));
+    }
+    res.json(uploadedFiles);
+});
+
+app.post('/places', (req,res) => {
+    const {token} = req.cookies;
+    const {title, university, address, photos:addedPhotos, description,
+    perks, checkIn, checkOut, price} = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+        if(err) throw err;
+        const placeDoc = await Place.create({
+            owner:userData.id,
+            title,university,address,addedPhotos,description,
+            perks,checkIn,checkOut,price,
+        })
+        res.json(placeDoc);
+
+    })
+})
+
+app.get('/places', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+        const{id} = userData;
+        res.json(await Place.find({owner:id}));
+
+    })
 })
 
 

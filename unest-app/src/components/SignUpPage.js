@@ -7,8 +7,8 @@ import axios from "axios";
 
 const App = () => {
     const [values, setValues] = useState({
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         username: "",
         email: "",
         birthday: "",
@@ -19,7 +19,7 @@ const App = () => {
     const inputs = [
         {
             id: 1,
-            name: "firstname",
+            name: "first_name",
             type: "text",
             placeholder: "First Name",
             errorMessage: "Please enter your first name.",
@@ -28,7 +28,7 @@ const App = () => {
         },
         {
             id: 2,
-            name: "lastname",
+            name: "last_name",
             type: "text",
             placeholder: "Last Name",
             errorMessage: "Please enter your last name.",
@@ -90,8 +90,8 @@ const App = () => {
         ev.preventDefault();
         try{
             await axios.post('/register', {
-                firstname: values.firstname,
-                lastname: values.lastname,
+                first_name: values.first_name,
+                last_name: values.last_name,
                 username: values.username,
                 email: values.email,
                 birthday: values.birthday,

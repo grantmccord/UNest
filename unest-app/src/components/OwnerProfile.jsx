@@ -13,7 +13,7 @@ const OwnerProfile = () => {
      return (
         <div>
         <div>
-        <h1>Owner Profile</h1>
+        <h1>Owner Name Profile</h1>
         </div>
         <div>
         <button onClick={navigateToOwner} style={{position: "relative", top: "-65px", left: "1100px", width: "150px", height: "50px"}}>Message</button>

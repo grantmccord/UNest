@@ -11,6 +11,8 @@ const MessageRoommate = () => {
     const [inputMessage, setInputMessage] = useState('Message');
     const [isFocused, setIsFocused] = useState(false);
     const [enteredValues, setEnteredValues] = useState([]);
+    const [showOptions, setShowOptions] = useState(false);
+    const [buttonIndex, setButtonIndex] = useState(null);
 
     useEffect(() => {
         const savedEnteredValues = localStorage.getItem('enteredValues3');
@@ -18,6 +20,21 @@ const MessageRoommate = () => {
             setEnteredValues(JSON.parse(savedEnteredValues));
         }
     }, []);
+
+    const deleteMessage = (index) => {
+        setButtonIndex(index);
+        if (index === enteredValues.length - 1) {
+            setShowOptions(true);
+        }
+    };
+
+    const updateChat = () => {
+        const delMsg = [...enteredValues];
+        delMsg.pop();
+        localStorage.setItem('enteredValues3', JSON.stringify(delMsg));
+        setEnteredValues(delMsg);
+        setShowOptions(false);
+    };
 
     const addEnteredValue = (event) => {
         event.preventDefault();
@@ -96,10 +113,17 @@ const MessageRoommate = () => {
         <div>
         {enteredValues.map((value, index) => (
             <div className="type1" key={index}>
-            <button style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
+            <button onClick={() =>deleteMessage(index)} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
             </button>
+            {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
+                <div style={{ position: 'absolute', top: '100%', left: 0 }}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
+                        Delete
+                    </button>
+                </div>
+            )}
             </div>
         ))} 
         </div>

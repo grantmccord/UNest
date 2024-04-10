@@ -21,25 +21,31 @@ import OwnerProfile from './components/OwnerProfile';
 import MapComp from './components/Map';
 import LoginPage from "./components/LoginPage";
 import Message from './components/Message';
+import PassPage from "./components/PassPage";
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
 import {UserContextProvider} from "./UserContext";
+import PlacesPage from "./components/PlacesPage";
 
-axios.defaults.baseURL = 'http://localhost:4000/';
+axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true;
 
 
 function App(){
     return(
         <BrowserRouter>
+            <UserContextProvider>
                 <Routes>
                     <Route index element={<Homepage />} />
                     <Route path="/homepage" element={<Homepage/>} />
                     <Route path="/register" element={<SignUpPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/forgotpass" element={<PassPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/post" element={<PostPage />} />
+                    <Route path="/myplaces" element={<PlacesPage/>} />
+                    <Route path="/myplaces/:action" element={<PlacesPage/>} />
                     <Route path="/propertylisting" element={<PropertyListing/>} />
                     <Route path="/messageOwner" element={<MessageOwner />} />
                     <Route path="/tour" element={<Tour />} />
@@ -55,6 +61,7 @@ function App(){
                     <Route path="/property" element={<MapComp/>} />
                     <Route path="/message/:itemName" element={<Message/>} />
                 </Routes>
+            </UserContextProvider>
         </BrowserRouter>
     )
 }
