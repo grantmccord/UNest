@@ -20,7 +20,7 @@ const UserSchema = new Schema({
       smoking: String,
       drinking: String,
       vegetarian: String,
-      sleeping_type: String
+      sleeping: String
    },
    roommate_preferences: {
       gender: String,

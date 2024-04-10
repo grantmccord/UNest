@@ -34,6 +34,12 @@ app.get('/UNEST', (req,res) => {
 
 app.post('/register', async (req,res) =>{
     const {first_name, last_name, birthday, username, email, password} = req.body
+    const details = {year:"", major:"", minor:"", hobbies:"", interests:"", ideal_rent:""}
+    const description = ""
+    const personal_habits = {smoking:"", drinking:"", vegetarian:"", sleeping:"",}
+    const roommate_preferences= {gender:"", smoking:"", drinking:"", vegetarian:"", sleeping:"",}
+    const basic_info = {age:"", gender:"", pronouns:"", university:""}
+
 
     try{
         const userDoc = await User.create({
@@ -42,6 +48,11 @@ app.post('/register', async (req,res) =>{
             birthday,
             username,
             email,
+            description,
+            basic_info,
+            details,
+            personal_habits,
+            roommate_preferences,
             password:bcrypt.hashSync(password, bcryptSalt),
         });
         res.json(userDoc);
