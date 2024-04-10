@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './PassPage.css';
 
 const ForgotPassword = () => {
@@ -19,6 +20,7 @@ const ForgotPassword = () => {
 
     return (
         <div className="container">
+            <Link to="/login" className="returnToLogin">Return to Login</Link>
             <h2 className="title">Forgot Password</h2>
             <form onSubmit={handleSubmit} className="form">
                 <div className="inputContainer">

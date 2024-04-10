@@ -169,10 +169,10 @@ app.get('/profile',(req,res)=>{
 
 app.get('/api/listings', async(req, res) => {
     try {
-        console.log("executed listings get method")
+        //console.log("executed listings get method")
         const listings = await Listing.find(); // Fetch all listings from the database
         res.json(listings); // Send the listings as JSON response
-        console.log("executed listings get method")
+        //console.log("executed listings get method")
       } catch (error) {
         console.error('Error fetching listings:', error);
         res.status(500).json({ message: 'Server Error' });
