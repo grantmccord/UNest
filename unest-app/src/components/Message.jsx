@@ -58,6 +58,7 @@ const Message = () => {
             localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
             setEnteredValues(newValues);
             localStorage.setItem(`lastMessage-${itemName}`, inputMessage);
+            console.log("Last msg: ", `lastMessage-${itemName}`);
             setInputMessage(''); 
             //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
         }

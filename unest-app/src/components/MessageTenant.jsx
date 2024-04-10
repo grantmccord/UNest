@@ -3,6 +3,7 @@ import {
     useNavigate,
   } from "react-router-dom";
 import './MessageTenant.css';
+import axios from 'axios';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
@@ -29,18 +30,56 @@ const MessageTenant = () => {
         }
     };
 
+
+    const delMesg = async (id) => {
+        try {
+            await axios.delete(`/deleteMessage/${id}`);
+            console.log("Id: ", id);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    };
+
     const updateChat = () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
+        const id = '66161d0a9f91f82ff366b71a';
+        delMesg(id);
         localStorage.setItem('enteredValues', JSON.stringify(delMsg));
         setEnteredValues(delMsg);
         setShowOptions(false);
     };
 
-    const addEnteredValue = (event) => {
+    const addEnteredValue = async (event) => {
         event.preventDefault();
         if (inputMessage.trim() !== '') {
             const newValues = [...enteredValues, inputMessage];
+            console.log(inputMessage);
+            try {
+                const addMsg = {
+                    text: inputMessage, 
+                    time: new Date().toISOString(),
+                    senderfn: "Ram",
+                    senderln: "Laxminarayan",
+                    senderUsername: "raml10",
+                    receiverfn: "Tenant",
+                    receiverln: "Name",
+                    receiverUsername: "username",
+                };
+                console.log("Data: ", addMsg.text);
+                console.log("Data: ", addMsg.time);
+                console.log("Data: ", addMsg.senderfn);
+                console.log("Data: ", addMsg.senderln);
+                console.log("Data: ", addMsg.senderUsername);
+                console.log("Data: ", addMsg.receiverfn);
+                console.log("Data: ", addMsg.receiverln);
+                console.log("Data: ", addMsg.receiverUsername);
+                const response = await axios.post('/sendMessage', addMsg);
+                console.log('Msg sent to db: ', response.data);
+            } catch (error) {
+                console.error("Message not put in db: ", error);
+            }
+
             localStorage.setItem('enteredValues', JSON.stringify(newValues)); 
             setEnteredValues(newValues);
             setInputMessage(''); 

@@ -51,12 +51,12 @@ app.post('/register', async (req,res) =>{
 
 });
 
-/*
+
 app.post('/sendMessage', async(req, res) => {
-    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body
+    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body;
 
     try{
-        const userDoc = await Message.create({
+        const messageDoc = await Message.create({
             text,
             time,
             senderfn,
@@ -66,12 +66,24 @@ app.post('/sendMessage', async(req, res) => {
             receiverln, 
             receiverUsername,
         });
-        res.json(userDoc);
+        res.json(messageDoc);
     } catch (e){
         res.status(422).json(e);
     }
 })
-*/
+
+app.delete('/deleteMessage/:messageId', async (req, res) => {
+    const {messageId} = req.params;
+    try {
+        const del = await Message.findByIdAndDelete(messageId);
+        if (!del) {
+            return res.status(404).json({message: "Message not found"});
+        }
+        res.json({message: "Message deleted successfully"});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 app.put('/profile', async (req,res) =>{
     mongoose.connect(process.env.MONGO_URL);

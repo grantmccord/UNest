@@ -63,6 +63,9 @@ function MessagesPage() {
         });
         console.log("Msg: ", msg);
         setLastMsg(msg);
+        const hi = localStorage.getItem(`lastMessage-sud`); 
+        console.log("LM: ", hi);
+        getInfo();
         /*
         getInfo().then((d) => {
             console.log(d);
@@ -249,7 +252,7 @@ function MessagesPage() {
       </button>
       </div> 
        )}
-        <div>
+      <div>
        {Object.entries(lastMsg).map(([name, message]) => (
           message && ( <div className="first" key={name}> 
           <Link to={`/message/${name.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -261,6 +264,21 @@ function MessagesPage() {
            </Link>
            </div> 
        )))}
+       </div>
+       <div>
+       {user.map((item) => (
+        <div className="first" key={item._id}>
+        {localStorage.getItem(`lastMessage-${item.first_name}`)?.length > 0 && (
+        <Link to={`/message/${encodeURIComponent(item.first_name)}?data=${encodeURIComponent(JSON.stringify({a1: item.first_name, a2: item.last_name, a3: item.username}))}`}>
+        <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+        <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
+        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage-${item.first_name}`)}</p>
+        </button>
+        </Link>
+        )}
+        </div>
+          ))}
        </div>
        {/*(
       <div className="first"> 
