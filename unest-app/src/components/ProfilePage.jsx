@@ -14,7 +14,7 @@ import axios from "axios";
 
 import profileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const ProfilePage = () => {
@@ -24,7 +24,7 @@ const ProfilePage = () => {
     const id = '65c9686f70d91fbd7c84bbf5';
 
     useEffect(() => {
-        if (!id)  {
+        if (!id) {
             return;
         }
         fetchUserData();
@@ -35,6 +35,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
         try {
             const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            //const response = await axios.get(`/profile`);
             console.log("fetchUserData: ", response.data);
             setUserData(response.data); // Assuming response contains listing data
             console.log("userData.basic_info: ", userData.basic_info)
@@ -44,7 +45,7 @@ const ProfilePage = () => {
     };
 
     let navigate = useNavigate();
-    const routeChange = () =>{
+    const routeChange = () => {
         let path = '/myplaces/new';
         navigate(path);
     }
@@ -59,7 +60,7 @@ const ProfilePage = () => {
 
     //about me section
 
-    const initialAboutMeText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
+    const initialAboutMeText = "Tell Us More About Yourself"
     const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
     const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
 

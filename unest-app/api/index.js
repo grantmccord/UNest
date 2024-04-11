@@ -122,6 +122,29 @@ app.get('/api/users/:id', async(req, res) => {
       }
 })
 
+
+
+// app.get('/api/users', async(req, res) => {
+//     try {
+//         const {id} = req.params;
+//         const user = await User.findById(id) // Fetch all listings from the database
+//         res.json(user); // Send the listings as JSON response
+//       } catch (error) {
+//         console.error('Error fetching specific user:', error);
+//         res.status(500).json({ message: 'Server Error' });
+//       }
+//     const {token} = req.cookies;
+//     if(token){
+//         jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+//             if(err) throw err;
+//             const userDoc = await User.findById(userData.id);
+//             res.json(userDoc);
+//         });
+//     } else {
+//         res.json(null);
+//     }
+// })
+
 app.post('/findUser', async(req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {user} = req.body;

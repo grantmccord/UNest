@@ -16,7 +16,8 @@ const ListingSchema = new Schema({
    total_rooms: Number,
    total_baths: Number,
    amenities: Array,
-   roommate_group: Array
+   roommate_group: Array,
+   photos: [String]
 });
 
 const ListingModel = mongoose.model('Listing', ListingSchema);
