@@ -72,6 +72,21 @@ app.post('/sendMessage', async(req, res) => {
     }
 })
 
+app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({senderUsername: senderUsername, receiverUsername: receiverUsername}).sort({time: -1});
+        if (messages.length === 0) {
+            return res.status(404).json({message: 'Msg not found'});
+        }
+        const recMsg = messages[0]._id;
+        res.json({recMsg});
+    } catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
 app.delete('/deleteMessage/:messageId', async (req, res) => {
     const {messageId} = req.params;
     try {

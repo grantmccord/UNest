@@ -38,11 +38,20 @@ const MessageOwner = () => {
         }
     };
 
-    const updateChat = () => {
+    const updateChat = async () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
-        const id = '661620879f91f82ff366b71e';
-        delMesg(id);
+        try {
+            const senderUsername = 'raml10';
+            const receiverUsername = 'owner123';
+            const response = await axios.get(`/messages/${senderUsername}/${receiverUsername}`);
+            const id = response.data.recMsg;
+            console.log("Got id: ", id);
+            delMesg(id);
+        }
+        catch(error) {
+            console.error('Error fetching id', error);
+        }
         localStorage.setItem('enteredValues2', JSON.stringify(delMsg));
         setEnteredValues(delMsg);
         setShowOptions(false);
