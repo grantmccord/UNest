@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
     useNavigate, useParams, Link
   } from "react-router-dom";
@@ -7,6 +7,7 @@ import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
 import profileIcon from '../Assets/Profile.png';
+import {UserContext} from '../UserContext'
 import { savedEnteredValues } from './Message';
 
 function MessagesPage() {
@@ -22,6 +23,7 @@ function MessagesPage() {
     const [rmMsg, setRmMsg] = useState('');
     const [chatStr, setChatStr] = useState([]);
     const [lastMsg, setLastMsg] = useState({});
+    const {setProfile} = useContext(UserContext);
     const {itemName} = useParams();
 
     useEffect(() => {
@@ -78,7 +80,9 @@ function MessagesPage() {
         const getInfo = async () => {
           //setShowOptions(true);
           try {
-            const response = await axios.get('/api/users');
+            const id = '6615f2d3f1dd11331be85d8e'
+            //const response = await axios.get('/api/users');
+            const response = await axios.get(`excludeuser/${id}`);
             console.log("Connects");
             console.log("Response.data: ", response.data);
             setUser(response.data);

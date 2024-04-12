@@ -46,7 +46,7 @@ const Message = () => {
             console.error("Error: ", error);
         }
     };
-    
+
     const updateChat = async () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
@@ -150,7 +150,7 @@ const Message = () => {
         <div className="name" onClick={navigateToTProfile}>
         <h1>{itemName} {decodedData?.a2}</h1>
         {decodedData?.a3 && (
-        <p style={{display: "flex", position: "relative", top: "30px", left: "-150px", fontSize: "30px"}}>{decodedData.a3}</p>
+        <p style={{display: "flex", position: "relative", top: "30px", left: "-130px", fontSize: "30px"}}>{decodedData.a3}</p>
         )}
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>

@@ -134,6 +134,18 @@ app.get('/api/users', async(req, res) => {
       }
 })
 
+app.get('/excludeuser/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const users = await User.find({_id: {$ne: id}});
+        res.json(users);
+    }
+    catch (error) {
+        console.error("Failure of excluding user", error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
 app.get('/api/users/:id', async(req, res) => {
     try {
         const {id} = req.params;
