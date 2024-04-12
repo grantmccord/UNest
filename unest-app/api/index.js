@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
-const Place = require('./models/Place.js')
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
@@ -210,12 +209,12 @@ app.post('/places', (req,res) => {
     perks, checkIn, checkOut, price} = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         if(err) throw err;
-        const placeDoc = await Place.create({
+        const listingDoc = await Listing.create({
             owner:userData.id,
             title,university,address,addedPhotos,description,
             perks,checkIn,checkOut,price,
         })
-        res.json(placeDoc);
+        res.json(listingDoc);
 
     })
 })
@@ -224,7 +223,7 @@ app.get('/places', (req,res) => {
     const {token} = req.cookies;
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         const{id} = userData;
-        res.json(await Place.find({owner:id}));
+        res.json(await Listing.find({owner:id}));
 
     })
 })

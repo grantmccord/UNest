@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const placeSchema = new mongoose.Schema({
+const listingSchema = new mongoose.Schema({
     owner: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
     title: String,
     address: String,
@@ -14,6 +14,6 @@ const placeSchema = new mongoose.Schema({
 
 });
 
-const PlaceModel = mongoose.model('Place', placeSchema);
+const ListingModel = mongoose.model('Listing', listingSchema);
 
-module.exports = PlaceModel;
+module.exports = ListingModel;
