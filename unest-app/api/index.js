@@ -87,9 +87,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) => {
     console.log("inside app.put")
-    // const { filename } = req.file;
-    // console.log("filename in app.put: ", filename)
-    // const id = req.params.id; // Get the user ID from URL params
+    const { filename } = req.file;
+    console.log("filename in app.put: ", filename)
+    const id = req.params.id; // Get the user ID from URL params
   
     // try {
     //   // Find the user by ID
@@ -109,7 +109,7 @@ app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) 
     // }
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
-            profile_pic: `/uploads/${filename}`
+            profile_pic: `/uploads/${filename}`,
         }, { new: true });
 
         if (!updatedUser) {

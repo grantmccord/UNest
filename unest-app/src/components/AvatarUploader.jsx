@@ -34,17 +34,19 @@ const AvatarUploader = ({ onSave }) => {
         }
     };
 
+    const profilePicUrl = 'http://localhost:4000/uploads/government.jpeg';
 
     return (
         <>
             <IconButton onClick={handleOpen}>
-                <Avatar alt="Profile Image" src={avatarUrl} sx={{ width: 200, height: 200, alignItems: 'center' }} />
+                <Avatar alt="Profile Image" src={`http://localhost:4000/uploads/government.jpeg`} sx={{ width: 200, height: 200, alignItems: 'center' }} />
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Choose Profile Picture</DialogTitle>
                 {/* type=file allows the user to look their file explorer to select a profile image */}
                 <input type="file" accept="image/*" onChange={handleFileChange} />
             </Dialog>
+            {/* <img src="<%= profilePicUrl %>" alt="Profile Picture"></img> */}
         </>
     );
 };

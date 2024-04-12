@@ -35,7 +35,8 @@ const UserSchema = new Schema({
       gender: String,
       pronouns: String,
       university: String
-   }
+   },
+   profile_pic: String
 });
 
 const UserModel = mongoose.model('User', UserSchema);
