@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AvatarUploader from './AvatarUploader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -9,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import IconButton from '@mui/material/IconButton';
 import { createTheme } from '@mui/material/styles';
 import axios from "axios";
 
@@ -324,6 +326,30 @@ const ProfilePage = () => {
         return fieldRoommatePrefLabels[fieldName] || fieldName;
     };
 
+    const handleAvatarPicSave = async (file) => {
+        // Implement API call to save file to MongoDB
+        console.log("inside handleAvatarPicSave")
+        try {
+            if (!file) {
+                console.error('No file provided');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            const response = await axios.put(`/api/users/${id}/profile-pic`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log('Avatar uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+        }
+    };
+
     return (
         <div>
             <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
@@ -370,8 +396,7 @@ const ProfilePage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
-
+                        <AvatarUploader onSave={handleAvatarPicSave} />
                         <div>
                             {isEditing ? (
                                 <div>
@@ -413,7 +438,7 @@ const ProfilePage = () => {
                                 <>
 
                                     <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        Nivedha Kumar
+                                        {userData.first_name} {userData.last_name}
                                     </Typography>
 
                                     <Grid>

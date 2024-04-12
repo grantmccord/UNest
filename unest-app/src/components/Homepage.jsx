@@ -3,23 +3,29 @@ import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
 import bird from "../Assets/bird.png";
-import profileImg from "../Assets/pic_of_me3.jpeg";
+import profileImg from "../Assets/square_pic_of_me.png";
 import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Divider from '@mui/material/Divider';
+import { Link } from 'react-router-dom';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
+// import IconButton from '@mui/material/IconButton';
+// import Tooltip from '@mui/material/Tooltip';
+// import Divider from '@mui/material/Divider';
 
 import { useNavigate } from "react-router-dom";
+
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 const Header = () => {
   const [inputValue, setInputValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [sliderValue, setSliderValue] = useState(2000); // max value a property can have
-
-  const [anchorEl, setAnchorEl] = useState(null); // State for menu anchor element
-  const isMenuOpen = Boolean(anchorEl); // Determine if the menu is open
 
   const handleChange = (data) => {
     // Update the state when input value changes
@@ -34,16 +40,6 @@ const Header = () => {
     setSliderValue(data);
   };
 
-  const handleMenuClick = (event) => {
-    // Open the menu
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    // Close the menu
-    setAnchorEl(null);
-  };
-
   const navigate = useNavigate();
 
   const navigateToMessages = () => {
@@ -52,6 +48,12 @@ const Header = () => {
 
   const navigateToPostPage = () => {
     navigate('/myplaces', { replace: true });
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -78,62 +80,103 @@ const Header = () => {
                 <div>Create Post</div>
               </button> */}
 
-              {/* Avatar Menu */}
-              <Tooltip title="Account settings">
-                <IconButton
-                  onClick={handleMenuClick}
-                  size="small"
-                  sx={{ ml: 2 }}
-                  aria-controls={isMenuOpen ? 'account-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={isMenuOpen ? 'true' : undefined}
+
+              {/* <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="flex items-center justify-center space-x-2 p-2 rounded-full bg-gray-200 hover:bg-gray-300"
                 >
-                  <Avatar alt="Profile Image" src={profileImg} sx={{ width: 80, height: 80 }} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                anchorEl={anchorEl}
-                id="account-menu"
-                open={isMenuOpen}
-                onClose={handleMenuClose}
-                onClick={handleMenuClose}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                    mt: 1.5,
-                    '& .MuiAvatar-root': {
-                      width: 32,
-                      height: 32,
-                      ml: -0.5,
-                      mr: 1,
-                    },
-                    '&::before': {
-                      content: '""',
-                      display: 'block',
-                      position: 'absolute',
-                      top: 0,
-                      right: 14,
-                      width: 10,
-                      height: 10,
-                      bgcolor: 'background.paper',
-                      transform: 'translateY(-50%) rotate(45deg)',
-                      zIndex: 0,
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem onClick={handleMenuClose}>
-                  View My Profile
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleMenuClose}>
-                  Logout
-                </MenuItem>
+                  <img
+                    //src="https://mdbootstrap.com//img/Photos/Square/1.jpg"
+                    src={profileImg}
+                    class="h-32 w-32 rounded-full"
+                    alt="" />
+                </button>
+
+                {isOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                      View My Profile
+                    </button>
+                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div> */}
+
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className='h-0'>
+                    <div class="mb-4">
+                      <img
+                        //src="https://mdbootstrap.com//img/Photos/Square/1.jpg"
+                        src={profileImg}
+                        class="h-32 w-32 rounded-full"
+                        alt="" />
+                    </div>
+
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100">
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/profile" className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}> My Profile </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/messages" className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}> Message </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/myplaces/view" className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}> Post Listing </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/myplaces/view" className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}> View Map </Link>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className='py-1'>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/login" className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}> Logout </Link>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
               </Menu>
+
             </div>
           </nav>
         </header>
@@ -144,3 +187,5 @@ const Header = () => {
 };
 
 export default Header;
+
+
