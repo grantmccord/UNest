@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Avatar, Dialog, DialogTitle, DialogActions, IconButton } from '@mui/material';
 import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
 
-const AvatarUploader = ({ onSave }) => {
+const AvatarUploader = ({ profilePic, onSave }) => {
     // open is the state for the dialog
     const [open, setOpen] = useState(false);
     //has the name of the selected file
@@ -39,7 +39,7 @@ const AvatarUploader = ({ onSave }) => {
     return (
         <>
             <IconButton onClick={handleOpen}>
-                <Avatar alt="Profile Image" src={`http://localhost:4000/uploads/government.jpeg`} sx={{ width: 200, height: 200, alignItems: 'center' }} />
+                <Avatar alt="Profile Image" src={profilePic} sx={{ width: 200, height: 200, alignItems: 'center' }} />
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Choose Profile Picture</DialogTitle>

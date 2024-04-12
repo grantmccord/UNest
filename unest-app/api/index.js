@@ -90,23 +90,7 @@ app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) 
     const { filename } = req.file;
     console.log("filename in app.put: ", filename)
     const id = req.params.id; // Get the user ID from URL params
-  
-    // try {
-    //   // Find the user by ID
-    //   const user = await User.findById(userId);
-    //   if (!user) {
-    //     return res.status(404).json({ error: 'User not found' });
-    //   }
-  
-    //   // Update user's profile_pic field with the uploaded filename (or path)
-    //   user.profile_pic = `/uploads/${filename}`; // Assuming the file is stored in the 'uploads' directory
-    //   await user.save();
-  
-    //   res.json({ success: true, filename: user.profile_pic });
-    // } catch (error) {
-    //   console.error('Error uploading avatar:', error);
-    //   res.status(500).json({ error: 'Internal server error' });
-    // }
+
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
             profile_pic: `/uploads/${filename}`,

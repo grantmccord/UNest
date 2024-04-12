@@ -396,12 +396,12 @@ const ProfilePage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <AvatarUploader onSave={handleAvatarPicSave} />
+                        <AvatarUploader profilePic={userData.profile_pic} onSave={handleAvatarPicSave} />
                         <div>
                             {isEditing ? (
                                 <div>
                                     <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        Nivedha Kumar
+                                        {userData.first_name} {userData.last_name}
                                     </Typography>
                                     <Grid container>
                                         <Box
