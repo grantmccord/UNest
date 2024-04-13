@@ -18,6 +18,11 @@ const AvatarUploader = ({ profilePic, onSave }) => {
         setOpen(false);
     };
 
+    // useEffect(() => {
+    //     setAboutMeText(userData.description || initialAboutMeText);
+    //     setEditedAboutMeText(userData.description || initialAboutMeText);
+    // }, [userData.description]);
+
     const handleFileChange = (event) => {
         if (event.target.files.length > 0) {
             const file = event.target.files[0];
@@ -27,6 +32,7 @@ const AvatarUploader = ({ profilePic, onSave }) => {
             //converts to url
             const imageUrl = URL.createObjectURL(file);
             setAvatarUrl(imageUrl);
+            // setAvatarUrl('http://localhost:4000' + file);
             //send selectedFile to the user profile page to be uploaded to the database
             onSave(file);
             //close the dialog
@@ -34,12 +40,12 @@ const AvatarUploader = ({ profilePic, onSave }) => {
         }
     };
 
-    const profilePicUrl = 'http://localhost:4000/uploads/government.jpeg';
+    const profilePicUrl = 'http://localhost:4000' + profilePic;
 
     return (
         <>
             <IconButton onClick={handleOpen}>
-                <Avatar alt="Profile Image" src={profilePic} sx={{ width: 200, height: 200, alignItems: 'center' }} />
+                <Avatar alt="Profile Image" src={profilePicUrl} sx={{ width: 200, height: 200, alignItems: 'center' }} />
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Choose Profile Picture</DialogTitle>

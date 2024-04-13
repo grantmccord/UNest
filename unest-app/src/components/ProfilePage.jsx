@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import { createTheme } from '@mui/material/styles';
 import axios from "axios";
 
-import profileImg from "../Assets/pic_of_me3.jpeg";
+import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 
@@ -33,6 +33,7 @@ const ProfilePage = () => {
     }, []);
 
     //get user data for a specific user from the database
+    //TODO: see if I can fetch anytime there is a change in the database (not just when the page is mounted)
 
     const fetchUserData = async () => {
         try {
@@ -180,6 +181,18 @@ const ProfilePage = () => {
         console.log("inside handlechange function for event: ", event);
     };
 
+    //images
+
+
+    const [profileImg, setProfileImg] = useState(defaultProfileImg);
+    const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
+
+    useEffect(() => {
+        setProfileImg(userData.profile_pic || defaultProfileImg);
+        setEditedRoommatePref(userData.profile_pic || defaultProfileImg);
+    }, [userData.profile_pic]);
+
+
 
     //save and cancel buttons
 
@@ -200,7 +213,10 @@ const ProfilePage = () => {
 
         setRoommatePref(editedRoommatePref);
 
+        setProfileImg(editedProfileImg)
+
         updateUser()
+            ()
     };
 
     async function updateUser() {
