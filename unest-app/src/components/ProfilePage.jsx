@@ -436,10 +436,9 @@ const ProfilePage = () => {
                         <div>
                             {isEditing ? (
                                 <div>
-                                    <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        {userData.first_name} {userData.last_name}
-                                    </Typography>
+                                    <Box sx={{ mt: 10 }}>
+                                        <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                    </Box>
                                     <Grid container>
                                         <Box
                                             display="flex"
@@ -447,6 +446,9 @@ const ProfilePage = () => {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
+                                            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 12 }} gutterBottom>
+                                                {userData.first_name} {userData.last_name}
+                                            </Typography>
                                             {Object.entries(editedBasicInfo).map(([key, value]) => (
                                                 <Grid item xs={12} key={key}>
                                                     <TextField variant="standard" size="small"
@@ -473,11 +475,9 @@ const ProfilePage = () => {
                                 </div>
                             ) : (
                                 <>
-                                    <AvatarUploader profilePic={profileImg} onSave={handleAvatarPicSave} />
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        {userData.first_name} {userData.last_name}
-                                    </Typography>
-
+                                    <Box sx={{ mt: 10 }}>
+                                        <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                    </Box>
                                     <Grid>
                                         <Box
                                             display="flex"
@@ -485,6 +485,9 @@ const ProfilePage = () => {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
+                                            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 12 }} gutterBottom>
+                                                {userData.first_name} {userData.last_name}
+                                            </Typography>
                                             {
                                                 Object.entries(basicInfo).map(([key, value]) => (
                                                     <Typography key={key} variant="h6" sx={{ color: "#606060" }} gutterBottom>{value}</Typography>
