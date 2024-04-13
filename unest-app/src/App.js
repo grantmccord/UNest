@@ -46,7 +46,7 @@ function App(){
                     <Route path="/post" element={<PostPage />} />
                     <Route path="/myplaces" element={<PlacesPage/>} />
                     <Route path="/myplaces/:action" element={<PlacesPage/>} />
-                    <Route path="/propertylisting" element={<PropertyListing/>} />
+                    <Route path="/propertylisting/:id" element={<PropertyListing/>} />
                     <Route path="/messageOwner" element={<MessageOwner />} />
                     <Route path="/tour" element={<Tour />} />
                     <Route path="/listing" element={<ListingForm />} />

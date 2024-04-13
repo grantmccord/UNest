@@ -10,6 +10,7 @@ const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const fs = require('fs');
+const { json } = require('react-router-dom');
 
 require('dotenv').config();
 const app = express();
@@ -155,6 +156,19 @@ app.get('/api/users/:id', async(req, res) => {
         console.error('Error fetching specific user:', error);
         res.status(500).json({ message: 'Server Error' });
       }
+})
+
+app.get('/api/property/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const property = await Listing.findById(id);
+        res.json(property);
+    }
+    catch (error) {
+        console.error('Error fetching specific listing', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+
 })
 
 app.post('/findUser', async(req, res) => {
