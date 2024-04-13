@@ -30,8 +30,9 @@ const AvatarUploader = ({ profilePic, onSave }) => {
             setSelectedFile(file);
             //replaces the current avatar pic image with the one that the user selects
             //converts to url
-            const imageUrl = URL.createObjectURL(file);
-            setAvatarUrl(imageUrl);
+            //const imageUrl = URL.createObjectURL(file);
+            //console.log(imageUrl)
+            //setAvatarUrl(imageUrl);
             // setAvatarUrl('http://localhost:4000' + file);
             //send selectedFile to the user profile page to be uploaded to the database
             onSave(file);

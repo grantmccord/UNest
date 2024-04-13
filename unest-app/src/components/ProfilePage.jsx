@@ -189,8 +189,44 @@ const ProfilePage = () => {
 
     useEffect(() => {
         setProfileImg(userData.profile_pic || defaultProfileImg);
-        setEditedRoommatePref(userData.profile_pic || defaultProfileImg);
+        setEditedProfileImg(userData.profile_pic || defaultProfileImg);
     }, [userData.profile_pic]);
+
+    const [imgFile, setImgFile] = useState('')
+
+
+    const handleAvatarPicSave = async (file) => {
+        setImgFile(file)
+        console.log("inside handleAvatarPicSave")
+        console.log("file: ", file)
+        setEditedProfileImg('/uploads/' + file.name)
+        console.log("file.name", file.name)
+        console.log('/uploads/' + file.name)
+        console.log("editedProfileImg: ", editedProfileImg)
+        //TODO: show the new profile image on the screen
+    };
+
+    async function updatePic() {
+        try {
+            if (!imgFile) {
+                console.error('No file provided');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', imgFile);
+
+            const response = await axios.put(`/api/users/${id}/profile-pic`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log('Avatar uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+        }
+    }
 
 
 
@@ -216,8 +252,10 @@ const ProfilePage = () => {
         setProfileImg(editedProfileImg)
 
         updateUser()
-            ()
+        updatePic()
     };
+
+
 
     async function updateUser() {
         try {
@@ -278,6 +316,8 @@ const ProfilePage = () => {
 
         //canceling changes to roommate preferences section
         setEditedRoommatePref(roommatePref);
+
+        setEditedProfileImg(profileImg);
     };
 
 
@@ -342,29 +382,9 @@ const ProfilePage = () => {
         return fieldRoommatePrefLabels[fieldName] || fieldName;
     };
 
-    const handleAvatarPicSave = async (file) => {
-        // Implement API call to save file to MongoDB
-        console.log("inside handleAvatarPicSave")
-        try {
-            if (!file) {
-                console.error('No file provided');
-                return;
-            }
 
-            const formData = new FormData();
-            formData.append('avatar', file);
 
-            const response = await axios.put(`/api/users/${id}/profile-pic`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
 
-            console.log('Avatar uploaded successfully:', response.data);
-        } catch (error) {
-            console.error('Error uploading avatar:', error);
-        }
-    };
 
     return (
         <div>
@@ -412,10 +432,11 @@ const ProfilePage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <AvatarUploader profilePic={userData.profile_pic} onSave={handleAvatarPicSave} />
+
                         <div>
                             {isEditing ? (
                                 <div>
+                                    <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
                                     <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
                                         {userData.first_name} {userData.last_name}
                                     </Typography>
@@ -452,7 +473,7 @@ const ProfilePage = () => {
                                 </div>
                             ) : (
                                 <>
-
+                                    <AvatarUploader profilePic={profileImg} onSave={handleAvatarPicSave} />
                                     <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
                                         {userData.first_name} {userData.last_name}
                                     </Typography>
