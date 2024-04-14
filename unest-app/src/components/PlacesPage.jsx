@@ -98,8 +98,8 @@ export default function PlacesPage(){
                 </div>
             )}
             {action === 'new' && (
-                <div className='text-center' style={{width: 1200, background: "white"}}>
-                    <div className="inline-flex gap-1 bg-primary text-black py-10 rounded-full">
+                <div style={{width: 5000, background: "white"}}>
+                    <div className="flex justify-center items-center gap-1 bg-primary text-black py-10 rounded-full">
                         <h1>
                             New Property Listing
                         </h1>

@@ -146,7 +146,7 @@ app.post('/findUser', async(req, res) => {
 app.post('/login', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {email, password} = req.body;
-    const userDoc = await User.findOne({email:email})
+    const userDoc = await User.findOne({email})
     if(userDoc) {
         const checkPass = bcrypt.compareSync(password, userDoc.password);
         if(checkPass){
