@@ -221,7 +221,7 @@ app.post('/validate', async(req,res) => {
     const userDoc = await User.findOne({email})
     if(userDoc) {
         if(username === userDoc.username){
-            res.json(bcrypt.hashSync(userDoc.password, 10))
+            res.json({status:"FOUND" , pass: bcrypt.hashSync(userDoc.password, 8)})
         } else {
             res.status(422).json("No Such User")
         }

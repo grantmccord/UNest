@@ -8,14 +8,17 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [secretAnswer, setSecretAnswer] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
+    const [pass, setPass] = useState('');
 
     async function handleSubmit(event) {
         event.preventDefault();
         try{
-            const {check} = await axios.post('/validate', {username, email});
-            setShowPassword(true);
-            alert("check");
+            const {data} = await axios.post('/validate', {username, email});
+            if(data.status === "FOUND"){
+                setPass(data.pass)
+                setShowPassword(true);
+                alert("Match Found!")
+            }
         }catch(e){
             alert('NO MATCH FOUND');
         }
@@ -68,7 +71,7 @@ const ForgotPassword = () => {
             {showPassword && (
                 <div className="passwordContainer">
                     <p className="passwordLabel">Your Password:</p>
-                    <p className="password">CS307</p>
+                    <p className="password">{pass}</p>
                 </div>
             )}
         </div>
