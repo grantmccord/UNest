@@ -1,6 +1,6 @@
 import './propertyListings.css'
 import {
-  useNavigate, Link
+  useNavigate, Link, useParams
 } from "react-router-dom";
 import {useEffect, useState} from "react";
 import apartmentIcon from '../Assets/Apartment.png';
@@ -8,11 +8,14 @@ import profileIcon from '../Assets/Profile.png';
 import messageIcon from '../Assets/Message.png';
 import Logo from '../Assets/Logo.png';
 import Heart from 'react-heart';
+import axios from 'axios';
 
 
 export const PropertyListings = () => {
   const [inputSearch, setInputSearch] = useState('Search');
   const [isFocused, setIsFocused] = useState(false);
+  const {id} = useParams();
+  const [property, setProperty] = useState(null);
 
   const roommateData = [
     { name: 'John Jones', description: 'Undergraduate Senior majoring in Computer Science' },
@@ -20,6 +23,27 @@ export const PropertyListings = () => {
     { name: 'Pete Day', description: 'Undergraduate Junior majoring in Communications' },
     { name: 'Jose Stricker', description: "Second year Master's Student studying Data Science" }
 ];
+
+useEffect(() => {
+  viewProperty();
+  console.log("Id: ", id);
+}, [id]);
+
+const viewProperty = async () => {
+  try {
+      console.log("Id: ", id);
+      const response = await axios.get(`/api/property/${id}`);
+      const property = response.data;
+      console.log("name: ", property.name);
+      console.log("address: ", property.address); 
+      setProperty(property);
+      console.log("Success listing click");
+  }
+  catch (error) {
+      console.error("Error fetching listing", error);
+  }
+
+};
 
     const handleInputChange = (event) => {
         setInputSearch(event.target.value);
@@ -135,25 +159,31 @@ export const PropertyListings = () => {
     <h1 style={{ color: "black", position: "relative", top: "130px", left: "50px"}}>
       Insert Property Image Here
     </h1> 
-    <img src={apartmentIcon} data-testid="apartment-image" onClick={navigateToMap} style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    <Link to={`/property/${id}`}>
+    <img src={apartmentIcon} data-testid="apartment-image" style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    </Link>
     <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-550px", left: "450px", width: "40px", height: "40px"}}></Heart>
     </div>
+    <div>
+    {property ? (
+      <div>
     <div className='info'>
       <h3 style={{ color: "black", position: "relative", fontSize: "40px", fontWeight: "bold"}}>
-      Property Name
+      {property.name}
     </h3>
     </div>
     <div>
-    <p style={{ color: "black", position: "relative", top: "-660px", left: "615px", fontSize: "30px"}}>
-      Property Address
-    </p> </div>
-    <div>
-    <p style={{ color: "black", position: "relative",  top: "-660px", left: "590px", fontSize: "30px"}}>
-      West Lafayette, IN 47906
-    </p>
+    <p style={{ color: "black", position: "relative", top: "-550px", left: "600px", fontSize: "30px"}}>
+      {property.address}
+    </p> 
     </div>
+    </div>
+) : (
+  <p>Loading</p>
+)}
+</div>
     <div>
-    <h3 style={{ color: "black", position: "relative", top: "-500px", left: "590px", fontSize: "30px"}}>
+    <h3 style={{ color: "black", position: "relative", top: "-450px", left: "590px", fontSize: "30px"}}>
       $500 Monthly Unit Rent
     </h3>
     </div>
@@ -168,16 +198,17 @@ export const PropertyListings = () => {
     <div className='sta'>
       <button testId="message" onClick={navigateToOwner} style={{position: "relative", borderRadius: "20px", width: "200px", height: "70px"}}>
       Message Lister
-      </button><button onClick={navigateToTour} style={{position: "relative", left: "180px", borderRadius: "20px", width: "200px", height: "70px"}}>
+      </button>
+      <button onClick={navigateToTour} style={{position: "relative", left: "180px", borderRadius: "20px", width: "200px", height: "70px"}}>
       Schedule Tour Appointment
       </button>
       </div>
       <div>
-      <h3 style={{position: "relative", top: "-490px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
+      <h3 style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
         Amenities
       </h3>
       </div>
-      <div>
+      <div style={{position: "relative", top: "70px"}}>
       <ul>
         <li>
           In-Unit Laundry
@@ -221,8 +252,8 @@ export const PropertyListings = () => {
         </li>
       </ul>
       </div>
-      <h2 style={{position: "relative", top: "-470px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
-      <div>
+      <h2 style={{position: "relative", top: "-400px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
+      <div style={{position: "relative", top: "70px"}}>
             {roommateData.map((roommate, index) => (
                 <div className={`roommate${index + 1}`} style={{ position: "relative", top: "-470px", left: `${50 + (30 * index)}px` }} key={index}>
                 <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{ position: "relative", top: "40px", left: "100px", width: "100px", height: "100px" }} />

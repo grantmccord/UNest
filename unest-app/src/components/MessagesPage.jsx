@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
     useNavigate, useParams, Link
   } from "react-router-dom";
@@ -7,6 +7,7 @@ import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
 import profileIcon from '../Assets/Profile.png';
+import {UserContext} from '../UserContext'
 import { savedEnteredValues } from './Message';
 
 function MessagesPage() {
@@ -22,6 +23,7 @@ function MessagesPage() {
     const [rmMsg, setRmMsg] = useState('');
     const [chatStr, setChatStr] = useState([]);
     const [lastMsg, setLastMsg] = useState({});
+    const {setProfile} = useContext(UserContext);
     const {itemName} = useParams();
 
     useEffect(() => {
@@ -63,6 +65,9 @@ function MessagesPage() {
         });
         console.log("Msg: ", msg);
         setLastMsg(msg);
+        const hi = localStorage.getItem(`lastMessage-sud`); 
+        console.log("LM: ", hi);
+        getInfo();
         /*
         getInfo().then((d) => {
             console.log(d);
@@ -75,7 +80,9 @@ function MessagesPage() {
         const getInfo = async () => {
           //setShowOptions(true);
           try {
-            const response = await axios.get('/api/users');
+            const id = '6615f2d3f1dd11331be85d8e'
+            //const response = await axios.get('/api/users');
+            const response = await axios.get(`excludeuser/${id}`);
             console.log("Connects");
             console.log("Response.data: ", response.data);
             setUser(response.data);
@@ -249,7 +256,7 @@ function MessagesPage() {
       </button>
       </div> 
        )}
-        <div>
+      <div>
        {Object.entries(lastMsg).map(([name, message]) => (
           message && ( <div className="first" key={name}> 
           <Link to={`/message/${name.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -261,6 +268,21 @@ function MessagesPage() {
            </Link>
            </div> 
        )))}
+       </div>
+       <div>
+       {user.map((item) => (
+        <div className="first" key={item._id}>
+        {localStorage.getItem(`lastMessage-${item.first_name}`)?.length > 0 && (
+        <Link to={`/message/${encodeURIComponent(item.first_name)}?data=${encodeURIComponent(JSON.stringify({a1: item.first_name, a2: item.last_name, a3: item.username}))}`}>
+        <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+        <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
+        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage-${item.first_name}`)}</p>
+        </button>
+        </Link>
+        )}
+        </div>
+          ))}
        </div>
        {/*(
       <div className="first"> 

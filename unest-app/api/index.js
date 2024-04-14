@@ -9,6 +9,7 @@ const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const fs = require('fs');
+const { json } = require('react-router-dom');
 
 require('dotenv').config();
 const app = express();
@@ -61,12 +62,12 @@ app.post('/register', async (req,res) =>{
 
 });
 
-/*
+
 app.post('/sendMessage', async(req, res) => {
-    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body
+    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body;
 
     try{
-        const userDoc = await Message.create({
+        const messageDoc = await Message.create({
             text,
             time,
             senderfn,
@@ -76,12 +77,39 @@ app.post('/sendMessage', async(req, res) => {
             receiverln, 
             receiverUsername,
         });
-        res.json(userDoc);
+        res.json(messageDoc);
     } catch (e){
         res.status(422).json(e);
     }
 })
-*/
+
+app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({senderUsername: senderUsername, receiverUsername: receiverUsername}).sort({time: -1});
+        if (messages.length === 0) {
+            return res.status(404).json({message: 'Msg not found'});
+        }
+        const recMsg = messages[0]._id;
+        res.json({recMsg});
+    } catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
+app.delete('/deleteMessage/:messageId', async (req, res) => {
+    const {messageId} = req.params;
+    try {
+        const del = await Message.findByIdAndDelete(messageId);
+        if (!del) {
+            return res.status(404).json({message: "Message not found"});
+        }
+        res.json({message: "Message deleted successfully"});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 app.put('/profile', async (req,res) =>{
     mongoose.connect(process.env.MONGO_URL);
@@ -117,6 +145,18 @@ app.get('/api/users', async(req, res) => {
       }
 })
 
+app.get('/excludeuser/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const users = await User.find({_id: {$ne: id}});
+        res.json(users);
+    }
+    catch (error) {
+        console.error("Failure of excluding user", error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
 app.get('/api/users/:id', async(req, res) => {
     try {
         const {id} = req.params;
@@ -126,6 +166,19 @@ app.get('/api/users/:id', async(req, res) => {
         console.error('Error fetching specific user:', error);
         res.status(500).json({ message: 'Server Error' });
       }
+})
+
+app.get('/api/property/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const property = await Listing.findById(id);
+        res.json(property);
+    }
+    catch (error) {
+        console.error('Error fetching specific listing', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+
 })
 
 app.post('/findUser', async(req, res) => {
