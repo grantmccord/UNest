@@ -205,14 +205,14 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
 
 app.post('/places', (req,res) => {
     const {token} = req.cookies;
-    const {title, university, address, photos:addedPhotos, description,
-    perks, checkIn, checkOut, price} = req.body;
+    const {name, university, address, photos:addedPhotos, description,
+    perks, start_date, end_date, price} = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         if(err) throw err;
         const listingDoc = await Listing.create({
             owner:userData.id,
-            title,university,address,addedPhotos,description,
-            perks,checkIn,checkOut,price,
+            name,university,address,addedPhotos,description,
+            perks,start_date,end_date,price,
         })
         res.json(listingDoc);
 
@@ -224,7 +224,6 @@ app.get('/places', (req,res) => {
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         const{id} = userData;
         res.json(await Listing.find({owner:id}));
-
     })
 })
 
