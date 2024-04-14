@@ -91,7 +91,7 @@ const Header = () => {
           </header>
 
       </div>
-      <div className="flex">
+      <div>
       {!mapActive ? <Properties inputValue={inputValue} filterValue={filterValue} sliderValue={sliderValue} listings={listings} /> : <Map listings={listings} />}
       </div>
       </div>
