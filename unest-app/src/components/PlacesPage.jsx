@@ -82,7 +82,7 @@ export default function PlacesPage(){
                     </div>
                     <div style={{background: "antiquewhite"}} className="py-10">
                         {places.length > 0 && places.map(place => (
-                            <Link to={'/propertylisting'}>
+                            <Link to={{pathname: '/myplaces/modify', state:{place: place}}} key={place.id}>
                                 <h1 className="py-5" style={{fontWeight: 15, fontStyle: "italic"}}>
                                     <div className="bg-gray-200">
                                         {places.length > 0 && (

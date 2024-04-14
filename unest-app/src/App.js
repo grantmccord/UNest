@@ -45,7 +45,7 @@ function App(){
                     <Route path="/forgotpass" element={<PassPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/post" element={<PostPage />} />
-                    <Route path="/myplaces/edit" element={<EditPage/>} />
+                    <Route path="/myplaces/modify" element={<EditPage/>} />
                     <Route path="/myplaces" element={<PlacesPage/>} />
                     <Route path="/myplaces/:action" element={<PlacesPage/>} />
                     <Route path="/propertylisting/:id" element={<PropertyListing/>} />
