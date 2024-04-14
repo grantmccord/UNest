@@ -181,8 +181,7 @@ const ProfilePage = () => {
         console.log("inside handlechange function for event: ", event);
     };
 
-    //images
-
+    //profile image
 
     const [profileImg, setProfileImg] = useState(defaultProfileImg);
     const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
@@ -194,7 +193,6 @@ const ProfilePage = () => {
 
     const [imgFile, setImgFile] = useState('')
 
-
     const handleAvatarPicSave = async (file) => {
         setImgFile(file)
         console.log("inside handleAvatarPicSave")
@@ -203,7 +201,6 @@ const ProfilePage = () => {
         console.log("file.name", file.name)
         console.log('/uploads/' + file.name)
         console.log("editedProfileImg: ", editedProfileImg)
-        //TODO: show the new profile image on the screen
     };
 
     async function updatePic() {
@@ -437,7 +434,7 @@ const ProfilePage = () => {
                             {isEditing ? (
                                 <div>
                                     <Box sx={{ mt: 10 }}>
-                                        <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                        <AvatarUploader disabled={false} profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
                                     </Box>
                                     <Grid container>
                                         <Box
@@ -476,7 +473,7 @@ const ProfilePage = () => {
                             ) : (
                                 <>
                                     <Box sx={{ mt: 10 }}>
-                                        <AvatarUploader profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                        <AvatarUploader disabled={true} profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
                                     </Box>
                                     <Grid>
                                         <Box

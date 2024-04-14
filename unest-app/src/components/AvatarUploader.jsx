@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button, Avatar, Dialog, DialogTitle, DialogActions, IconButton } from '@mui/material';
 import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
 
-const AvatarUploader = ({ profilePic, onSave }) => {
+const AvatarUploader = ({ disabled, profilePic, onSave }) => {
     // open is the state for the dialog
     const [open, setOpen] = useState(false);
     //has the name of the selected file
     const [selectedFile, setSelectedFile] = useState(null);
     //creates a url based on the selected file to display on the profile page
+    console.log("'http://localhost:4000' + profilePic", 'http://localhost:4000' + profilePic)
     const [avatarUrl, setAvatarUrl] = useState(defaultProfileImg); // Default avatar URL
 
     const handleOpen = () => {
@@ -30,9 +31,9 @@ const AvatarUploader = ({ profilePic, onSave }) => {
             setSelectedFile(file);
             //replaces the current avatar pic image with the one that the user selects
             //converts to url
-            //const imageUrl = URL.createObjectURL(file);
-            //console.log(imageUrl)
-            //setAvatarUrl(imageUrl);
+            const imageUrl = URL.createObjectURL(file);
+            console.log("imageUrl", imageUrl);
+            setAvatarUrl(imageUrl);
             // setAvatarUrl('http://localhost:4000' + file);
             //send selectedFile to the user profile page to be uploaded to the database
             onSave(file);
@@ -45,9 +46,9 @@ const AvatarUploader = ({ profilePic, onSave }) => {
 
     return (
         <>
-            <IconButton onClick={handleOpen}>
+            <IconButton disabled={disabled} onClick={handleOpen}>
                 <Avatar alt="Profile Image" src={profilePicUrl} sx={{ width: 200, height: 200, alignItems: 'center' }} />
-            </IconButton>
+            </IconButton >
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Choose Profile Picture</DialogTitle>
                 {/* type=file allows the user to look their file explorer to select a profile image */}
