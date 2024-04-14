@@ -58,7 +58,7 @@ function App(){
                     <Route path="/roommateprofile" element={<RoommateProfile/>} />
                     <Route path="/tenantprofile" element={<TenantProfile/>} />
                     <Route path="/ownerprofile" element={<OwnerProfile/>} />
-                    <Route path="/property" element={<MapComp/>} />
+                    <Route path="/property/:id" element={<MapComp/>} />
                     <Route path="/message/:itemName" element={<Message/>} />
                 </Routes>
             </UserContextProvider>

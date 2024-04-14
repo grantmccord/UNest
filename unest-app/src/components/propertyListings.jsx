@@ -159,7 +159,9 @@ const viewProperty = async () => {
     <h1 style={{ color: "black", position: "relative", top: "130px", left: "50px"}}>
       Insert Property Image Here
     </h1> 
-    <img src={apartmentIcon} data-testid="apartment-image" onClick={navigateToMap} style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    <Link to={`/property/${id}`}>
+    <img src={apartmentIcon} data-testid="apartment-image" style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    </Link>
     <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-550px", left: "450px", width: "40px", height: "40px"}}></Heart>
     </div>
     <div>
@@ -202,11 +204,11 @@ const viewProperty = async () => {
       </button>
       </div>
       <div>
-      <h3 style={{position: "relative", top: "-490px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
+      <h3 style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
         Amenities
       </h3>
       </div>
-      <div>
+      <div style={{position: "relative", top: "70px"}}>
       <ul>
         <li>
           In-Unit Laundry
@@ -250,8 +252,8 @@ const viewProperty = async () => {
         </li>
       </ul>
       </div>
-      <h2 style={{position: "relative", top: "-470px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
-      <div>
+      <h2 style={{position: "relative", top: "-400px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
+      <div style={{position: "relative", top: "70px"}}>
             {roommateData.map((roommate, index) => (
                 <div className={`roommate${index + 1}`} style={{ position: "relative", top: "-470px", left: `${50 + (30 * index)}px` }} key={index}>
                 <img onClick={navigateToRoommateProfile} src={profileIcon} alt="" style={{ position: "relative", top: "40px", left: "100px", width: "100px", height: "100px" }} />

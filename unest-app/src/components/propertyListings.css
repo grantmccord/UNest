@@ -71,7 +71,8 @@ button {
 
   .list {
       display: flex;
-      position: relative;     
+      position: relative;
+      top: 70px;     
   }
 
   ul {
