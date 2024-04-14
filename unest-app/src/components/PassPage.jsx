@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './PassPage.css';
+import axios from "axios";
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
@@ -8,15 +9,24 @@ const ForgotPassword = () => {
     const [secretAnswer, setSecretAnswer] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = (event) => {
+
+    async function handleSubmit(event) {
         event.preventDefault();
-        if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
-            // NEED TO CHANGE TI FETCH FROM DATABASE
+        try{
+            const {check} = await axios.post('/validate', {username, email});
             setShowPassword(true);
-        } else {
-            alert('Invalid username, email, or secret answer.');
+            alert("check");
+        }catch(e){
+            alert('NO MATCH FOUND');
         }
-    };
+
+        //if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
+            // NEED TO CHANGE TI FETCH FROM DATABASE
+            //setShowPassword(true);
+        //} else {
+          //  alert('Invalid username, email, or secret answer.');
+        //}
+    }
 
     return (
         <div className="container">

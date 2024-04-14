@@ -215,6 +215,24 @@ app.post('/login', async(req,res) => {
     }
 })
 
+app.post('/validate', async(req,res) => {
+    mongoose.connect(process.env.MONGO_URL);
+    const {username, email} = req.body;
+    const userDoc = await User.findOne({email})
+    if(userDoc) {
+        if(username === userDoc.username){
+            res.json(bcrypt.hashSync(userDoc.password, 10))
+        } else {
+            res.status(422).json("No Such User")
+        }
+    } else{
+        res.json("Not Found")
+    }
+})
+
+
+
+
 app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
     if(token){
