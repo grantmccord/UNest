@@ -198,10 +198,34 @@ const ProfilePage = () => {
         console.log("inside handleAvatarPicSave")
         console.log("file: ", file)
         setEditedProfileImg('/uploads/' + file.name)
+        addPicToUploads(file)
         console.log("file.name", file.name)
         console.log('/uploads/' + file.name)
         console.log("editedProfileImg: ", editedProfileImg)
+        console.log("PROFILEIMG: ", profileImg)
     };
+
+    async function addPicToUploads(imgFile) {
+        try {
+            if (!imgFile) {
+                console.error('No file provided');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', imgFile);
+
+            const response = await axios.put(`/api/users/profile-pic`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log('Avatar uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+        }
+    }
 
     async function updatePic() {
         try {
