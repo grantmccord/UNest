@@ -90,7 +90,7 @@ app.put('/api/users/profile-pic', upload.single('avatar'), async (req, res) => {
     console.log("uploading image to uploads folder")
   });
 
-  app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) => {
+app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) => {
     console.log("inside app.put")
     const { filename } = req.file;
     console.log("filename in app.put: ", filename)
@@ -110,31 +110,7 @@ app.put('/api/users/profile-pic', upload.single('avatar'), async (req, res) => {
         console.error('Error updating user profile:', error);
         res.status(500).json({ message: 'Server Error' });
     }
-  });
-
-
-// app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) => {
-//     console.log("inside app.put")
-//     const { filename } = req.file;
-//     console.log("filename in app.put: ", filename)
-//     const id = req.params.id; // Get the user ID from URL params
-
-//     try {
-//         const updatedUser = await User.findByIdAndUpdate(id, {
-//             profile_pic: `/uploads/${filename}`,
-//         }, { new: true });
-
-//         if (!updatedUser) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//         console.log("updatedUser: ", updatedUser)
-//         res.json(updatedUser);
-//     } catch (error) {
-//         console.error('Error updating user profile:', error);
-//         res.status(500).json({ message: 'Server Error' });
-//     }
-//   });
-
+});
 
 
 app.put('/profile', async (req,res) =>{

@@ -311,9 +311,6 @@ const ProfilePage = () => {
 
     useEffect(() => {
         // This effect will run after formValues has been updated
-        // userData.basic_info = basicInfo;
-        // userData.details = formValues;
-        // userData.description = aboutMeText;
         console.log("aboutMeText: ", aboutMeText);
         console.log("Updated form values:", formValues);
         console.log("Updated basic info:", basicInfo);
