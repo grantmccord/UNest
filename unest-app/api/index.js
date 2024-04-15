@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('./models/User.js');
-const Place = require('./models/Place.js')
 const Listing = require('./models/Listing.js');
 const Message = require('./models/Message.js');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const fs = require('fs');
+const { json } = require('react-router-dom');
 
 require('dotenv').config();
 const app = express();
@@ -34,6 +34,12 @@ app.get('/UNEST', (req,res) => {
 
 app.post('/register', async (req,res) =>{
     const {first_name, last_name, birthday, username, email, password} = req.body
+    const details = {year:"", major:"", minor:"", hobbies:"", interests:"", ideal_rent:""}
+    const description = ""
+    const personal_habits = {smoking:"", drinking:"", vegetarian:"", sleeping:"",}
+    const roommate_preferences= {gender:"", smoking:"", drinking:"", vegetarian:"", sleeping:"",}
+    const basic_info = {age:"", gender:"", pronouns:"", university:""}
+
 
     try{
         const userDoc = await User.create({
@@ -42,6 +48,11 @@ app.post('/register', async (req,res) =>{
             birthday,
             username,
             email,
+            description,
+            basic_info,
+            details,
+            personal_habits,
+            roommate_preferences,
             password:bcrypt.hashSync(password, bcryptSalt),
         });
         res.json(userDoc);
@@ -51,12 +62,12 @@ app.post('/register', async (req,res) =>{
 
 });
 
-/*
+
 app.post('/sendMessage', async(req, res) => {
-    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body
+    const {text, time, senderfn, senderln, senderUsername, receiverfn, receiverln, receiverUsername} = req.body;
 
     try{
-        const userDoc = await Message.create({
+        const messageDoc = await Message.create({
             text,
             time,
             senderfn,
@@ -66,9 +77,37 @@ app.post('/sendMessage', async(req, res) => {
             receiverln, 
             receiverUsername,
         });
-        res.json(userDoc);
+        res.json(messageDoc);
     } catch (e){
         res.status(422).json(e);
+    }
+})
+
+app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({senderUsername: senderUsername, receiverUsername: receiverUsername}).sort({time: -1});
+        if (messages.length === 0) {
+            return res.status(404).json({message: 'Msg not found'});
+        }
+        const recMsg = messages[0]._id;
+        res.json({recMsg});
+    } catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
+app.delete('/deleteMessage/:messageId', async (req, res) => {
+    const {messageId} = req.params;
+    try {
+        const del = await Message.findByIdAndDelete(messageId);
+        if (!del) {
+            return res.status(404).json({message: "Message not found"});
+        }
+        res.json({message: "Message deleted successfully"});
+    } catch (error) {
+        res.status(500).json(error);
     }
 })
 */
@@ -151,6 +190,18 @@ app.get('/api/users', async(req, res) => {
       }
 })
 
+app.get('/excludeuser/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const users = await User.find({_id: {$ne: id}});
+        res.json(users);
+    }
+    catch (error) {
+        console.error("Failure of excluding user", error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
 app.get('/api/users/:id', async(req, res) => {
     try {
         const {id} = req.params;
@@ -185,6 +236,19 @@ app.get('/api/users/:id', async(req, res) => {
 //     }
 // })
 
+app.get('/api/property/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const property = await Listing.findById(id);
+        res.json(property);
+    }
+    catch (error) {
+        console.error('Error fetching specific listing', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+
+})
+
 app.post('/findUser', async(req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {user} = req.body;
@@ -203,7 +267,7 @@ app.post('/findUser', async(req, res) => {
 app.post('/login', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {email, password} = req.body;
-    const userDoc = await User.findOne({email:email})
+    const userDoc = await User.findOne({email})
     if(userDoc) {
         const checkPass = bcrypt.compareSync(password, userDoc.password);
         if(checkPass){
@@ -218,6 +282,24 @@ app.post('/login', async(req,res) => {
         res.json("Not Found")
     }
 })
+
+app.post('/validate', async(req,res) => {
+    mongoose.connect(process.env.MONGO_URL);
+    const {username, email} = req.body;
+    const userDoc = await User.findOne({email})
+    if(userDoc) {
+        if(username === userDoc.username){
+            res.json({status:"FOUND" , pass: bcrypt.hashSync(userDoc.password, 8)})
+        } else {
+            res.status(422).json("No Such User")
+        }
+    } else{
+        res.json("Not Found")
+    }
+})
+
+
+
 
 app.get('/profile',(req,res)=>{
     const {token} = req.cookies;
@@ -236,10 +318,10 @@ app.get('/profile',(req,res)=>{
 
 app.get('/api/listings', async(req, res) => {
     try {
-        console.log("executed listings get method")
+        //console.log("executed listings get method")
         const listings = await Listing.find(); // Fetch all listings from the database
         res.json(listings); // Send the listings as JSON response
-        console.log("executed listings get method")
+        //console.log("executed listings get method")
       } catch (error) {
         console.error('Error fetching listings:', error);
         res.status(500).json({ message: 'Server Error' });
@@ -262,16 +344,16 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res)=>{
 
 app.post('/places', (req,res) => {
     const {token} = req.cookies;
-    const {title, university, address, photos:addedPhotos, description,
-    perks, checkIn, checkOut, price} = req.body;
+    const {name, university, address, photos:addedPhotos, description,
+    perks, start_date, end_date, price} = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         if(err) throw err;
-        const placeDoc = await Place.create({
+        const listingDoc = await Listing.create({
             owner:userData.id,
-            title,university,address,addedPhotos,description,
-            perks,checkIn,checkOut,price,
+            name,university,address,addedPhotos,description,
+            perks,start_date,end_date,price,
         })
-        res.json(placeDoc);
+        res.json(listingDoc);
 
     })
 })
@@ -280,8 +362,7 @@ app.get('/places', (req,res) => {
     const {token} = req.cookies;
     jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
         const{id} = userData;
-        res.json(await Place.find({owner:id}));
-
+        res.json(await Listing.find({owner:id}));
     })
 })
 

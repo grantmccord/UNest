@@ -4,8 +4,8 @@ const UserSchema = new Schema({
    first_name: String,
    last_name: String,
    birthday: Date,
-   username: {type:String, unique:true },
-   email: {type:String, unique:true },
+   username: {type:String, unique:true},
+   email: {type:String, unique:true},
    password: String,
    details: {
       year: String,

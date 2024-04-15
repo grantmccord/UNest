@@ -62,3 +62,17 @@
     border-radius: 4px;
     display: inline-block;
 }
+
+.returnToLogin {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #808080;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+
+

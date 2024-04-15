@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%; /* Make the container take up the full width of the viewport */
+}
+
+.content {
+    text-align: center;
+    max-width: 600px; /* Set a maximum width for the content to prevent it from stretching too wide */
+    width: 100%; /* Ensure the content takes up the full width of its container */
+}

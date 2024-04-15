@@ -3,6 +3,7 @@ import {
     useNavigate, useParams
   } from "react-router-dom";
 import './Message.css';
+import axios from 'axios';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
@@ -37,9 +38,29 @@ const Message = () => {
         }
     };
 
-    const updateChat = () => {
+    const delMesg = async (id) => {
+        try {
+            await axios.delete(`/deleteMessage/${id}`);
+            console.log("Id: ", id);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    };
+
+    const updateChat = async () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
+        try {
+            const senderUsername = 'raml10';
+            const receiverUsername = decodedData?.a3;
+            const response = await axios.get(`/messages/${senderUsername}/${receiverUsername}`);
+            const id = response.data.recMsg;
+            console.log("Got id: ", id);
+            delMesg(id);
+        }
+        catch(error) {
+            console.error('Error fetching id', error);
+        }
         localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(delMsg));
         if (delMsg.length > 0) {
             localStorage.setItem(`lastMessage-${itemName}`, delMsg[delMsg.length - 1]);
@@ -51,13 +72,30 @@ const Message = () => {
         setShowOptions(false);
     };
 
-    const addEnteredValue = (event) => {
+    const addEnteredValue = async (event) => {
         event.preventDefault();
         if (inputMessage.trim() !== '') {
             const newValues = [...enteredValues, inputMessage];
+            try {
+                const addMsg = {
+                    text: inputMessage, 
+                    time: new Date().toISOString(),
+                    senderfn: "Ram",
+                    senderln: "Laxminarayan",
+                    senderUsername: "raml10",
+                    receiverfn: itemName,
+                    receiverln: decodedData?.a2,
+                    receiverUsername: decodedData?.a3,
+                };
+                const response = await axios.post('/sendMessage', addMsg);
+                console.log('Msg sent to db: ', response.data);
+            } catch (error) {
+                console.error("Message not put in db: ", error);
+            }
             localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
             setEnteredValues(newValues);
             localStorage.setItem(`lastMessage-${itemName}`, inputMessage);
+            console.log("Last msg: ", `lastMessage-${itemName}`);
             setInputMessage(''); 
             //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
         }
@@ -112,7 +150,7 @@ const Message = () => {
         <div className="name" onClick={navigateToTProfile}>
         <h1>{itemName} {decodedData?.a2}</h1>
         {decodedData?.a3 && (
-        <p style={{display: "flex", position: "relative", top: "30px", left: "-150px", fontSize: "30px"}}>{decodedData.a3}</p>
+        <p style={{display: "flex", position: "relative", top: "30px", left: "-130px", fontSize: "30px"}}>{decodedData.a3}</p>
         )}
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
