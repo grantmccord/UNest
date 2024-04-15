@@ -110,7 +110,7 @@ app.delete('/deleteMessage/:messageId', async (req, res) => {
         res.status(500).json(error);
     }
 })
-*/
+
 
 // Multer storage configuration
 const storage = multer.diskStorage({
