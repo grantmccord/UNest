@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import IconButton from '@mui/material/IconButton';
 import { createTheme } from '@mui/material/styles';
+import logo from "../Assets/bird.png";
+import homeIcon from '../Assets/house.png';
 import axios from "axios";
 
 import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
@@ -52,9 +54,13 @@ const ProfilePage = () => {
     };
 
     let navigate = useNavigate();
-    const routeChange = () => {
-        let path = '/myplaces/new';
-        navigate(path);
+
+    const routeToCreateListing = () => {
+        navigate('/myplaces/new');
+    }
+
+    const routeToHomepage = () => {
+        navigate('/homepage');
     }
 
 
@@ -410,6 +416,7 @@ const ProfilePage = () => {
     return (
         <div>
             <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
+                {/* <Avatar alt="Logo" src={logo} sx={{ position: "relative", top: -20, ml: 5, width: 100, height: 100 }} /> */}
                 <div>
                     {isEditing ? (
                         <div>
@@ -436,10 +443,13 @@ const ProfilePage = () => {
 
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
-                    <Button onClick={routeChange} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
+                    <Button onClick={routeToCreateListing} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
-                    <Box sx={{ width: 50, pl: 6 }}></Box>
+                    {/* <Box sx={{ width: 50, pl: 6 }}></Box> */}
+                    <Box sx={{ width: 50 }}></Box>
+                    <Avatar onClick={routeToHomepage} alt="Logo" width="10%" src={homeIcon}></Avatar>
+                    <Box sx={{ width: 50 }}></Box>
                     {/* <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40 }} /> */}
                 </Box>
 

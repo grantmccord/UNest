@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
-import bird from "../Assets/bird.png";
-import profileImg from "../Assets/pic_of_me3.jpeg";
-import profileImg2 from "../Assets/square_pic_of_me.png";
+import logo from "../Assets/bird.png";
+import defaultProfileImg from "../Assets/defaultProfileIcon.jpeg";
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 // import IconButton from '@mui/material/IconButton';
@@ -57,12 +57,36 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  const [profileImg, setProfileImg] = useState(defaultProfileImg);
+  //const id = '';
+
+  useEffect(() => {
+    // if (!id) {
+    //     return;
+    // }
+    fetchUserData();
+  }, []);
+
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(`/profile`);
+      if (response.data.profile_pic) {
+        setProfileImg('http://localhost:4000' + response.data.profile_pic);
+      }
+      //console.log('http://localhost:4000' + response.data.profile_pic);
+      console.log("response.data: ", response.data)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   return (
     <div>
       <div className="sticky top-0 z-20 bg-white">
         <header>
           <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-            <img src={bird} width={100} height={100} alt="" />
+            <img src={logo} width={125} height={125} alt="" />
             <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium">UNest</h1>
             <SearchBar
               handleFilter={handleFilter}
