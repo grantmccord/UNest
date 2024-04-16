@@ -7,12 +7,12 @@ const AvatarUploader = ({ disabled, profilePic, onSave }) => {
     const [open, setOpen] = useState(false);
     //has the name of the selected file
     let profilePicUrl = ''
-    console.log("profilePic: ", profilePic);
+    //console.log("profilePic: ", profilePic);
     if (profilePic) {
-        console.log("profilepic is NOT null");
+        //console.log("profilepic is NOT null");
         profilePicUrl = 'http://localhost:4000' + profilePic;
     } else {
-        console.log("profilepic is null");
+        //console.log("profilepic is null");
         profilePicUrl = defaultProfileImg;
     }
 
