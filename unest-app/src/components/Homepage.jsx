@@ -3,7 +3,8 @@ import SearchBar from "./SearchBar.jsx";
 import email from "../Assets/email.png";
 import Properties from "./Properties.jsx";
 import bird from "../Assets/bird.png";
-import profileImg from "../Assets/square_pic_of_me.png";
+import profileImg from "../Assets/pic_of_me3.jpeg";
+import profileImg2 from "../Assets/square_pic_of_me.png";
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 // import Menu from '@mui/material/Menu';
@@ -112,7 +113,7 @@ const Header = () => {
                       <img
                         //src="https://mdbootstrap.com//img/Photos/Square/1.jpg"
                         src={profileImg}
-                        class="h-32 w-32 rounded-full"
+                        class="h-32 rounded-full aspect-square object-cover"
                         alt="" />
                     </div>
 
