@@ -192,12 +192,12 @@ const ProfilePage = () => {
     };
 
     //profile image
-    const [profileImg, setProfileImg] = useState(defaultProfileImg);
-    const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
+    const [profileImg, setProfileImg] = useState(null);
+    const [editedProfileImg, setEditedProfileImg] = useState(null);
 
     useEffect(() => {
-        setProfileImg(userData.profile_pic || defaultProfileImg);
-        setEditedProfileImg(userData.profile_pic || defaultProfileImg);
+        setProfileImg(userData.profile_pic || null);
+        setEditedProfileImg(userData.profile_pic || null);
     }, [userData.profile_pic]);
 
     const [imgFile, setImgFile] = useState('')
