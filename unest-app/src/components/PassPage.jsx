@@ -1,25 +1,39 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './PassPage.css';
+import axios from "axios";
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [secretAnswer, setSecretAnswer] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [pass, setPass] = useState('');
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
-        // Check if username, email, and secretAnswer match the expected values
-        if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
-            // Set showPassword to true to display the password
-            setShowPassword(true);
-        } else {
-            alert('Invalid username, email, or secret answer.');
+        try{
+            const {data} = await axios.post('/validate', {username, email});
+            if(data.status === "FOUND"){
+                setPass(data.pass)
+                setShowPassword(true);
+                alert("Match Found!")
+            }
+        }catch(e){
+            alert('NO MATCH FOUND');
         }
-    };
+
+        //if (username === 'sud' && email === 'sud@gmail.com' && secretAnswer === 'hello') {
+            // NEED TO CHANGE TI FETCH FROM DATABASE
+            //setShowPassword(true);
+        //} else {
+          //  alert('Invalid username, email, or secret answer.');
+        //}
+    }
 
     return (
         <div className="container">
+            <Link to="/login" className="returnToLogin">Return to Login</Link>
             <h2 className="title">Forgot Password</h2>
             <form onSubmit={handleSubmit} className="form">
                 <div className="inputContainer">
@@ -57,7 +71,7 @@ const ForgotPassword = () => {
             {showPassword && (
                 <div className="passwordContainer">
                     <p className="passwordLabel">Your Password:</p>
-                    <p className="password">CS307</p>
+                    <p className="password">{pass}</p>
                 </div>
             )}
         </div>

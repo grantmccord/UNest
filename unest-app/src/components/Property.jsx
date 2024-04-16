@@ -14,15 +14,16 @@ import dormroom1 from "../Assets/dorm-room1.jpg";
 import dormroom2 from "../Assets/triple_bed.jpeg";
 
 export const Property = ({ listing }) => {
-    const { name, price, start_date, end_date, miles_from_campus } = listing;
-
+    const { name, price, start_date, end_date, miles_from_campus, photos } = listing;
     return (
         <Card sx={{ width: 325, height: 365, boxShadow: 7 }} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="180"
-                    image={dormroom1}
+                    // height="180"
+                    // image={"https://media.istockphoto.com/id/492965853/photo/university-college-dorm-room-with-bunkbeds-empty-unoccupied-student-bedroom.jpg?s=612x612&w=0&k=20&c=se0Dsy9AwP240fgPs10Fz39uPZR8PgPYn8hiFwhZf58="}
+                    image={photos[0]}
+                    sx={{ height: 215 }}
                     alt="property"
                 />
                 <CardContent>

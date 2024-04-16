@@ -4,8 +4,8 @@ const UserSchema = new Schema({
    first_name: String,
    last_name: String,
    birthday: Date,
-   username: {type:String, unique:true },
-   email: {type:String, unique:true },
+   username: {type:String, unique:true},
+   email: {type:String, unique:true},
    password: String,
    details: {
       year: String,
@@ -20,7 +20,7 @@ const UserSchema = new Schema({
       smoking: String,
       drinking: String,
       vegetarian: String,
-      sleeping_type: String
+      sleeping: String
    },
    roommate_preferences: {
       gender: String,
@@ -35,7 +35,8 @@ const UserSchema = new Schema({
       gender: String,
       pronouns: String,
       university: String
-   }
+   },
+   profile_pic: String
 });
 
 const UserModel = mongoose.model('User', UserSchema);
