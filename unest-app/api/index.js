@@ -405,5 +405,12 @@ app.get('/places', (req,res) => {
     })
 })
 
+app.get('/logout', (req, res) => {
+    if (req.cookies) {
+        res.clearCookie('token');
+        res.send('Logout successful');
+    }
+  });
+
 
 app.listen(4000);

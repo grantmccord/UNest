@@ -81,6 +81,18 @@ const Header = () => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const response = await axios.get(`/logout`);
+      navigate('/login', { replace: true });
+      console.log("response", response)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
+
   return (
     <div>
       <div className="sticky top-0 z-20 bg-white">
@@ -188,13 +200,21 @@ const Header = () => {
                         )}
                       </Menu.Item>
                     </div>
-                    <div className='py-1'>
+                    {/* <div className='py-1'> */}
+                    <div>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link to="/login" className={classNames(
-                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm'
-                          )}> Logout </Link>
+                          // <Link to="/login" className={classNames(
+                          //   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          //   'block px-4 py-2 text-sm'
+                          // )}> Logout </Link>
+                          // <button to="/login" className={classNames(
+                          //   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          //   'block px-4 py-2 text-sm'
+                          // )}> Logout </button>
+                          <button onClick={logout} class="bg-white hover:bg-gray-100 text-gray-700 px-4 hover:block text-sm sm">
+                            Logout
+                          </button>
                         )}
                       </Menu.Item>
                     </div>

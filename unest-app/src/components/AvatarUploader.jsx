@@ -17,8 +17,8 @@ const AvatarUploader = ({ disabled, profilePic, onSave }) => {
     }
 
     //creates a url based on the selected file to display on the profile page
-    console.log("'http://localhost:4000' + profilePic", 'http://localhost:4000' + profilePic)
-    console.log("profilePicUrl", profilePicUrl);
+    //console.log("'http://localhost:4000' + profilePic", 'http://localhost:4000' + profilePic)
+    console.log("profilePicUrl: ", profilePicUrl);
     const [avatarUrl, setAvatarUrl] = useState(profilePicUrl); // Default avatar URL
 
     useEffect(() => {
