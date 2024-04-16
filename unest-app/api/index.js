@@ -88,6 +88,26 @@ app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
     }
 })
 
+app.get('/msg/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({ $or: [
+            { senderUsername: senderUsername },
+            { receiverUsername: senderUsername }
+          ],
+          $or: [
+            { senderUsername: receiverUsername },
+            { receiverUsername: receiverUsername }
+          ]}).sort({time: 1});
+          
+        res.json(messages);
+    }   
+    catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'}); 
+    }
+})
+
 app.delete('/deleteMessage/:messageId', async (req, res) => {
     const {messageId} = req.params;
     try {
