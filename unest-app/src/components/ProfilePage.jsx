@@ -23,12 +23,13 @@ const ProfilePage = () => {
     //fetching user profile data
     const [userData, setUserData] = useState([]);
 
-    const id = '65c9686f70d91fbd7c84bbf5';
+    const [id, setId] = useState('65c9686f70d91fbd7c84bbf5');
+    //const id = '';
 
     useEffect(() => {
-        if (!id) {
-            return;
-        }
+        // if (!id) {
+        //     return;
+        // }
         fetchUserData();
     }, []);
 
@@ -37,7 +38,10 @@ const ProfilePage = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            // const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            //const response = await axios.get(`/profile`);
+            const response = await axios.get(`/profile`);
+            setId(response.data._id);
             //const response = await axios.get(`/profile`);
             console.log("fetchUserData: ", response.data);
             setUserData(response.data); // Assuming response contains listing data
@@ -182,7 +186,6 @@ const ProfilePage = () => {
     };
 
     //profile image
-
     const [profileImg, setProfileImg] = useState(defaultProfileImg);
     const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
 
@@ -215,7 +218,7 @@ const ProfilePage = () => {
             const formData = new FormData();
             formData.append('avatar', imgFile);
 
-            const response = await axios.put(`/api/users/profile-pic`, formData, {
+            const response = await axios.put(`/api/users/upload-profile-pic`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
