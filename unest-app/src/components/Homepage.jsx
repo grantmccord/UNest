@@ -204,16 +204,13 @@ const Header = () => {
                     <div>
                       <Menu.Item>
                         {({ active }) => (
-                          // <Link to="/login" className={classNames(
-                          //   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          //   'block px-4 py-2 text-sm'
-                          // )}> Logout </Link>
-                          // <button to="/login" className={classNames(
-                          //   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          //   'block px-4 py-2 text-sm'
-                          // )}> Logout </button>
-                          <button onClick={logout} class="bg-white hover:bg-gray-100 text-gray-700 px-4 hover:block text-sm sm">
-                            Logout
+                          //hover:bg-gray-100
+                          //-mb-4
+                          // <button onClick={logout} class="bg-white px-4 leading-3 -pb-3 text-left hover:bg-gray-100 text-gray-700 text-sm">
+                          //   Sign Out
+                          // </button>
+                          <button onClick={logout} className="bg-white px-4 text-left text-gray-700 h-8 text-sm">
+                            Sign Out
                           </button>
                         )}
                       </Menu.Item>
