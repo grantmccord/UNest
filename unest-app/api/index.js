@@ -98,18 +98,41 @@ app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
     }
 })
 
+app.get('/lastmsg/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({$or: [
+            { senderUsername: senderUsername, receiverUsername: receiverUsername },
+            { senderUsername: receiverUsername, receiverUsername: senderUsername }
+          ]
+        }).sort({time: -1});        
+        const recMsg = messages[0];
+        res.json({recMsg});
+    } catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'});
+    }
+})
+
 app.get('/msg/:senderUsername/:receiverUsername', async (req, res) => {
     try {
         const {senderUsername, receiverUsername} = req.params;
-        const messages = await Message.find({ $or: [
+        const messages = await Message.find({$or: [
+            { senderUsername: senderUsername, receiverUsername: receiverUsername },
+            { senderUsername: receiverUsername, receiverUsername: senderUsername }
+          ]
+        }
+
+          
+        /*{ $or: [
             { senderUsername: senderUsername },
             { receiverUsername: senderUsername }
           ],
           $or: [
             { senderUsername: receiverUsername },
             { receiverUsername: receiverUsername }
-          ]}).sort({time: 1});
-          
+          ]}*/).sort({time: 1});
+
         res.json(messages);
     }   
     catch (error) {
