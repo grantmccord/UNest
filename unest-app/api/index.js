@@ -98,6 +98,26 @@ app.get('/messages/:senderUsername/:receiverUsername', async (req, res) => {
     }
 })
 
+app.get('/msg/:senderUsername/:receiverUsername', async (req, res) => {
+    try {
+        const {senderUsername, receiverUsername} = req.params;
+        const messages = await Message.find({ $or: [
+            { senderUsername: senderUsername },
+            { receiverUsername: senderUsername }
+          ],
+          $or: [
+            { senderUsername: receiverUsername },
+            { receiverUsername: receiverUsername }
+          ]}).sort({time: 1});
+          
+        res.json(messages);
+    }   
+    catch (error) {
+        console.error('Cannot get msg between sender and receiver', error);
+        res.status(500).json({message: 'Server Error'}); 
+    }
+})
+
 app.delete('/deleteMessage/:messageId', async (req, res) => {
     const {messageId} = req.params;
     try {
@@ -111,16 +131,61 @@ app.delete('/deleteMessage/:messageId', async (req, res) => {
     }
 })
 
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    },
+  });
+  
+
+const upload = multer({ storage: storage });
+
+app.put('/api/users/profile-pic', upload.single('avatar'), async (req, res) => {
+    console.log("uploading image to uploads folder")
+  });
+
+app.put('/api/users/:id/profile-pic', upload.single('avatar'), async (req, res) => {
+    console.log("inside app.put")
+    const { filename } = req.file;
+    console.log("filename in app.put: ", filename)
+    const id = req.params.id; // Get the user ID from URL params
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            profile_pic: `/uploads/${filename}`,
+        }, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        console.log("updatedUser: ", updatedUser)
+        res.json(updatedUser);
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+
 app.put('/profile', async (req,res) =>{
     mongoose.connect(process.env.MONGO_URL);
-    const { id, basic_info, details, description } = req.body;
+    const { id, basic_info, details, personal_habits, roommate_preferences, description } = req.body;
     console.log("basic_info in app.put(): ");
     console.log("details in app.put(): ");
+    console.log("personal_habits in app.put(): ");
+    console.log("roommate_preferences in app.put(): ");
     
     try {
         const updatedUser = await User.findByIdAndUpdate(id, {
             basic_info: { ...basic_info },
             details: { ...details },
+            personal_habits: { ...personal_habits },
+            roommate_preferences: { ...roommate_preferences },
             description: description
         }, { new: true });
 
@@ -167,6 +232,29 @@ app.get('/api/users/:id', async(req, res) => {
         res.status(500).json({ message: 'Server Error' });
       }
 })
+
+
+
+// app.get('/api/users', async(req, res) => {
+//     try {
+//         const {id} = req.params;
+//         const user = await User.findById(id) // Fetch all listings from the database
+//         res.json(user); // Send the listings as JSON response
+//       } catch (error) {
+//         console.error('Error fetching specific user:', error);
+//         res.status(500).json({ message: 'Server Error' });
+//       }
+//     const {token} = req.cookies;
+//     if(token){
+//         jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+//             if(err) throw err;
+//             const userDoc = await User.findById(userData.id);
+//             res.json(userDoc);
+//         });
+//     } else {
+//         res.json(null);
+//     }
+// })
 
 app.get('/api/property/:id', async (req, res) => {
     try {

@@ -15,6 +15,10 @@ const Message = () => {
     const [enteredValues, setEnteredValues] = useState([]);
     const [showOptions, setShowOptions] = useState(false);
     const [buttonIndex, setButtonIndex] = useState(null);
+    const [firstname, setFirstName] = useState('Ram');
+    const [lastname, setLastName] = useState('Laxminarayan');
+    const [username, setUsername] = useState('raml10');
+    const [messages, setMessages] = useState([]);
     //const divRef = useRef(null);
 
     const {itemName} = useParams();
@@ -23,13 +27,47 @@ const Message = () => {
     const decodedData = JSON.parse(decodeURIComponent(encodedData));
 
     useEffect(() => {
-        const savedEnteredValues = localStorage.getItem(`enteredValues-${itemName}`);
+        fetchProfile(); 
+    }, []);
+
+    useEffect(() => {
+        const savedEnteredValues = localStorage.getItem(`enteredValues-${username}-${decodedData.a3}`);
+        console.log("save: ", savedEnteredValues);
+        console.log("user: ", username);
         if (savedEnteredValues) {
             setEnteredValues(JSON.parse(savedEnteredValues));
         }
-        const saveLastMsg = localStorage.getItem(`lastMessage-${itemName}`);
+        console.log("Enter: ", enteredValues);
+        const saveLastMsg = localStorage.getItem(`lastMessage-${username}-${decodedData.a3}`);
 
-    }, [itemName]);
+    }, [itemName, username, decodedData.a3]);
+
+    useEffect(() => {
+        fetchMessages();
+    }, []);
+
+    const fetchProfile = async () => {
+        try {
+            const response = await axios.get('/profile');
+            setFirstName(response.data.first_name);
+            setLastName(response.data.last_name);
+            setUsername(response.data.username);
+            console.log("Username: ", response.data.username);
+        }
+        catch (error) {
+            console.error("Error fetching msgs", error);
+        }
+    };
+
+    const fetchMessages = async () => {
+        try {
+            const response = await axios.get(`/msg/${username}/${decodedData.a3}`);
+            setMessages(response.data);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
@@ -51,7 +89,7 @@ const Message = () => {
         const delMsg = [...enteredValues];
         delMsg.pop();
         try {
-            const senderUsername = 'raml10';
+            const senderUsername = username;
             const receiverUsername = decodedData?.a3;
             const response = await axios.get(`/messages/${senderUsername}/${receiverUsername}`);
             const id = response.data.recMsg;
@@ -61,12 +99,12 @@ const Message = () => {
         catch(error) {
             console.error('Error fetching id', error);
         }
-        localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(delMsg));
+        localStorage.setItem(`enteredValues-${username}-${decodedData.a3}`, JSON.stringify(delMsg));
         if (delMsg.length > 0) {
-            localStorage.setItem(`lastMessage-${itemName}`, delMsg[delMsg.length - 1]);
+            localStorage.setItem(`lastMessage-${username}-${decodedData.a3}`, delMsg[delMsg.length - 1]);
         }
         else {
-            localStorage.setItem(`lastMessage-${itemName}`, ''); 
+            localStorage.setItem(`lastMessage-${username}-${decodedData.a3}`, ''); 
         }
         setEnteredValues(delMsg);
         setShowOptions(false);
@@ -80,9 +118,9 @@ const Message = () => {
                 const addMsg = {
                     text: inputMessage, 
                     time: new Date().toISOString(),
-                    senderfn: "Ram",
-                    senderln: "Laxminarayan",
-                    senderUsername: "raml10",
+                    senderfn: firstname,
+                    senderln: lastname,
+                    senderUsername: username,
                     receiverfn: itemName,
                     receiverln: decodedData?.a2,
                     receiverUsername: decodedData?.a3,
@@ -92,10 +130,10 @@ const Message = () => {
             } catch (error) {
                 console.error("Message not put in db: ", error);
             }
-            localStorage.setItem(`enteredValues-${itemName}`, JSON.stringify(newValues)); 
+            localStorage.setItem(`enteredValues-${username}-${decodedData.a3}`, JSON.stringify(newValues)); 
             setEnteredValues(newValues);
-            localStorage.setItem(`lastMessage-${itemName}`, inputMessage);
-            console.log("Last msg: ", `lastMessage-${itemName}`);
+            localStorage.setItem(`lastMessage-${username}-${decodedData.a3}`, inputMessage);
+            console.log("Last msg: ", `lastMessage-${username}-${decodedData.a3}`);
             setInputMessage(''); 
             //divRef.current.scrollIntoView({behavior: "smooth", block: "start"});
         }

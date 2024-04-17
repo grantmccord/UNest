@@ -16,6 +16,8 @@ const ListingSchema = new Schema({
    num_baths: Number,
    total_rooms: Number,
    total_baths: Number,
+   amenities: Array,
+   roommate_group: Array,
    perks: Array,
    photos: [String],
    roommate_group: Array
