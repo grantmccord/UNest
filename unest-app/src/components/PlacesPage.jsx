@@ -10,12 +10,15 @@ export default function PlacesPage(){
     const [name,setName] = useState('');
     const [university,setUniversity] = useState('');
     const [address, setAddress] = useState('');
+    const [miles_from_campus, setmiles_from_campus] = useState('');
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [description, setDescription] = useState('');
     const [perks, setPerks] = useState([]);
     const [start_date, setStart_date] = useState('');
     const [end_date, setEnd_date] = useState('');
     const [price, setPrice] = useState(0);
+    const [num_rooms, setNum_rooms] = useState(0);
+    const [num_baths, setNum_baths] = useState(0);
     const [redirectToPlacesList, setRedirectToPlacesList] = useState(false);
 
     const [places, setPlaces] = useState([]);
@@ -43,7 +46,8 @@ export default function PlacesPage(){
     async function addNewPlace(ev){
         ev.preventDefault();
         await axios.post('/places',{
-            name, university, address, addedPhotos, description, perks, start_date, end_date, price});
+            name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
+            num_rooms, num_baths});
         setRedirectToPlacesList(true);
         alert("Your listing has been posted!")
     }
@@ -82,7 +86,7 @@ export default function PlacesPage(){
                     </div>
                     <div style={{background: "antiquewhite"}} className="py-10">
                         {places.length > 0 && places.map(place => (
-                            <Link to={{pathname: '/myplaces/modify', state:{place: place}}} key={place.id}>
+                            <Link to={{pathname: '/myplaces/modify', state:{place: place}}}>
                                 <h1 className="py-5" style={{fontWeight: 15, fontStyle: "italic"}}>
                                     <div className="bg-gray-200">
                                         {places.length > 0 && (
@@ -111,7 +115,7 @@ export default function PlacesPage(){
                     <div className="flex justify-center items-center mt-4">
                         <form className="w-full max-w-lg">
                             <h2 className="text-xl mt-4">Title</h2>
-                            <input  className="w-full" style={{background: "white"}} type='text'
+                            <input className="w-full" style={{background: "white"}} type='text'
                                    placeholder="Give us a name, for example: My Little Dwelling"
                                    value={name} onChange={ev => setName(ev.target.value)}/>
                             <h2 className="text-xl mt-4">University</h2>
@@ -121,12 +125,33 @@ export default function PlacesPage(){
                             <h2 className="text-xl mt-4">Address</h2>
                             <input className="w-full" style={{background: "white"}} type='text'
                                    placeholder="Where can we find you?"
-                                   value={address} onChange={ev => setAddress(ev.target.value)} />
+                                   value={address} onChange={ev => setAddress(ev.target.value)}/>
+                            <h2 className="text-xl mt-4">Miles To Campus</h2>
+                            <input className="w-full" style={{background: "white"}} type='number'
+                                   placeholder="How far do you live?"
+                                   value={miles_from_campus} onChange={ev => setmiles_from_campus(ev.target.value)}/>
+
+                            <h2 className="text-xl mt-4">Room Info</h2>
+                            <div className="grid grid-cols-2">
+                                <div className="px-10">
+                                    <h3>Number of Rooms</h3>
+                                    <input className="" style={{background: "white"}} type='number'
+                                           placeholder="How many rooms are available?"
+                                           value={num_rooms} onChange={ev => setNum_rooms(ev.target.value)}/>
+                                </div>
+                                <div className="pl-8">
+                                    <h3>Number of Baths</h3>
+                                    <input style={{background: "white"}} type='number'
+                                           placeholder="How many baths are there?"
+                                           value={num_baths} onChange={ev => setNum_baths(ev.target.value)}/>
+                                </div>
+                            </div>
+
                             <h2 className="text-xl mt-4">Photos</h2>
                             <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                 {addedPhotos.length > 0 && addedPhotos.map(link => (
-                                    <div key={link} style={{background:"transparent"}}>
-                                        <img src={'http://localhost:4000/uploads/'+link} alt=""/>
+                                    <div key={link} style={{background: "transparent"}}>
+                                        <img src={'http://localhost:4000/uploads/' + link} alt=""/>
                                     </div>
                                 ))}
                                 <label
@@ -154,13 +179,13 @@ export default function PlacesPage(){
                             <div className="grid grid-cols-2">
                                 <div className="px-10">
                                     <h3>Check-In Date</h3>
-                                    <input className="" style={{background:"white"}} type='date'
+                                    <input className="" style={{background: "white"}} type='date'
                                            placeholder="Please enter in MM/DD/YYYY format"
                                            value={start_date} onChange={ev => setStart_date(ev.target.value)}/>
                                 </div>
                                 <div className="pl-8">
                                     <h3>Check-Out Date</h3>
-                                    <input style={{background:"white"}} type='date'
+                                    <input style={{background: "white"}} type='date'
                                            placeholder="Please enter in MM/DD/YYYY format"
                                            value={end_date} onChange={ev => setEnd_date(ev.target.value)}/>
                                 </div>
