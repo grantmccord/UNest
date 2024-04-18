@@ -73,7 +73,7 @@ const Message = () => {
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
-        if (index === enteredValues.length - 1) {
+        if (index === messages.length - 1) {
             setShowOptions(true);
         }
     };
@@ -87,7 +87,8 @@ const Message = () => {
         }
     };
 
-    const updateChat = async () => {
+    const updateChat = async (event) => {
+        event.preventDefault();
         const delMsg = [...enteredValues];
         delMsg.pop();
         try {
@@ -97,6 +98,7 @@ const Message = () => {
             const id = response.data.recMsg;
             console.log("Got id: ", id);
             delMesg(id);
+            fetchMessages();
         }
         catch(error) {
             console.error('Error fetching id', error);
@@ -202,7 +204,7 @@ const Message = () => {
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{message.text}</p>
             </button>
-            {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
+            {showOptions && buttonIndex === index && index === messages.length - 1 && message.senderUsername === username && (
                 <div style={{ position: 'absolute', top: '100%', left: 0 }}>
                     <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
                         Delete

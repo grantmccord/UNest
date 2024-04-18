@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
@@ -30,6 +31,17 @@ mongoose.connect(process.env.MONGO_URL);
 
 app.get('/UNEST', (req,res) => {
     res.json('Api is Up');
+});
+
+app.get('/geocode/:address', async (req, res) => {
+    try {
+        const {address} = req.params;
+        const response = await axios.get(`https://geocoding-service.com/geocode?address=${encodeURIComponent(address)}`);
+        res.json(response.data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.post('/register', async (req,res) =>{
@@ -107,7 +119,7 @@ app.get('/lastmsg/:senderUsername/:receiverUsername', async (req, res) => {
           ]
         }).sort({time: -1});        
         const recMsg = messages[0];
-        res.json({recMsg});
+        res.json(recMsg);
     } catch (error) {
         console.error('Cannot get msg between sender and receiver', error);
         res.status(500).json({message: 'Server Error'});

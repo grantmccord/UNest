@@ -35,7 +35,8 @@ const viewProperty = async () => {
       const response = await axios.get(`/api/property/${id}`);
       const property = response.data;
       console.log("name: ", property.name);
-      console.log("address: ", property.address); 
+      console.log("address: ", property.address);
+      console.log("photo", property.photos[0]); 
       setProperty(property);
       console.log("Success listing click");
   }
@@ -67,11 +68,11 @@ const viewProperty = async () => {
   };
 
   const [liked, setLiked] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('liked')) || false;
+    return JSON.parse(window.localStorage.getItem(`liked-${id}`)) || false;
   });
 
   useEffect(() => {
-    window.localStorage.setItem("liked", JSON.stringify(liked));
+    window.localStorage.setItem(`liked-${id}`, JSON.stringify(liked));
   }, [liked]);
 
   const toggleLiked = () => {
@@ -155,17 +156,20 @@ const viewProperty = async () => {
       Roommates
     </button>
     </div>
+    {property ? (
     <div className='rectangle'>
-    <h1 style={{ color: "black", position: "relative", top: "130px", left: "50px"}}>
-      Insert Property Image Here
-    </h1> 
     <Link to={`/property/${id}`}>
-    <img src={apartmentIcon} data-testid="apartment-image" style={{position: "relative", top: "-54px", width: "499px", height: "499px"}} alt=""/>
+    <img src={property.photos[0]} alt="" data-testid="apartment-image" style={{position: "relative", width: "499px", height: "499px"}}/>
     </Link>
-    <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-550px", left: "450px", width: "40px", height: "40px"}}></Heart>
+    <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-500px", left: "450px", width: "40px", height: "40px"}}></Heart>
     </div>
+    ) : (
+      <p>Loading</p>
+    )
+}
     <div>
     {property ? (
+      <div>
       <div>
     <div className='info'>
       <h3 style={{ color: "black", position: "relative", fontSize: "40px", fontWeight: "bold"}}>
@@ -178,21 +182,17 @@ const viewProperty = async () => {
     </p> 
     </div>
     </div>
-) : (
-  <p>Loading</p>
-)}
-</div>
     <div>
     <h3 style={{ color: "black", position: "relative", top: "-450px", left: "590px", fontSize: "30px"}}>
-      $500 Monthly Unit Rent
+      ${property.price} Monthly Unit Rent
     </h3>
     </div>
     <div className='bath'>
     <h3 style={{ color: "black", position: "relative", top: "50px", fontSize: "30px"}}>
-      1 Room
+      {property.total_rooms || property.num_rooms} Room
     </h3> 
     <h3 style={{ color: "black", position: "relative", top: "80px", left: "-90px", fontSize: "30px"}}>
-      1 Bath
+      {property.total_baths || property.num_baths} Bath
     </h3>
     </div>
     <div className='sta'>
@@ -210,48 +210,16 @@ const viewProperty = async () => {
       </div>
       <div style={{position: "relative", top: "70px"}}>
       <ul>
-        <li>
-          In-Unit Laundry
-        </li>
-        <li>
-          Garage Parking
-        </li>
-        <li>
-          Gym
-        </li>
-        <li>
-          Bicycle Storage
-        </li>
-        <li>
-          Maintenance on site
-        </li>
-        <li>
-          Game Room
-        </li>
-      </ul>
+      {property.amenities.map((amenity, index) => (
+        <li key={index}>{amenity}</li>
+      ))}
+    </ul>
       </div>
-      <div className='list'>
-      <ul style={{position: "relative"}}>
-        <li>
-          Keyed Access
-        </li>
-        <li>
-          Pool
-        </li>
-        <li>
-          EV Charging
-        </li>
-        <li>
-          Outdoor Grill
-        </li>
-        <li>
-          Balcony
-        </li>
-        <li>
-          In-Unit Laundry
-        </li>
-      </ul>
       </div>
+    ) : (
+      <p>Loading</p>
+    )}
+    </div>
       <h2 style={{position: "relative", top: "-400px", left: "100px", fontSize: "30px", fontWeight: "bold"}}>Users Looking for Roommates Who Viewed this Property</h2>
       <div style={{position: "relative", top: "70px"}}>
             {roommateData.map((roommate, index) => (
