@@ -1,16 +1,14 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 const ModifyListingPage = () => {
+    const {id} = useParams();
     const location = useLocation();
     const place = location.state?.place;
 
     const handleEditClick = () => {
-        if (place) {
-            alert(`Edit button clicked for ${place.name}, ${place.address}`);
-        } else {
-            alert('No place data available');
-        }
+        console.log({id});
     };
 
     const handleDeleteClick = () => {
@@ -28,24 +26,37 @@ const ModifyListingPage = () => {
             <div style={{width: 10000}} className="underline"></div>
 
             <div style={{display: 'flex', justifyContent: 'center', marginTop: '250px'}}>
-                <button onClick={handleEditClick} style={{
+                <Link to={'/myplaces/new/'+id} onClick={handleEditClick} style={{
                     marginRight: '20px',
+                    display: 'inline-block',
                     width: '300px',
-                    height: '100px',
+                    height: '200px',
                     fontSize: '24px',
                     backgroundColor: '#EA5455',
-                    color: 'white'
+                    color: 'white',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    lineHeight: '200px',
+                    fontWeight: 'bold',
+                    borderRadius: '15px'
                 }}>Edit Listing
-                </button>
-                <button onClick={handleDeleteClick} style={{
-                    marginLeft: '20px',
+                </Link>
+                <Link onClick={handleDeleteClick} style={{
+                    marginRight: '20px',
+                    display: 'inline-block',
                     width: '300px',
-                    height: '100px',
+                    height: '200px',
                     fontSize: '24px',
                     backgroundColor: '#EA5455',
-                    color: 'white'
+                    color: 'white',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    lineHeight: '200px',
+                    fontWeight: 'bold',
+                    borderRadius: '15px',
+                    marginLeft: '50px',
                 }}>Delete Listing
-                </button>
+                </Link>
             </div>
         </div>
     );
