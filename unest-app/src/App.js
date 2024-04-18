@@ -48,6 +48,7 @@ function App(){
                     <Route path="/myplaces/modify" element={<EditPage/>} />
                     <Route path="/myplaces" element={<PlacesPage/>} />
                     <Route path="/myplaces/:action" element={<PlacesPage/>} />
+                    <Route path="/myplaces/:action/:id" element={<PlacesPage/>} />
                     <Route path="/propertylisting/:id" element={<PropertyListing/>} />
                     <Route path="/messageOwner" element={<MessageOwner />} />
                     <Route path="/tour" element={<Tour />} />

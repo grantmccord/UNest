@@ -33,7 +33,7 @@ app.get('/UNEST', (req,res) => {
 });
 
 app.post('/register', async (req,res) =>{
-    const {first_name, last_name, birthday, username, email, password} = req.body
+    const {first_name, last_name, birthday, username, email, password, secretWord} = req.body
     const details = {year:"", major:"", minor:"", hobbies:"", interests:"", ideal_rent:""}
     const description = ""
     const personal_habits = {smoking:"", drinking:"", vegetarian:"", sleeping:"",}
@@ -54,6 +54,7 @@ app.post('/register', async (req,res) =>{
             personal_habits,
             roommate_preferences,
             password:bcrypt.hashSync(password, bcryptSalt),
+            secretWord,
         });
         res.json(userDoc);
     } catch (e){
@@ -370,7 +371,7 @@ app.post('/places', (req,res) => {
         if(err) throw err;
         const listingDoc = await Listing.create({
             owner:userData.id,
-            name,university,address,addedPhotos,description,
+            name,university,address, photos:addedPhotos,description,
             perks,start_date,end_date,price, miles_from_campus, num_rooms, num_baths
         })
         res.json(listingDoc);
@@ -386,5 +387,27 @@ app.get('/places', (req,res) => {
     })
 })
 
+app.get('/places/:id', async (req,res) => {
+    const {id} = req.params;
+    res.json(await Listing.findById(id));
+} )
+
+app.put('/places', async (req,res) => {
+    const {token} = req.cookies;
+    const {id, name, university, address, photos:addedPhotos, description,
+        perks, start_date, end_date, price, miles_from_campus, num_rooms, num_baths} = req.body;
+
+    jwt.verify(token, jwtSecret, {}, async (err, userData)=>{
+        const placeDoc = await Listing.findById(id);
+        if(userData.id === placeDoc.owner.toString()){
+            placeDoc.set({
+                name,university,address, photos:addedPhotos,description,
+                perks,start_date,end_date,price, miles_from_campus, num_rooms, num_baths
+            })
+            await placeDoc.save();
+            res.json('ok');
+        }
+    });
+})
 
 app.listen(4000);

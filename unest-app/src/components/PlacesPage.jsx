@@ -6,6 +6,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 export default function PlacesPage(){
+    const {id} = useParams();
     const{action} = useParams();
     const [name,setName] = useState('');
     const [university,setUniversity] = useState('');
@@ -19,7 +20,29 @@ export default function PlacesPage(){
     const [price, setPrice] = useState(0);
     const [num_rooms, setNum_rooms] = useState(0);
     const [num_baths, setNum_baths] = useState(0);
-    const [redirectToPlacesList, setRedirectToPlacesList] = useState(false);
+    const [redirectToPlacesList, setRedirectToPlacesList] = useState(false)
+
+    useEffect(() => {
+        if (!id){
+            return;
+        }
+        axios.get('/places/'+id).then(response => {
+            const {data} = response;
+            setName(data.name);
+            setUniversity(data.university);
+            setAddress(data.address);
+            setmiles_from_campus(data.miles_from_campus);
+            setNum_rooms(data.num_rooms);
+            setNum_baths(data.num_baths);
+            setAddedPhotos(data.photos);
+            setDescription(data.description);
+            setPerks(data.perks);
+            setStart_date(data.start_date);
+            setEnd_date(data.end_date);
+            setPrice(data.price);
+
+        });
+    },[id]);
 
     const [places, setPlaces] = useState([]);
     useEffect(() => {
@@ -43,11 +66,19 @@ export default function PlacesPage(){
             });
         })
     }
-    async function addNewPlace(ev){
+    async function savePlace(ev){
         ev.preventDefault();
-        await axios.post('/places',{
-            name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
-            num_rooms, num_baths});
+        if(id){
+            await axios.put('/places',{
+                id,
+                name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
+                num_rooms, num_baths});
+
+        } else{
+            await axios.post('/places',{
+                name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
+                num_rooms, num_baths});
+        }
         setRedirectToPlacesList(true);
         alert("Your listing has been posted!")
     }
@@ -86,7 +117,7 @@ export default function PlacesPage(){
                     </div>
                     <div style={{background: "antiquewhite"}} className="py-10">
                         {places.length > 0 && places.map(place => (
-                            <Link to={{pathname: '/myplaces/modify', state:{place: place}}}>
+                            <Link to={{pathname: '/myplaces/new/'+place._id, state:{place: place}}}>
                                 <h1 className="py-5" style={{fontWeight: 15, fontStyle: "italic"}}>
                                     <div className="bg-gray-200">
                                         {places.length > 0 && (
@@ -104,7 +135,7 @@ export default function PlacesPage(){
                 <div className="justify-center items-center min-h-screen">
                     <div className="flex flex-col justify-center items-center gap-1 bg-primary text-black py-10 rounded-full">
                         <h1>
-                            New Property Listing
+                            Your Property Listing
                         </h1>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                              stroke="currentColor" className="w-12 h-12">
@@ -179,13 +210,13 @@ export default function PlacesPage(){
                             <div className="grid grid-cols-2">
                                 <div className="px-10">
                                     <h3>Check-In Date</h3>
-                                    <input className="" style={{background: "white"}} type='date'
+                                    <input className="" style={{background: "white"}} type='text'
                                            placeholder="Please enter in MM/DD/YYYY format"
                                            value={start_date} onChange={ev => setStart_date(ev.target.value)}/>
                                 </div>
                                 <div className="pl-8">
                                     <h3>Check-Out Date</h3>
-                                    <input style={{background: "white"}} type='date'
+                                    <input style={{background: "white"}} type='text'
                                            placeholder="Please enter in MM/DD/YYYY format"
                                            value={end_date} onChange={ev => setEnd_date(ev.target.value)}/>
                                 </div>
@@ -194,7 +225,7 @@ export default function PlacesPage(){
                             <input className="w-full" style={{background: "white"}} type='number'
                                    placeholder="What's the cost to stay?"
                                    value={price} onChange={ev => setPrice(ev.target.value)}/>
-                            <button onClick={addNewPlace} style={{background: "#d55757"}} className="primary my-4">Save
+                            <button onClick={savePlace} style={{background: "#d55757"}} className="primary my-4">Save
                             </button>
                         </form>
                     </div>

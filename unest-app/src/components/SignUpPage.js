@@ -14,6 +14,7 @@ const App = () => {
         birthday: "",
         password: "",
         confirmPassword: "",
+        secretWord: "",
     });
 
     const inputs = [
@@ -84,6 +85,14 @@ const App = () => {
             pattern: values.password,
             required: true,
         },
+        {
+            id: 8,
+            name: "secretWord",
+            type: "text",
+            placeholder: "Secret Word",
+            label: "Secret Word",
+            required: true,
+        },
     ];
 
     async function registerUser (ev){
@@ -96,6 +105,7 @@ const App = () => {
                 email: values.email,
                 birthday: values.birthday,
                 password: values.password,
+                secretWord: values.secretWord,
             })
             alert('Thank you for registering! Welcome to UNEST!');
         } catch (e){
