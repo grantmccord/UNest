@@ -3,6 +3,7 @@ import {
     useNavigate,
   } from "react-router-dom";
 import './MessageTenant.css';
+import axios from 'axios';
 import back from '../Assets/back.png';
 import profileIcon from '../Assets/Profile.png';
 import send from '../Assets/send.png';
@@ -24,27 +25,70 @@ const MessageTenant = () => {
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
-        setShowOptions(true);
+        if (index === enteredValues.length - 1) {
+            setShowOptions(true);
+        }
     };
 
-    const updateChat = () => {
-        setEnteredValues((prev) => {
-            const updateMsg = [...prev];
-            updateMsg.splice(buttonIndex, 1);
-            const newArr = JSON.parse(localStorage.getItem('enteredValues'));
-            // if (Array.isArray(newArr) && newArr.length > 0) {
-            //     newArr.pop();
-            // }
-            // localStorage.setItem('enteredValues', JSON.stringify(newArr));
-            return updateMsg;
-        });
+
+    const delMesg = async (id) => {
+        try {
+            await axios.delete(`/deleteMessage/${id}`);
+            console.log("Id: ", id);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    };
+
+    const updateChat = async () => {
+        const delMsg = [...enteredValues];
+        delMsg.pop();
+        try {
+            const senderUsername = 'raml10';
+            const receiverUsername = 'username';
+            const response = await axios.get(`/messages/${senderUsername}/${receiverUsername}`);
+            const id = response.data.recMsg;
+            console.log("Got id: ", id);
+            delMesg(id);
+        }
+        catch(error) {
+            console.error('Error fetching id', error);
+        }
+        localStorage.setItem('enteredValues', JSON.stringify(delMsg));
+        setEnteredValues(delMsg);
         setShowOptions(false);
     };
 
-    const addEnteredValue = (event) => {
+    const addEnteredValue = async (event) => {
         event.preventDefault();
         if (inputMessage.trim() !== '') {
             const newValues = [...enteredValues, inputMessage];
+            console.log(inputMessage);
+            try {
+                const addMsg = {
+                    text: inputMessage, 
+                    time: new Date().toISOString(),
+                    senderfn: "Ram",
+                    senderln: "Laxminarayan",
+                    senderUsername: "raml10",
+                    receiverfn: "Tenant",
+                    receiverln: "Name",
+                    receiverUsername: "username",
+                };
+                console.log("Data: ", addMsg.text);
+                console.log("Data: ", addMsg.time);
+                console.log("Data: ", addMsg.senderfn);
+                console.log("Data: ", addMsg.senderln);
+                console.log("Data: ", addMsg.senderUsername);
+                console.log("Data: ", addMsg.receiverfn);
+                console.log("Data: ", addMsg.receiverln);
+                console.log("Data: ", addMsg.receiverUsername);
+                const response = await axios.post('/sendMessage', addMsg);
+                console.log('Msg sent to db: ', response.data);
+            } catch (error) {
+                console.error("Message not put in db: ", error);
+            }
+
             localStorage.setItem('enteredValues', JSON.stringify(newValues)); 
             setEnteredValues(newValues);
             setInputMessage(''); 
@@ -121,9 +165,9 @@ const MessageTenant = () => {
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{value}</p>
             </button>
-            {showOptions && buttonIndex === index && (
+            {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
                 <div style={{ position: 'absolute', top: '100%', left: 0 }}>
-                    <button onClick={updateChat} style={{position: "relative", top: "-30px", left: "600px"}}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
                         Delete
                     </button>
                 </div>

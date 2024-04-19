@@ -58,20 +58,21 @@ button {
   .bath {
     display: flex;
     position: relative;
-    top: -600px;
+    top: -550px;
     left: 1000px;
   }
 
   .sta {
     display: flex;
     position: relative;
-    top: -500px;
+    top: -450px;
     left: 600px;
   }
 
   .list {
       display: flex;
-      position: relative;     
+      position: relative;
+      top: 70px;     
   }
 
   ul {

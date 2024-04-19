@@ -2,25 +2,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(#d59089, #d55757);
     background-size: cover;
     background-position: center;
 }
 
-form{
+form {
     background-color: white;
-    padding: 0px 50px;
+    padding: 30px;
     border-radius: 20px;
+    max-width: 500px;
+    max-height: 90%;
+    width: 100%;
+    overflow-y: auto; /* Add vertical scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center form contents horizontally */
 }
 
-h1{
+h1 {
     color: black;
     text-align: center;
     font-size: 35px;
+    font-weight: bold;
 }
 
-button{
+button {
     width: 100%;
     height: 50px;
     padding: 10px;
@@ -35,7 +43,7 @@ button{
     margin-bottom: 30px;
 }
 
-.forgotButton{
+.forgotButton {
     width: 100%;
     height: 25px;
     padding: 0px;
@@ -50,12 +58,12 @@ button{
     margin-bottom: 10px;
 }
 
-.underline{
-    width: 400px;
-    height: 5px;
-    background: #EA5455;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    align-items: center;
+.underline {
+    width: 100%;
+    height: 2px; /* Adjust height as needed */
+    background-color: #EA5455; /* Change color to black */
+    margin-bottom: 20px; /* Adjust margin as needed */
 }
+
+
 

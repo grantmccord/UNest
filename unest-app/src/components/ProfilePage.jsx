@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AvatarUploader from './AvatarUploader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -9,12 +10,13 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import IconButton from '@mui/material/IconButton';
 import { createTheme } from '@mui/material/styles';
 import axios from "axios";
 
-import profileImg from "../Assets/pic_of_me3.jpeg";
+import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
 import "./ProfilePage.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const ProfilePage = () => {
@@ -31,10 +33,12 @@ const ProfilePage = () => {
     }, []);
 
     //get user data for a specific user from the database
+    //TODO: see if I can fetch anytime there is a change in the database (not just when the page is mounted)
 
     const fetchUserData = async () => {
         try {
             const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            //const response = await axios.get(`/profile`);
             console.log("fetchUserData: ", response.data);
             setUserData(response.data); // Assuming response contains listing data
             console.log("userData.basic_info: ", userData.basic_info)
@@ -44,7 +48,7 @@ const ProfilePage = () => {
     };
 
     let navigate = useNavigate();
-    const routeChange = () =>{
+    const routeChange = () => {
         let path = '/myplaces/new';
         navigate(path);
     }
@@ -59,7 +63,7 @@ const ProfilePage = () => {
 
     //about me section
 
-    const initialAboutMeText = "I am an 18 year-old visual artist and I strive to make a difference in our world. I have developed artworks in which constant reflection has led to my unique and heartfelt expression of my thoughts on society. Education: In 5th grade, I started taking classes with my art teacher and mentor, Mrs. Pallavi Sharma. Since then, I have developed my technical skills and ability to integrate important societal thoughts in my artwork. Now, I am taking AP Art in high school and I hope to pursue art throughout my life."
+    const initialAboutMeText = "Tell Us More About Yourself"
     const [aboutMeText, setAboutMeText] = useState(initialAboutMeText);
     const [editedAboutMeText, setEditedAboutMeText] = useState(initialAboutMeText);
 
@@ -125,6 +129,128 @@ const ProfilePage = () => {
         console.log("inside handlebasicinfochange function for event: ", event);
     };
 
+    //personal habits section
+    const initialHabits = {
+        smoking: "",
+        drinking: "",
+        vegetarian: "",
+        sleeping: ""
+    };
+
+    const [habits, setHabits] = useState(initialHabits);
+    const [editedHabits, setEditedHabits] = useState(initialHabits);
+
+    useEffect(() => {
+        setHabits(userData.personal_habits || initialHabits);
+        setEditedHabits(userData.personal_habits || initialHabits);
+    }, [userData.personal_habits]);
+
+    const handleHabitsChange = (event) => {
+        const { name, value } = event.target;
+        setEditedHabits(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        console.log("inside handlechange function for event: ", event);
+    };
+
+
+    //roommate preferences section
+    const initialRoommatePref = {
+        gender: "",
+        smoking: "",
+        drinking: "",
+        vegetarian: "",
+        sleeping: "",
+    };
+
+    const [roommatePref, setRoommatePref] = useState(initialRoommatePref);
+    const [editedRoommatePref, setEditedRoommatePref] = useState(initialRoommatePref);
+
+    useEffect(() => {
+        setRoommatePref(userData.roommate_preferences || initialRoommatePref);
+        setEditedRoommatePref(userData.roommate_preferences || initialRoommatePref);
+    }, [userData.roommate_preferences]);
+
+    const handleRoommatePrefChange = (event) => {
+        const { name, value } = event.target;
+        setEditedRoommatePref(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        console.log("inside handlechange function for event: ", event);
+    };
+
+    //profile image
+
+    const [profileImg, setProfileImg] = useState(defaultProfileImg);
+    const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
+
+    useEffect(() => {
+        setProfileImg(userData.profile_pic || defaultProfileImg);
+        setEditedProfileImg(userData.profile_pic || defaultProfileImg);
+    }, [userData.profile_pic]);
+
+    const [imgFile, setImgFile] = useState('')
+
+    const handleAvatarPicSave = async (file) => {
+        setImgFile(file)
+        console.log("inside handleAvatarPicSave")
+        console.log("file: ", file)
+        setEditedProfileImg('/uploads/' + file.name)
+        addPicToUploads(file)
+        console.log("file.name", file.name)
+        console.log('/uploads/' + file.name)
+        console.log("editedProfileImg: ", editedProfileImg)
+        console.log("PROFILEIMG: ", profileImg)
+    };
+
+    async function addPicToUploads(imgFile) {
+        try {
+            if (!imgFile) {
+                console.error('No file provided');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', imgFile);
+
+            const response = await axios.put(`/api/users/profile-pic`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log('Avatar uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+        }
+    }
+
+    async function updatePic() {
+        try {
+            if (!imgFile) {
+                console.error('No file provided');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', imgFile);
+
+            const response = await axios.put(`/api/users/${id}/profile-pic`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log('Avatar uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+        }
+    }
+
+
+
     //save and cancel buttons
 
     const handleSave = () => {
@@ -139,8 +265,18 @@ const ProfilePage = () => {
 
         // Update basic info section with new values
         setBasicInfo(editedBasicInfo);
+
+        setHabits(editedHabits);
+
+        setRoommatePref(editedRoommatePref);
+
+        setProfileImg(editedProfileImg)
+
         updateUser()
+        updatePic()
     };
+
+
 
     async function updateUser() {
         try {
@@ -152,11 +288,19 @@ const ProfilePage = () => {
                 details: {
                     ...editedFormValues
                 },
+                personal_habits: {
+                    ...editedHabits
+                },
+                roommate_preferences: {
+                    ...editedRoommatePref
+                },
                 description: editedAboutMeText
             };
 
             console.log("basic_info in updateUser(): ", updatedUserData.basic_info);
             console.log("details in updateUser(): ", updatedUserData.details);
+            console.log("personal_habits in updateUser(): ", updatedUserData.personal_habits);
+            console.log("roommate_preferences in updateUser(): ", updatedUserData.roommate_preferences);
             await axios.put(`/profile`, updatedUserData); // Assuming you need to include the user ID in the request URL
             alert('User profile has been successfully updated!');
         } catch (error) {
@@ -167,13 +311,12 @@ const ProfilePage = () => {
 
     useEffect(() => {
         // This effect will run after formValues has been updated
-        // userData.basic_info = basicInfo;
-        // userData.details = formValues;
-        // userData.description = aboutMeText;
         console.log("aboutMeText: ", aboutMeText);
         console.log("Updated form values:", formValues);
         console.log("Updated basic info:", basicInfo);
-    }, [aboutMeText, formValues, basicInfo]);
+        console.log("Updated personal habits:", habits);
+        console.log("Updated roommmate preferences:", roommatePref);
+    }, [aboutMeText, formValues, basicInfo, habits, roommatePref]);
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -185,6 +328,14 @@ const ProfilePage = () => {
 
         //canceling changes to basic info
         setEditedBasicInfo(basicInfo);
+
+        //canceling changes to personal habits section
+        setEditedHabits(habits);
+
+        //canceling changes to roommate preferences section
+        setEditedRoommatePref(roommatePref);
+
+        setEditedProfileImg(profileImg);
     };
 
 
@@ -221,6 +372,38 @@ const ProfilePage = () => {
         return fieldDetailsDisplayLabels[fieldName] || fieldName;
     };
 
+    //personal habits
+
+    const fieldHabitsLabels = {
+        smoking: "Smoking",
+        drinking: "Drinking",
+        vegetarian: "Vegetarian",
+        sleeping: "Sleeping Type"
+    };
+
+    const getHabitsLabel = (fieldName) => {
+        return fieldHabitsLabels[fieldName] || fieldName;
+    };
+
+
+    //roommate preferences
+
+    const fieldRoommatePrefLabels = {
+        gender: "Gender",
+        smoking: "Smoking",
+        drinking: "Drinking",
+        vegetarian: "Vegetarian",
+        sleeping: "Sleeping Type"
+    };
+
+    const getRoommatePrefLabel = (fieldName) => {
+        return fieldRoommatePrefLabels[fieldName] || fieldName;
+    };
+
+
+
+
+
     return (
         <div>
             <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
@@ -253,8 +436,8 @@ const ProfilePage = () => {
                     <Button onClick={routeChange} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
-                    <Box sx={{ width: 50 }}></Box>
-                    <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40, pl: 5 }} />
+                    <Box sx={{ width: 50, pl: 6 }}></Box>
+                    {/* <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40 }} /> */}
                 </Box>
 
 
@@ -267,14 +450,13 @@ const ProfilePage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Avatar alt="Profile Image" src={profileImg} sx={{ width: 200, height: 200, alignItems: 'center' }} />
 
                         <div>
                             {isEditing ? (
                                 <div>
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        Nivedha Kumar
-                                    </Typography>
+                                    <Box sx={{ mt: 10 }}>
+                                        <AvatarUploader disabled={false} profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                    </Box>
                                     <Grid container>
                                         <Box
                                             display="flex"
@@ -282,6 +464,9 @@ const ProfilePage = () => {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
+                                            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 12 }} gutterBottom>
+                                                {userData.first_name} {userData.last_name}
+                                            </Typography>
                                             {Object.entries(editedBasicInfo).map(([key, value]) => (
                                                 <Grid item xs={12} key={key}>
                                                     <TextField variant="standard" size="small"
@@ -308,11 +493,9 @@ const ProfilePage = () => {
                                 </div>
                             ) : (
                                 <>
-
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 3 }} gutterBottom>
-                                        Nivedha Kumar
-                                    </Typography>
-
+                                    <Box sx={{ mt: 10 }}>
+                                        <AvatarUploader disabled={true} profilePic={editedProfileImg} onSave={handleAvatarPicSave} />
+                                    </Box>
                                     <Grid>
                                         <Box
                                             display="flex"
@@ -320,6 +503,9 @@ const ProfilePage = () => {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
+                                            <Typography variant="h5" sx={{ fontWeight: 'bold', mt: 12 }} gutterBottom>
+                                                {userData.first_name} {userData.last_name}
+                                            </Typography>
                                             {
                                                 Object.entries(basicInfo).map(([key, value]) => (
                                                     <Typography key={key} variant="h6" sx={{ color: "#606060" }} gutterBottom>{value}</Typography>
@@ -350,7 +536,7 @@ const ProfilePage = () => {
                             justifyContent="center"
                             alignItems="center"
                             sx={{
-                                paddingRight: 4
+                                paddingRight: 10
                             }}
                         >
                             <div className='aboutMeTitle'>
@@ -452,13 +638,97 @@ const ProfilePage = () => {
                 </Grid>
 
                 <Grid item md={3}>
-                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
-                        Personal Habits
-                    </Typography>
-                    <Typography variant="h5" mt={30} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
-                        Roommate Preferences
-                    </Typography>
+
+                    <Box>
+                        <Typography variant="h6" mt={1} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                            Personal Habits
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <div>
+                            {isEditing ? (
+                                <Grid container>
+                                    {Object.entries(editedHabits).map(([fieldName, value]) => (
+                                        <Grid item xs={12} key={fieldName}>
+                                            <TextField variant="standard" size="small"
+                                                sx={{
+                                                    '& .MuiInputLabel-root': {
+                                                        fontSize: '0.8rem'
+                                                    },
+                                                    '& .MuiInputBase-root': {
+                                                        height: '20px'
+                                                    },
+                                                    pb: 0.8
+                                                }}
+
+                                                name={fieldName}
+                                                label={getHabitsLabel(fieldName)}
+                                                value={value}
+                                                onChange={handleHabitsChange}
+                                            />
+                                        </Grid>
+                                    ))}
+
+                                </Grid>
+                            ) : (
+                                <Grid>
+                                    {
+                                        Object.entries(habits).map(([key, value]) => (
+                                            <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getHabitsLabel(key)}: {value}</Typography>
+                                        ))
+                                    }
+                                </Grid>
+                            )}
+                        </div>
+                    </Box>
+
+
+                    <Box>
+                        <Typography variant="h6" mt={8} sx={{ fontWeight: "bold", color: "#FA4A4A" }} gutterBottom>
+                            Roommate Preferences
+                        </Typography>
+                    </Box>
+
+                    <Box>
+                        <div>
+                            {isEditing ? (
+                                <Grid container>
+                                    {Object.entries(editedRoommatePref).map(([fieldName, value]) => (
+                                        <Grid item xs={12} key={fieldName}>
+                                            <TextField variant="standard" size="small"
+                                                sx={{
+                                                    '& .MuiInputLabel-root': {
+                                                        fontSize: '0.8rem'
+                                                    },
+                                                    '& .MuiInputBase-root': {
+                                                        height: '20px'
+                                                    },
+                                                    pb: 0.8
+                                                }}
+
+                                                name={fieldName}
+                                                label={getRoommatePrefLabel(fieldName)}
+                                                value={value}
+                                                onChange={handleRoommatePrefChange}
+                                            />
+                                        </Grid>
+                                    ))}
+
+                                </Grid>
+                            ) : (
+                                <Grid>
+                                    {
+                                        Object.entries(roommatePref).map(([key, value]) => (
+                                            <Typography key={key} sx={{ pt: 1.0 }} variant="body1" gutterBottom>{getRoommatePrefLabel(key)}: {value}</Typography>
+                                        ))
+                                    }
+                                </Grid>
+                            )}
+                        </div>
+                    </Box>
                 </Grid>
+
 
                 {/* <Box display="flex" flexDirection='row' sx={{ pt: 1 }}>
                     <div className='aboutMeEditButtons'>

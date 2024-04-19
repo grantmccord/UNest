@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
-    useNavigate
+    useNavigate, useParams, Link
   } from "react-router-dom";
 import axios from 'axios';
 import './MessagesPage.css';
 import Logo from '../Assets/Logo.png';
 import House from '../Assets/house.png';
 import profileIcon from '../Assets/Profile.png';
+import {UserContext} from '../UserContext'
+import { savedEnteredValues } from './Message';
+
 function MessagesPage() {
     const [inputSearch, setInputSearch] = useState('Search');
     const [isFocused, setIsFocused] = useState(false);
@@ -17,6 +20,12 @@ function MessagesPage() {
     const [isClicked, setIsClicked] = useState(false);
     const [msg, setmsg] = useState('');
     const [ownerMsg, setOwnerMsg] = useState('');
+    const [rmMsg, setRmMsg] = useState('');
+    const [chatStr, setChatStr] = useState([]);
+    const [lastMsg, setLastMsg] = useState({});
+    const {setProfile} = useContext(UserContext);
+    const {itemName} = useParams();
+    const [username, setUsername] = useState('raml10');
 
     useEffect(() => {
         const messages = JSON.parse(localStorage.getItem('enteredValues')) || [];
@@ -35,23 +44,51 @@ function MessagesPage() {
         else {
             setOwnerMsg('Yes, what is the surrounding like?');
         }
-        const buttonClicked = localStorage.getItem('isButtonClicked1');
+        const buttonClicked = localStorage.getItem('isButtonClicked2');
         if (buttonClicked) {
             setIsClicked(true);
         }
+
+        const rm = JSON.parse(localStorage.getItem('enteredValues3')) || [];
+        setChatStr(rm);
+        if (rm) {
+          const lstRm = rm[rm.length - 1];
+          setRmMsg(lstRm);
+        }
+        const allName = ['john-jones', 'walker-smith', 'pete-day', 'jose-stricker'];
+        const msg = {};
+        allName.forEach((name) => {
+            const lst = localStorage.getItem(`lastMessage-${username}-${name}`);
+            console.log("Name: ", name);
+            if (lst) {
+              msg[name] = lst;
+            }
+        });
+        console.log("Msg: ", msg);
+        setLastMsg(msg);
+        const hi = localStorage.getItem(`lastMessage-sud`); 
+        console.log("LM: ", hi);
+        getInfo();
         /*
         getInfo().then((d) => {
             console.log(d);
              setUser(d);})
              .catch(error => {console.error('Error fetching', error);});
              */
-    }, []);
+    }, [itemName]);
 
     
         const getInfo = async () => {
           //setShowOptions(true);
           try {
-            const response = await axios.get('/api/users');
+            //const id = '6615f2d3f1dd11331be85d8e'
+            const res = await axios.get('/profile');
+            console.log("data: ", res.data);
+            const id = res.data._id;
+            setUsername(res.data.username);
+            console.log("id: ", id);
+            //const response = await axios.get('/api/users');
+            const response = await axios.get(`excludeuser/${id}`);
             console.log("Connects");
             console.log("Response.data: ", response.data);
             setUser(response.data);
@@ -115,9 +152,13 @@ function MessagesPage() {
         navigate('/messageOwner', {replace: true})
     }
 
+    const navigateToRM = () => {
+      navigate('/messagerm', {replace: true})
+  }
+
     const navigateToOther = () => {
         setIsClicked(true);
-        localStorage.setItem('isButtonClicked1', true);
+        localStorage.setItem('isButtonClicked2', true);
         navigate('/message', {replace: true});
     } 
 
@@ -212,6 +253,55 @@ function MessagesPage() {
         <p style={{position: "relative", top: "-40px"}}>I like your property.</p>
       </button>
       </div>
+      {chatStr.length > 0 && (
+      <div className="first"> 
+      <button onClick={navigateToRM} style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal"}}>
+      <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+      <p style={{position: "relative", top: "-40px"}}>RM Name</p>
+      <p style={{position: "relative", top: "-40px"}}>{rmMsg}</p>
+      </button>
+      </div> 
+       )}
+      <div>
+       {Object.entries(lastMsg).map(([name, message]) => (
+          message && ( <div className="first" key={name}> 
+          <Link to={`/message/${name.toLowerCase().replace(/\s+/g, '-')}`}>
+           <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
+           <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+           <p style={{position: "relative", top: "-40px"}}>{name.replace(/-/g, ' ').slice(0).replace(/\b\w/g, (name) => name.toUpperCase())}</p>
+           <p style={{position: "relative", top: "-40px"}}>{message}</p>
+           </button>
+           </Link>
+           </div> 
+       )))}
+       </div>
+       <div>
+       {user.map((item) => (
+        <div className="first" key={item._id}>
+        {(localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > 0 || localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length > 0) && (
+        <Link to={`/message/${encodeURIComponent(item.first_name)}?data=${encodeURIComponent(JSON.stringify({a1: item.first_name, a2: item.last_name, a3: item.username}))}`}>
+        <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
+        <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+        <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
+        <p style={{position: "relative", top: "-40px"}}>{((localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length) || localStorage.getItem(`lastMessage-${item.username}-${username}`) === null) ?
+          localStorage.getItem(`lastMessage-${username}-${item.username}`) :
+          localStorage.getItem(`lastMessage-${item.username}-${username}`)
+        }</p>
+        </button>
+        </Link>
+        )}
+        </div>
+          ))}
+       </div>
+       {/*(
+      <div className="first"> 
+      <button onClick={navigateToRM} style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal"}}>
+      <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
+      <p style={{position: "relative", top: "-40px"}}>{itemName}</p>
+      <p style={{position: "relative", top: "-40px"}}>{diffChat}</p>
+      </button>
+      </div> 
+       )*/}
         </div>
         
         
@@ -257,9 +347,9 @@ function MessagesPage() {
       <p style={{position: "relative", top: "-40px"}}>Meredith Johnson : Hub</p>
       <p style={{position: "relative", top: "-40px"}}>What does the room come with?</p>
       </button>
-      </div>  
       </div>
-        )
+      </div>
+      )
         }
         </div>
     );

@@ -22,6 +22,8 @@ import MapComp from './components/Map';
 import LoginPage from "./components/LoginPage";
 import Message from './components/Message';
 import HomeMap from './components/HomeMap';
+import PassPage from "./components/PassPage";
+import EditPage from "./components/EditPlace"
 
 import RegistrationInput from "./components/RegistrationInput";
 import axios from "axios";
@@ -41,11 +43,13 @@ function App(){
                     <Route path="/homepage" element={<Homepage/>} />
                     <Route path="/register" element={<SignUpPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/forgotpass" element={<PassPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/post" element={<PostPage />} />
+                    <Route path="/myplaces/modify" element={<EditPage/>} />
                     <Route path="/myplaces" element={<PlacesPage/>} />
                     <Route path="/myplaces/:action" element={<PlacesPage/>} />
-                    <Route path="/propertylisting" element={<PropertyListing/>} />
+                    <Route path="/propertylisting/:id" element={<PropertyListing/>} />
                     <Route path="/messageOwner" element={<MessageOwner />} />
                     <Route path="/tour" element={<Tour />} />
                     <Route path="/listing" element={<ListingForm />} />
@@ -57,7 +61,7 @@ function App(){
                     <Route path="/roommateprofile" element={<RoommateProfile/>} />
                     <Route path="/tenantprofile" element={<TenantProfile/>} />
                     <Route path="/ownerprofile" element={<OwnerProfile/>} />
-                    <Route path="/property" element={<MapComp/>} />
+                    <Route path="/property/:id" element={<MapComp/>} />
                     <Route path="/message/:itemName" element={<Message/>} />
                     <Route path="/homemap" element={<HomeMap/>} />
                 </Routes>

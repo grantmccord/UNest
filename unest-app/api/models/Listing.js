@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const ListingSchema = new Schema({
    name: String,
+   owner: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
    price: Number,
    start_date: Date,
    end_date: Date,
@@ -16,6 +17,9 @@ const ListingSchema = new Schema({
    total_rooms: Number,
    total_baths: Number,
    amenities: Array,
+   roommate_group: Array,
+   perks: Array,
+   photos: [String],
    roommate_group: Array
 });
 
