@@ -140,7 +140,7 @@ const viewProperty = async () => {
     <input type="text" value={inputSearch} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
     </div>
     <div className='al'>
-    <button onClick={navigateToListing} style={{position: "relative", left: "25px", borderRadius: "10px"}}>
+    <button onClick={navigateToListing} style={{position: "relative", left: "25px", borderRadius: "10px", backgroundColor: "#EA5455"}}>
       Add Listing
       </button>
       <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", width: "50px", height: "50px", top: "15px", left: "55px"}}/>
@@ -174,12 +174,13 @@ const viewProperty = async () => {
       <div>
       <div>
     <div className='info'>
-      <h3 style={{ color: "black", position: "relative", top: "20px", fontSize: "40px", fontWeight: "bold"}}>
+      <h3 style={{ color: "black", position: "relative", top: "60px", fontSize: "40px", fontWeight: "bold"}}>
       {property.name}
     </h3>
     </div>
     <div>
-    <p style={{ color: "black", position: "relative", top: "-550px", left: "470px", fontSize: "30px"}}>
+      <p style={{ color: "black", position: "relative", top: "-540px", left: "100px", textAlign: "center", fontSize: "30px", fontWeight: "bold"}}>Address</p>
+    <p style={{ color: "black", position: "relative", top: "-540px", left: "470px", fontSize: "30px"}}>
       {property.address}
     </p> 
     </div>
@@ -190,18 +191,18 @@ const viewProperty = async () => {
     </h3>
     </div>
     <div className='bath'>
-    <h3 style={{ color: "black", position: "relative", top: "50px", fontSize: "30px"}}>
-      {property.total_rooms || property.num_rooms} Room
+    <h3 style={{ color: "black", position: "relative", top: "30px", fontSize: "30px"}}>
+      {property.num_rooms || property.total_rooms} Room
     </h3> 
-    <h3 style={{ color: "black", position: "relative", top: "80px", left: "-90px", fontSize: "30px"}}>
-      {property.total_baths || property.num_baths} Bath
+    <h3 style={{ color: "black", position: "relative", top: "60px", left: "-90px", fontSize: "30px"}}>
+      {property.num_baths || property.total_baths} Bath
     </h3>
     </div>
     <div className='sta'>
-      <button testId="message" onClick={navigateToOwner} style={{position: "relative", borderRadius: "20px", width: "200px", height: "70px"}}>
+      <button testId="message" onClick={navigateToOwner} style={{position: "relative", borderRadius: "20px", width: "200px", height: "70px", backgroundColor: "#EA5455"}}>
       Message Lister
       </button>
-      <button onClick={navigateToTour} style={{position: "relative", left: "180px", borderRadius: "20px", width: "200px", height: "70px"}}>
+      <button onClick={navigateToTour} style={{position: "relative", left: "180px", borderRadius: "20px", width: "200px", height: "70px", backgroundColor: "#EA5455"}}>
       Schedule Tour Appointment
       </button>
       </div>
@@ -230,7 +231,7 @@ const viewProperty = async () => {
                 <h6 onClick={navigateToRoommateProfile} style={{ textAlign: "center", position: "relative", top: "30px", textDecorationLine: "underline" }}>{roommate.name}</h6>
                 <p style={{ textAlign: "center", position: "relative", top: "30px" }}>{roommate.description}</p>
                 <Link to={`/message/${roommate.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                <button style={{position: "relative", top: "112px", borderRadius: "20px", width: "300px", heigtht: "600px"}}>
+                <button style={{position: "relative", top: "112px", borderRadius: "20px", width: "300px", heigtht: "600px", backgroundColor: "#EA5455"}}>
                   Message
                   </button> 
                 </Link>

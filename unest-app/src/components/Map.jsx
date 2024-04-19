@@ -63,6 +63,7 @@ export const MapComp = () => {
         <Popup>
          <p>{property.name}</p>
           <p>{property.address}</p>
+          <p>{property.miles_from_campus} miles from {property.university}</p>
         </Popup>
       </Marker>
     </MapContainer>

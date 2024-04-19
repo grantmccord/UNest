@@ -48,9 +48,11 @@ function MessagesPage() {
         if (buttonClicked) {
             setIsClicked(true);
         }
-
+        /*
         const rm = JSON.parse(localStorage.getItem('enteredValues3')) || [];
         setChatStr(rm);
+        */
+        /*
         if (rm) {
           const lstRm = rm[rm.length - 1];
           setRmMsg(lstRm);
@@ -66,6 +68,7 @@ function MessagesPage() {
         });
         console.log("Msg: ", msg);
         setLastMsg(msg);
+        */
         const hi = localStorage.getItem(`lastMessage-sud`); 
         console.log("LM: ", hi);
         getInfo();
@@ -105,6 +108,7 @@ function MessagesPage() {
             const usersWithLastMsg = await Promise.all(promises);
             usersWithLastMsg.forEach(user => {
               localStorage.setItem(`lastMessage/${username}/${user.username}`, user.lastMessage);
+              console.log("the last msg: ", localStorage.getItem(`lastMessage/${username}/${user.username}`));
             });
             setUser(usersWithLastMsg);
             return response.data;
@@ -277,8 +281,8 @@ function MessagesPage() {
       </button>
       </div> 
        )}
-      <div>
-       {Object.entries(lastMsg).map(([name, message]) => (
+     <div>
+       {/* {Object.entries(lastMsg).map(([name, message]) => (
           message && ( <div className="first" key={name}> 
           <Link to={`/message/${name.toLowerCase().replace(/\s+/g, '-')}`}>
            <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
@@ -288,12 +292,12 @@ function MessagesPage() {
            </button>
            </Link>
            </div> 
-       )))}
+       )))}  */}
        </div>
-       <div>
+       <div style={{position: "relative", top: "35px"}}>
        {user.map((item) => (
         <div className="first" key={item._id}>
-        {(localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > 0 || localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length > 0) && (
+        {(localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > 0 || localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length > 0) && item.lastMessage !== undefined && (
         <Link to={`/message/${encodeURIComponent(item.first_name)}?data=${encodeURIComponent(JSON.stringify({a1: item.first_name, a2: item.last_name, a3: item.username}))}`}>
         <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
