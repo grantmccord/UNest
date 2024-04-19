@@ -40,10 +40,10 @@ button {
   .rectangle {
     position: relative;
     top: -170px;
-    left: 50px;
+    left: 10px;
     display: inline-block;
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     background: white;
     border: 2px solid black;
   }

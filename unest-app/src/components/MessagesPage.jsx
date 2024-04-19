@@ -25,6 +25,7 @@ function MessagesPage() {
     const [lastMsg, setLastMsg] = useState({});
     const {setProfile} = useContext(UserContext);
     const {itemName} = useParams();
+    const [username, setUsername] = useState('raml10');
 
     useEffect(() => {
         const messages = JSON.parse(localStorage.getItem('enteredValues')) || [];
@@ -57,7 +58,7 @@ function MessagesPage() {
         const allName = ['john-jones', 'walker-smith', 'pete-day', 'jose-stricker'];
         const msg = {};
         allName.forEach((name) => {
-            const lst = localStorage.getItem(`lastMessage-${name}`);
+            const lst = localStorage.getItem(`lastMessage-${username}-${name}`);
             console.log("Name: ", name);
             if (lst) {
               msg[name] = lst;
@@ -74,18 +75,38 @@ function MessagesPage() {
              setUser(d);})
              .catch(error => {console.error('Error fetching', error);});
              */
-    }, [itemName]);
+    }, [itemName, username]);
 
+      const last = async () => {
+
+      };
     
         const getInfo = async () => {
           //setShowOptions(true);
           try {
-            const id = '6615f2d3f1dd11331be85d8e'
+            //const id = '6615f2d3f1dd11331be85d8e'
+            const res = await axios.get('/profile');
+            console.log("data: ", res.data);
+            const id = res.data._id;
+            setUsername(res.data.username);
+            console.log("id: ", id);
             //const response = await axios.get('/api/users');
             const response = await axios.get(`excludeuser/${id}`);
             console.log("Connects");
             console.log("Response.data: ", response.data);
-            setUser(response.data);
+            //setUser(response.data);
+            const promises = response.data.map(async user => {
+              const lastMsgRes = await axios.get(`/lastmsg/${username}/${user.username}`);
+              console.log(`/lastmsg/${username}/${user.username}`)
+              console.log("Last msg: ", lastMsgRes.data.text);
+              return { ...user, lastMessage: lastMsgRes.data.text };
+            });
+            
+            const usersWithLastMsg = await Promise.all(promises);
+            usersWithLastMsg.forEach(user => {
+              localStorage.setItem(`lastMessage/${username}/${user.username}`, user.lastMessage);
+            });
+            setUser(usersWithLastMsg);
             return response.data;
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -272,12 +293,16 @@ function MessagesPage() {
        <div>
        {user.map((item) => (
         <div className="first" key={item._id}>
-        {localStorage.getItem(`lastMessage-${item.first_name}`)?.length > 0 && (
+        {(localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > 0 || localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length > 0) && (
         <Link to={`/message/${encodeURIComponent(item.first_name)}?data=${encodeURIComponent(JSON.stringify({a1: item.first_name, a2: item.last_name, a3: item.username}))}`}>
         <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
-        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage-${item.first_name}`)}</p>
+        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage/${username}/${item.username}`)}</p>
+        {/* <p style={{position: "relative", top: "-40px"}}>{((localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length) || localStorage.getItem(`lastMessage-${item.username}-${username}`) === null) ?
+          localStorage.getItem(`lastMessage-${username}-${item.username}`) :
+          localStorage.getItem(`lastMessage-${item.username}-${username}`)
+        }</p> */}
         </button>
         </Link>
         )}
