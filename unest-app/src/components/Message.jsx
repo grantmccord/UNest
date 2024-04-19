@@ -17,8 +17,9 @@ const Message = () => {
     const [buttonIndex, setButtonIndex] = useState(null);
     const [firstname, setFirstName] = useState('Ram');
     const [lastname, setLastName] = useState('Laxminarayan');
-    const [username, setUsername] = useState('raml10');
+    const [username, setUsername] = useState('sud02');
     const [messages, setMessages] = useState([]);
+    const [msgId, setMsgId] = useState('');
     //const divRef = useRef(null);
 
     const {itemName} = useParams();
@@ -26,9 +27,6 @@ const Message = () => {
     const encodedData = queryParams.get('data');
     const decodedData = JSON.parse(decodeURIComponent(encodedData));
 
-    useEffect(() => {
-        fetchProfile(); 
-    }, []);
 
     useEffect(() => {
         const savedEnteredValues = localStorage.getItem(`enteredValues-${username}-${decodedData.a3}`);
@@ -39,12 +37,37 @@ const Message = () => {
         }
         console.log("Enter: ", enteredValues);
         const saveLastMsg = localStorage.getItem(`lastMessage-${username}-${decodedData.a3}`);
-
     }, [itemName, username, decodedData.a3]);
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get('/profile');
+                setFirstName(response.data.first_name);
+                setLastName(response.data.last_name);
+                setUsername(response.data.username);
+                console.log("Username: ", response.data.username);
+            }
+            catch (error) {
+                console.error("Error fetching msgs", error);
+            }
+        };
+        fetchProfile();
+        const fetchMessages = async () => {
+            try {
+                const response = await axios.get(`/msg/${username}/${decodedData.a3}`);
+                console.log("username: ", username);
+                console.log("decoded data", decodedData.a3);
+                setMessages(response.data);
+                console.log("Messages: ", response.data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
         fetchMessages();
-    }, []);
+        console.log("Msgs: ", messages);
+    }, [username, decodedData?.a3]);
 
     const fetchProfile = async () => {
         try {
@@ -62,7 +85,10 @@ const Message = () => {
     const fetchMessages = async () => {
         try {
             const response = await axios.get(`/msg/${username}/${decodedData.a3}`);
+            console.log("username: ", username);
+            console.log("decoded data", decodedData.a3);
             setMessages(response.data);
+            console.log("Messages: ", response.data);
         }
         catch (error) {
             console.error(error);
@@ -71,7 +97,7 @@ const Message = () => {
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
-        if (index === enteredValues.length - 1) {
+        if (index === messages.length - 1) {
             setShowOptions(true);
         }
     };
@@ -85,7 +111,8 @@ const Message = () => {
         }
     };
 
-    const updateChat = async () => {
+    const updateChat = async (event) => {
+        event.preventDefault();
         const delMsg = [...enteredValues];
         delMsg.pop();
         try {
@@ -95,6 +122,8 @@ const Message = () => {
             const id = response.data.recMsg;
             console.log("Got id: ", id);
             delMesg(id);
+            console.log("Message deleted");
+            setMessages(messages.filter(message => message._id !== id));
         }
         catch(error) {
             console.error('Error fetching id', error);
@@ -127,6 +156,7 @@ const Message = () => {
                 };
                 const response = await axios.post('/sendMessage', addMsg);
                 console.log('Msg sent to db: ', response.data);
+                fetchMessages();
             } catch (error) {
                 console.error("Message not put in db: ", error);
             }
@@ -193,7 +223,24 @@ const Message = () => {
         </div>
         <hr style={{display: "flex", position: "relative", top: "-110px", color: "gray"}}/>
         <div>
-        {enteredValues.map((value, index) => (
+        {messages.map((message, index) => (
+            <div style={{display: "flex", position: "relative", top: '-120px', left: username === message.senderUsername ? '720px' : '0px'}} key={index}>
+             <button onClick={() =>deleteMessage(index)} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
+            <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
+            <p style={{position: "relative", top: "-40px"}}>{message.text}</p>
+            </button>
+            {showOptions && buttonIndex === index && index === messages.length - 1 && message.senderUsername === username && (
+                <div style={{ position: 'absolute', top: '100%', left: 0 }}>
+                    <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
+                        Delete
+                    </button>
+                </div>
+            )}   
+            </div>
+        ))}
+        </div>
+        <div>
+        {/* {enteredValues.map((value, index) => (
             <div className="type" key={index}>
             <button onClick={() =>deleteMessage(index)} style={{backgroundColor: "white", color: "black", width: "700px", height: "100px", border: "2px solid #EA5455"}}>
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
@@ -207,14 +254,14 @@ const Message = () => {
                 </div>
             )}
             </div>
-        ))} 
+        ))}  */}
         </div>
         <div>
         <div className="search1">
-        <form onSubmit={(e) => addEnteredValue(e)}>
+        {/* <form onSubmit={(e) => addEnteredValue(e)}> */}
         <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={(e) => keyPress(e)} style={{width: "1200px", textAlign: "center", position: "relative", left:"-240px"}}/>
-        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "-62px", left: "908px", cursor: "pointer"}} /> 
-        </form>
+        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-292px", cursor: "pointer", zIndex: 2}} /> 
+        {/* </form> */}
         </div>
         </div>
         </div>
