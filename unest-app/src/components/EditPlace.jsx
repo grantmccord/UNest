@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
+import axios from "axios";
 
 const ModifyListingPage = () => {
     const { id } = useParams();
@@ -10,13 +11,15 @@ const ModifyListingPage = () => {
         console.log({ id });
     };
 
-    const handleDeleteClick = () => {
-        if (place) {
-            alert(`Delete button clicked for ${place.name}, ${place.address}`);
-        } else {
-            alert('No place data available');
+    const handleDeleteClick = async () => {
+        try{
+            alert("Your post has been deleted!");
+            await axios.delete(`/places/${id}`);
+        } catch (error){
+            console.error("Could not delete post, please try again");
         }
     };
+
 
     return (
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -46,7 +49,7 @@ const ModifyListingPage = () => {
                 }}>
                     Edit Listing
                 </Link>
-                <Link to={'/myplaces/new/' + id} onClick={handleDeleteClick} style={{
+                <Link to={'/myplaces'} onClick={handleDeleteClick} style={{
                     marginRight: '20px',
                     display: 'inline-block',
                     width: '300px',

@@ -410,4 +410,16 @@ app.put('/places', async (req,res) => {
     });
 })
 
+app.delete('/places/:id', async (req, res) => {
+    const {id} = req.params;
+    try{
+        const del = await Listing.findByIdAndDelete(id);
+        if(!del){
+            return res.status(404).json("Error Deleting Post");
+        }
+    } catch (e){
+        res.status(500).json(e);
+    }
+});
+
 app.listen(4000);

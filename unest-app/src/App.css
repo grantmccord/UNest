@@ -59,3 +59,12 @@ button{
   align-items: center;
 }
 
+.underline2{
+  width: 400px;
+  height: 5px;
+  background: black;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+

@@ -22,7 +22,7 @@ export const Property = ({ listing }) => {
                     component="img"
                     // height="180"
                     // image={"https://media.istockphoto.com/id/492965853/photo/university-college-dorm-room-with-bunkbeds-empty-unoccupied-student-bedroom.jpg?s=612x612&w=0&k=20&c=se0Dsy9AwP240fgPs10Fz39uPZR8PgPYn8hiFwhZf58="}
-                    image={photos[0]}
+                    image={"http://localhost:4000/uploads/" + photos[0]}
                     sx={{ height: 215 }}
                     alt="property"
                 />

@@ -71,12 +71,12 @@ export default function PlacesPage(){
         if(id){
             await axios.put('/places',{
                 id,
-                name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
+                name, university, address, photos:addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
                 num_rooms, num_baths});
 
         } else{
             await axios.post('/places',{
-                name, university, address, addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
+                name, university, address, photos:addedPhotos, description, perks, start_date, end_date, price, miles_from_campus,
                 num_rooms, num_baths});
         }
         setRedirectToPlacesList(true);
@@ -91,15 +91,15 @@ export default function PlacesPage(){
         <div>
             <div style={{width:10000}} className="underline"></div>
             {action !== 'new' && (
-                <div className="text-center">
-                    <Link className="inline-flex gap-1 bg-primary text-black py-10 px-6 rounded-full"
+                <div className="text-center py-5">
+                    <Link className="inline-flex gap-1 bg-primary text-black py-10 px-6 rounded-full" style={{backgroundColor: "#d55757"}}
                           to={'/myplaces/new'}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                             stroke="currentColor" className="w-6 h-6">
+                             stroke="white" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round"
                                   d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
-                        <div style={{fontSize:20, color:"#d55757"}}>
+                        <div style={{fontSize: 20, color: "white", fontWeight: "bold"}}>
                             Create New Listing
                         </div>
                     </Link>
@@ -115,17 +115,22 @@ export default function PlacesPage(){
                             </svg>
                         </div>
                     </div>
-                    <div style={{background: "antiquewhite"}} className="py-10">
+                    <div style={{background: "white"}} className="py-5">
+                        <div style={{width: 10000, color: "black"}} className="underline2"></div>
                         {places.length > 0 && places.map(place => (
-                            <Link to={{pathname: '/myplaces/modify/'+place._id, state:{place: place}}}>
-                                <h1 className="py-5" style={{fontWeight: 15, fontStyle: "italic"}}>
-                                    <div className="bg-gray-200">
+                            <Link to={{pathname: '/myplaces/modify/' + place._id, state: {place: place}}}>
+                                <h1 className="py-10 "
+                                    style={{fontWeight: "bold", backgroundColor: "#de6363", color:"white"}}>
+                                    <div className="bg-gray-200 inline-flex">
                                         {places.length > 0 && (
-                                            <img src={'http://localhost:4000/uploads/'+place.photos[0]} alt=""/>
+                                            <img src={'http://localhost:4000/uploads/' + place.photos[0]} alt="" style={{ maxWidth: '200px', maxHeight: '200px' }}/>
                                         )}
                                     </div>
-                                    {place.name}: {place.address}
+                                    <div>
+                                        {place.name}: {place.address}
+                                    </div>
                                 </h1>
+                                <div style={{width: 10000, color: "black"}} className="underline2"></div>
                             </Link>
                         ))}
                     </div>
