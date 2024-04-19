@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import IconButton from '@mui/material/IconButton';
 import { createTheme } from '@mui/material/styles';
+import logo from "../Assets/bird.png";
+import homeIcon from '../Assets/house.png';
 import axios from "axios";
 
 import defaultProfileImg from "../Assets/pic_of_me3.jpeg";
@@ -23,12 +25,13 @@ const ProfilePage = () => {
     //fetching user profile data
     const [userData, setUserData] = useState([]);
 
-    const id = '65c9686f70d91fbd7c84bbf5';
+    const [id, setId] = useState('65c9686f70d91fbd7c84bbf5');
+    //const id = '';
 
     useEffect(() => {
-        if (!id) {
-            return;
-        }
+        // if (!id) {
+        //     return;
+        // }
         fetchUserData();
     }, []);
 
@@ -37,7 +40,10 @@ const ProfilePage = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            // const response = await axios.get(`/api/users/${id}`); // Fetch data from the server route
+            //const response = await axios.get(`/profile`);
+            const response = await axios.get(`/profile`);
+            setId(response.data._id);
             //const response = await axios.get(`/profile`);
             console.log("fetchUserData: ", response.data);
             setUserData(response.data); // Assuming response contains listing data
@@ -48,9 +54,13 @@ const ProfilePage = () => {
     };
 
     let navigate = useNavigate();
-    const routeChange = () => {
-        let path = '/myplaces/new';
-        navigate(path);
+
+    const routeToCreateListing = () => {
+        navigate('/myplaces/new');
+    }
+
+    const routeToHomepage = () => {
+        navigate('/homepage');
     }
 
 
@@ -182,13 +192,12 @@ const ProfilePage = () => {
     };
 
     //profile image
-
-    const [profileImg, setProfileImg] = useState(defaultProfileImg);
-    const [editedProfileImg, setEditedProfileImg] = useState(defaultProfileImg);
+    const [profileImg, setProfileImg] = useState(null);
+    const [editedProfileImg, setEditedProfileImg] = useState(null);
 
     useEffect(() => {
-        setProfileImg(userData.profile_pic || defaultProfileImg);
-        setEditedProfileImg(userData.profile_pic || defaultProfileImg);
+        setProfileImg(userData.profile_pic || null);
+        setEditedProfileImg(userData.profile_pic || null);
     }, [userData.profile_pic]);
 
     const [imgFile, setImgFile] = useState('')
@@ -215,7 +224,7 @@ const ProfilePage = () => {
             const formData = new FormData();
             formData.append('avatar', imgFile);
 
-            const response = await axios.put(`/api/users/profile-pic`, formData, {
+            const response = await axios.put(`/api/users/upload-profile-pic`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -407,6 +416,7 @@ const ProfilePage = () => {
     return (
         <div>
             <Box display="flex" flexDirection='row' sx={{ pt: 2.5 }}>
+                {/* <Avatar alt="Logo" src={logo} sx={{ position: "relative", top: -20, ml: 5, width: 100, height: 100 }} /> */}
                 <div>
                     {isEditing ? (
                         <div>
@@ -433,10 +443,13 @@ const ProfilePage = () => {
 
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
-                    <Button onClick={routeChange} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
+                    <Button onClick={routeToCreateListing} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
-                    <Box sx={{ width: 50, pl: 6 }}></Box>
+                    {/* <Box sx={{ width: 50, pl: 6 }}></Box> */}
+                    <Box sx={{ width: 50 }}></Box>
+                    <Avatar onClick={routeToHomepage} alt="Logo" width="10%" src={homeIcon}></Avatar>
+                    <Box sx={{ width: 50 }}></Box>
                     {/* <Avatar alt="Profile Image" src={profileImg} sx={{ width: 40, height: 40 }} /> */}
                 </Box>
 
