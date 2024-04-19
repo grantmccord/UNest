@@ -298,7 +298,7 @@ function MessagesPage() {
         <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
-        <p style={{position: "relative", top: "-40px"}}>{item.lastMessage}</p>
+        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage/${username}/${item.username}`)}</p>
         {/* <p style={{position: "relative", top: "-40px"}}>{((localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length) || localStorage.getItem(`lastMessage-${item.username}-${username}`) === null) ?
           localStorage.getItem(`lastMessage-${username}-${item.username}`) :
           localStorage.getItem(`lastMessage-${item.username}-${username}`)

@@ -2,27 +2,24 @@ import React, {useState, useEffect} from 'react';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
-import ReactGeocode from 'react-geocode';
 import './Map.css'
-import apartmentIcon from '../Assets/Apartment.png';
 import pinIcon from '../Assets/pin.png';
-import { layerGroup } from 'leaflet';
-import {useMap} from 'react-leaflet';
-import { Control, DomUtil } from 'leaflet';
 import L from 'leaflet';
-import 'leaflet-control-geocoder';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 
 export const MapComp = () => {
   const {id} = useParams();
   const [property, setProperty] = useState(null);
-  const [coord, setCoord] = useState([]);
+  const [coord, setCoord] = useState(null);
 
   useEffect(() => {
     viewProperty();
     console.log("Id: ", id);
-  }, [id, coord]);
-  
+  }, [id]);
+
+  useEffect(() => {
+    console.log("coord: ", coord)
+  }, [coord]);
+
   const viewProperty = async () => {
     try {
         console.log("Id: ", id);
@@ -30,48 +27,16 @@ export const MapComp = () => {
         const prop = response.data;
         console.log("name: ", prop.name);
         console.log("address: ", prop.address);
-        setProperty(prop);
-        //console.log("URL: ",`/geocode/${encodeURIComponent(prop.address)}`); 
-        //const geoResponse = await axios.get(`/geocode/${encodeURIComponent(prop.address)}`);
-        /*
-        ReactGeocode.fromAddress(prop.address).then((response) => {
-          const { lat, lng } = response.results[0].geometry.location;
-          console.log("lat: ", lat);
-          console.log("lng: ", lng);
-          setCoord([lat, lng]);
-        });
-        */
-       //console.log("Response: ", geoResponse.data);
-       /*
-       const map = L.map('map').setView([51.505, -0.09], 13);
-
-       // Initialize Leaflet Control Geocoder
-       const geocoder = L.Control.geocoder({
-         collapsed: false,
-         placeholder: prop.address,
-         defaultMarkGeocode: false,
-       }).addTo(map);
-   
-       // Handle geocode events
-       geocoder.on('markgeocode', function(event) {
-         const { latlng } = event.geocode;
-         const { lat, lng } = latlng;
-         console.log('Latitude:', lat);
-         console.log('Longitude:', lng);
-         // Do something with lat and lng, such as setting state or calling a function
-         setCoord([lat, lng]);
-       });
-   
-       // Make sure you have a div with id 'map' in your JSX
-       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-       }).addTo(map);
-        //console.log("lat: ", lat);
-        //console.log("lng: ", lng);
-        //setCoord([lat, lng]);
-        */
+        setProperty(prop);        
         console.log("Property: ", property);
         console.log("Success listing click");
+        const res = await fetch(encodeURI("https://api.mapbox.com/geocoding/v5/mapbox.places/" + prop.address + ".json?access_token=pk.eyJ1IjoiZ21jY29yZDY1MDIiLCJhIjoiY2x1bHpxeDVjMTg5cTJqbzN5bGozbzgwaiJ9.-TGy73Y_CF2rZEBKGIKTJw"));
+        const data = await res.json();
+        setCoord(data.features[0].center);
+        console.log(data.features[0].center);
+        const a = data.features[0].center;
+        console.log("a: ", a);
+        console.log("set coord", coord);
     }
     catch (error) {
         console.error("Error fetching listing", error);
@@ -80,21 +45,21 @@ export const MapComp = () => {
   };
 
   const customPinIcon = L.icon({
-    iconUrl: pinIcon, // URL of the pin icon image
-    iconSize: [30, 30], // Size of the icon (width, height)
-    iconAnchor: [16, 32], // Anchor point of the icon (position where the icon's hotspot should be located relative to the marker's position)
+    iconUrl: pinIcon, 
+    iconSize: [30, 30], 
+    iconAnchor: [16, 32], 
   });
 
   return (
     <div>
-      {property ? (
+      {property && coord ? (
         <div>
-    <MapContainer testId="map" center={/*coord*/[40.4254, -86.9082]} zoom={20} style={{ height: '700px', width: '100%', zIndex: "0"}}>
+    <MapContainer testId="map" center={[coord[1], coord[0]]} zoom={20} style={{ height: '700px', width: '100%', zIndex: "0"}}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={/*coord*/[40.4254, -86.9082]} icon={customPinIcon}>
+      <Marker position={[coord[1], coord[0]]} icon={customPinIcon}>
         <Popup>
          <p>{property.name}</p>
           <p>{property.address}</p>

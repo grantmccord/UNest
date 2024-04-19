@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import apartmentIcon from '../Assets/Apartment.png';
 import profileIcon from '../Assets/Profile.png';
 import messageIcon from '../Assets/Message.png';
+import houseIcon from '../Assets/house.png';
 import Logo from '../Assets/Logo.png';
 import Heart from 'react-heart';
 import axios from 'axios';
@@ -94,11 +95,11 @@ const viewProperty = async () => {
   };
 
   const navigateToListing = () => {
-    navigate('/listing', {replace: true})
+    navigate('/myplaces/new', {replace: true})
   };
 
   const navigateToHome = () => {
-    navigate('/home', {replace: true})
+    navigate('/homepage', {replace: true})
   }
 
   const navigateToProfile = () => {
@@ -131,7 +132,7 @@ const viewProperty = async () => {
     <button onClick={navigateToHome} style={{backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Properties
     </button>
-    <button className = 'rm' onClick={() => window.scrollTo({top: 1500, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-270px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button className = 'rm' onClick={() => window.scrollTo({top: 1450, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-270px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
     </div>
@@ -139,11 +140,12 @@ const viewProperty = async () => {
     <input type="text" value={inputSearch} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
     </div>
     <div className='al'>
-    <button onClick={navigateToListing} style={{position: "relative", borderRadius: "10px"}}>
+    <button onClick={navigateToListing} style={{position: "relative", left: "25px", borderRadius: "10px"}}>
       Add Listing
       </button>
-      <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", width: "50px", height: "50px", top: "15px", left: "50px"}}/>
-      <img src={profileIcon} alt ="" onClick={navigateToProfile} style={{position: "relative", width: "50px", height: "50px", top: "14px", left: "90px"}} />
+      <img src={messageIcon} alt="" onClick={navigateToMessages} style={{position: "relative", width: "50px", height: "50px", top: "15px", left: "55px"}}/>
+      <img src={profileIcon} alt ="" onClick={navigateToProfile} style={{position: "relative", width: "50px", height: "50px", top: "14px", left: "78px"}} />
+      <img src={houseIcon} alt="" onClick={navigateToHome} style={{position: "relative", width: "50px", height: "50px", top: "14px", left: "98px"}}/>
       </div>
       <div className='aar'>
       <button style={{position: "relative", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
@@ -152,16 +154,16 @@ const viewProperty = async () => {
     <button onClick={() => window.scrollTo({top: 700, behavior: "smooth"})} style={{position: "relative", left: "-160px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Amenities
     </button>
-    <button onClick={() => window.scrollTo({top: 1300, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-300px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
+    <button onClick={() => window.scrollTo({top: 900, behavior: "smooth"})} style={{position: "relative", top: "2px", left: "-300px", backgroundColor: "white", color: "black", border: "none", fontWeight: "bold"}}>
       Roommates
     </button>
     </div>
     {property ? (
     <div className='rectangle'>
     <Link to={`/property/${id}`}>
-    <img src={property.photos[0]} alt="" data-testid="apartment-image" style={{position: "relative", width: "499px", height: "499px"}}/>
+    <img src={property.photos[0]} alt="" data-testid="apartment-image" style={{position: "relative", width: "450px", height: "450px"}}/>
     </Link>
-    <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-500px", left: "450px", width: "40px", height: "40px"}}></Heart>
+    <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-450px", left: "400px", width: "40px", height: "40px"}}></Heart>
     </div>
     ) : (
       <p>Loading</p>
@@ -172,12 +174,12 @@ const viewProperty = async () => {
       <div>
       <div>
     <div className='info'>
-      <h3 style={{ color: "black", position: "relative", fontSize: "40px", fontWeight: "bold"}}>
+      <h3 style={{ color: "black", position: "relative", top: "20px", fontSize: "40px", fontWeight: "bold"}}>
       {property.name}
     </h3>
     </div>
     <div>
-    <p style={{ color: "black", position: "relative", top: "-550px", left: "600px", fontSize: "30px"}}>
+    <p style={{ color: "black", position: "relative", top: "-550px", left: "470px", fontSize: "30px"}}>
       {property.address}
     </p> 
     </div>
