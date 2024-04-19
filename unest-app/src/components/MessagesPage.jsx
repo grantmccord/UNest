@@ -75,8 +75,11 @@ function MessagesPage() {
              setUser(d);})
              .catch(error => {console.error('Error fetching', error);});
              */
-    }, [itemName]);
+    }, [itemName, username]);
 
+      const last = async () => {
+
+      };
     
         const getInfo = async () => {
           //setShowOptions(true);
@@ -91,7 +94,19 @@ function MessagesPage() {
             const response = await axios.get(`excludeuser/${id}`);
             console.log("Connects");
             console.log("Response.data: ", response.data);
-            setUser(response.data);
+            //setUser(response.data);
+            const promises = response.data.map(async user => {
+              const lastMsgRes = await axios.get(`/lastmsg/${username}/${user.username}`);
+              console.log(`/lastmsg/${username}/${user.username}`)
+              console.log("Last msg: ", lastMsgRes.data.text);
+              return { ...user, lastMessage: lastMsgRes.data.text };
+            });
+            
+            const usersWithLastMsg = await Promise.all(promises);
+            usersWithLastMsg.forEach(user => {
+              localStorage.setItem(`lastMessage/${username}/${user.username}`, user.lastMessage);
+            });
+            setUser(usersWithLastMsg);
             return response.data;
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -283,10 +298,11 @@ function MessagesPage() {
         <button style={{position: "relative", top: "-140px",backgroundColor: "white", color: "black", width: "1415px", height: "100px", border: "2px solid #EA5455", fontWeight: "normal", marginTop: "-20px"}}>
         <img src={profileIcon} alt="" style={{width: "50px", height: "50px"}} />
         <p style={{position: "relative", top: "-40px"}}>{item.first_name} {item.last_name}</p>
-        <p style={{position: "relative", top: "-40px"}}>{((localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length) || localStorage.getItem(`lastMessage-${item.username}-${username}`) === null) ?
+        <p style={{position: "relative", top: "-40px"}}>{localStorage.getItem(`lastMessage/${username}/${item.username}`)}</p>
+        {/* <p style={{position: "relative", top: "-40px"}}>{((localStorage.getItem(`lastMessage-${username}-${item.username}`)?.length > localStorage.getItem(`lastMessage-${item.username}-${username}`)?.length) || localStorage.getItem(`lastMessage-${item.username}-${username}`) === null) ?
           localStorage.getItem(`lastMessage-${username}-${item.username}`) :
           localStorage.getItem(`lastMessage-${item.username}-${username}`)
-        }</p>
+        }</p> */}
         </button>
         </Link>
         )}

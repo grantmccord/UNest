@@ -6,6 +6,8 @@ import bird from "../Assets/bird.png";
 import Map from "./HomeMap.jsx";
 import axios from "axios";
 import profileImg from "../Assets/square_pic_of_me.png";
+import logo from "../Assets/bird.png";
+import defaultProfileImg from "../Assets/defaultProfileIcon.jpeg";
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 // import Menu from '@mui/material/Menu';
@@ -91,6 +93,42 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  const [profileImg, setProfileImg] = useState(defaultProfileImg);
+  //const id = '';
+
+  useEffect(() => {
+    // if (!id) {
+    //     return;
+    // }
+    fetchUserData();
+  }, []);
+
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(`/profile`);
+      if (response.data.profile_pic) {
+        setProfileImg('http://localhost:4000' + response.data.profile_pic);
+      }
+      //console.log('http://localhost:4000' + response.data.profile_pic);
+      console.log("response.data: ", response.data)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      const response = await axios.get(`/logout`);
+      navigate('/login', { replace: true });
+      console.log("response", response)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
 
   return (
     <div>

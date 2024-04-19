@@ -17,8 +17,9 @@ const Message = () => {
     const [buttonIndex, setButtonIndex] = useState(null);
     const [firstname, setFirstName] = useState('Ram');
     const [lastname, setLastName] = useState('Laxminarayan');
-    const [username, setUsername] = useState('raml10');
+    const [username, setUsername] = useState('sud02');
     const [messages, setMessages] = useState([]);
+    const [msgId, setMsgId] = useState('');
     //const divRef = useRef(null);
 
     const {itemName} = useParams();
@@ -26,9 +27,6 @@ const Message = () => {
     const encodedData = queryParams.get('data');
     const decodedData = JSON.parse(decodeURIComponent(encodedData));
 
-    useEffect(() => {
-        fetchProfile(); 
-    }, []);
 
     useEffect(() => {
         const savedEnteredValues = localStorage.getItem(`enteredValues-${username}-${decodedData.a3}`);
@@ -42,9 +40,34 @@ const Message = () => {
     }, [itemName, username, decodedData.a3]);
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get('/profile');
+                setFirstName(response.data.first_name);
+                setLastName(response.data.last_name);
+                setUsername(response.data.username);
+                console.log("Username: ", response.data.username);
+            }
+            catch (error) {
+                console.error("Error fetching msgs", error);
+            }
+        };
+        fetchProfile();
+        const fetchMessages = async () => {
+            try {
+                const response = await axios.get(`/msg/${username}/${decodedData.a3}`);
+                console.log("username: ", username);
+                console.log("decoded data", decodedData.a3);
+                setMessages(response.data);
+                console.log("Messages: ", response.data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
         fetchMessages();
         console.log("Msgs: ", messages);
-    }, [username, decodedData.a3]);
+    }, [username, decodedData?.a3]);
 
     const fetchProfile = async () => {
         try {
@@ -65,6 +88,7 @@ const Message = () => {
             console.log("username: ", username);
             console.log("decoded data", decodedData.a3);
             setMessages(response.data);
+            console.log("Messages: ", response.data);
         }
         catch (error) {
             console.error(error);
@@ -73,7 +97,7 @@ const Message = () => {
 
     const deleteMessage = (index) => {
         setButtonIndex(index);
-        if (index === enteredValues.length - 1) {
+        if (index === messages.length - 1) {
             setShowOptions(true);
         }
     };
@@ -87,7 +111,8 @@ const Message = () => {
         }
     };
 
-    const updateChat = async () => {
+    const updateChat = async (event) => {
+        event.preventDefault();
         const delMsg = [...enteredValues];
         delMsg.pop();
         try {
@@ -97,6 +122,8 @@ const Message = () => {
             const id = response.data.recMsg;
             console.log("Got id: ", id);
             delMesg(id);
+            console.log("Message deleted");
+            setMessages(messages.filter(message => message._id !== id));
         }
         catch(error) {
             console.error('Error fetching id', error);
@@ -202,7 +229,7 @@ const Message = () => {
             <img src={profileIcon} alt="" style={{width: "50px", height: "50px", position: "relative", left: "630px"}} />
             <p style={{position: "relative", top: "-40px"}}>{message.text}</p>
             </button>
-            {showOptions && buttonIndex === index && index === enteredValues.length - 1 && (
+            {showOptions && buttonIndex === index && index === messages.length - 1 && message.senderUsername === username && (
                 <div style={{ position: 'absolute', top: '100%', left: 0 }}>
                     <button onClick={updateChat} style={{color: "black", backgroundColor: "white", border: "2px solid black", position: "relative", top: "-30px", left: "600px"}}>
                         Delete
