@@ -67,7 +67,7 @@ export const MapComp = () => {
         </Popup>
       </Marker>
     </MapContainer>
-    <img src={property.photos[0]} style={{position: "relative", top: "-700px", width: "550px", height: "700px", float: "right", zIndex: "1"}} alt=""/>
+    <img src={'http://localhost:4000/uploads/' + property.photos[0]} style={{position: "relative", top: "-700px", width: "550px", height: "700px", float: "right", zIndex: "1"}} alt=""/>
     </div>
       ) : (
         <p>Loading</p>

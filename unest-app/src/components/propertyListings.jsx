@@ -136,7 +136,7 @@ const viewProperty = async () => {
       Roommates
     </button>
     </div>
-    <div classname='s'>
+    <div className='s'>
     <input type="text" value={inputSearch} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} style={{position: "relative", top: "-180px", left: "425px", width: "600px", textAlign: "center"}}/>
     </div>
     <div className='al'>
@@ -161,7 +161,7 @@ const viewProperty = async () => {
     {property ? (
     <div className='rectangle'>
     <Link to={`/property/${id}`}>
-    <img src={property.photos[0]} alt="" data-testid="apartment-image" style={{position: "relative", width: "450px", height: "450px"}}/>
+    <img src={'http://localhost:4000/uploads/' + property.photos[0]} alt="" data-testid="apartment-image" style={{position: "relative", width: "450px", height: "450px"}}/>
     </Link>
     <Heart data-testid='heart' isActive={liked} onClick={toggleLiked} style={{position: "relative", top: "-450px", left: "400px", width: "40px", height: "40px"}}></Heart>
     </div>
@@ -213,7 +213,7 @@ const viewProperty = async () => {
       </div>
       <div style={{position: "relative", top: "70px"}}>
       <ul>
-      {property.amenities.map((amenity, index) => (
+      {property.perks.map((amenity, index) => (
         <li key={index}>{amenity}</li>
       ))}
     </ul>

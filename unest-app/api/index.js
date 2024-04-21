@@ -380,10 +380,10 @@ app.post('/login', async(req,res) => {
 
 app.post('/validate', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
-    const {username, email} = req.body;
+    const {username, email, secret} = req.body;
     const userDoc = await User.findOne({email})
     if(userDoc) {
-        if(username === userDoc.username){
+        if((username === userDoc.username)){
             res.json({status:"FOUND" , pass: bcrypt.hashSync(userDoc.password, 8)})
         } else {
             res.status(422).json("No Such User")

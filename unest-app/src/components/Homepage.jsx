@@ -237,24 +237,20 @@ const Header = () => {
                         )}> Post Listing </Link>
                       )}
                     </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to="/myplaces/view" className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}> View Map </Link>
-                      )}
-                    </Menu.Item>
                   </div>
-                  <div className='py-1'>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to="/login" className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}> Logout </Link>
-                      )}
-                    </Menu.Item>
+                  <div>
+                  <Menu.Item>
+                    {({ active }) => (
+                        //hover:bg-gray-100
+                        //-mb-4
+                        // <button onClick={logout} class="bg-white px-4 leading-3 -pb-3 text-left hover:bg-gray-100 text-gray-700 text-sm">
+                        //   Sign Out
+                        // </button>
+                        <button onClick={logout} className="bg-white px-4 text-left text-gray-700 h-8 text-sm">
+                          Sign Out
+                        </button>
+                    )}
+                  </Menu.Item>
                   </div>
                 </Menu.Items>
               </Transition>
