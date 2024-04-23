@@ -177,10 +177,10 @@ const MessageTenant = () => {
         </div>
         <div>
         <div className="search">
-        <form onSubmit={(e) => addEnteredValue(e)}>
-        <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={(e) => keyPress(e)} style={{width: "1200px", textAlign: "center", position: "relative", left:"-240px"}}/>
-        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "-62px", left: "908px", cursor: "pointer"}} /> 
-        </form>
+         {/* <form onSubmit={(e) => addEnteredValue(e)}> */}
+         <input type="text" value={inputMessage} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} onMouseLeave={handleUnFocus} onKeyDown={(e) => keyPress(e)} style={{width: "1200px", textAlign: "center", position: "relative", left:"-240px"}}/>
+        <img src={send} alt="Enter" onClick={addEnteredValue} style={{width: "50px", height: "50px", position: "relative", top: "12px", left: "-292px", cursor: "pointer", zIndex: 2}} /> 
+        {/* </form> */}
         </div>
         </div>
         </div>

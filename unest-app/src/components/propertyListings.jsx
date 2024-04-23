@@ -179,8 +179,8 @@ const viewProperty = async () => {
     </h3>
     </div>
     <div>
-      <p style={{ color: "black", position: "relative", top: "-540px", left: "100px", textAlign: "center", fontSize: "30px", fontWeight: "bold"}}>Address</p>
-    <p style={{ color: "black", position: "relative", top: "-540px", left: "470px", fontSize: "30px"}}>
+      <p style={{ color: "black", position: "relative", top: "-540px", left: "100px", textAlign: "center", fontSize: "30px", fontWeight: "bold", margin: 0}}>Address</p>
+    <p style={{color: "black", textAlign: "center", position: "relative", top: "-540px", left: "100px", fontSize: "30px", margin: 0, padding: "20px 0"}}>
       {property.address}
     </p> 
     </div>
@@ -207,14 +207,14 @@ const viewProperty = async () => {
       </button>
       </div>
       <div>
-      <h3 style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
+      <h3 className={"py-8"} style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
         Amenities
       </h3>
       </div>
       <div style={{position: "relative", top: "70px"}}>
       <ul>
       {property.perks.map((amenity, index) => (
-        <li key={index}>{amenity}</li>
+        <li className={"py: 5"} style={{ fontSize: '30px', marginBottom: '15px', listStyleType: 'disc' }} key={index}>{amenity}</li>
       ))}
     </ul>
       </div>

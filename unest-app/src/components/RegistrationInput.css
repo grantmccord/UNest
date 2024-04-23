@@ -1,7 +1,7 @@
 .formInput{
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 500px;
 }
 
 input{
@@ -10,7 +10,7 @@ input{
     border-radius: 5px;
     border: 1px solid gray;
     font-size: 15px;
-    background-color: antiquewhite;
+    background-color: papayawhip;
 }
 
 
@@ -25,15 +25,22 @@ label{
 span{
     font-size: 12px;
     padding: 3px;
-    color: red;
+    color: #EA5455;
     display: none;
     font-weight: bold;
 }
 
 input:invalid[focused="true"]{
-    border: 2px red;
+    border: 2px #EA5455;
 }
 
 input:invalid[focused="true"] ~ span{
     display: block;
+}
+
+.underline {
+    width: 100px;
+    height: 2px; /* Adjust height as needed */
+    background-color: #EA5455; /* Change color to black */
+    margin-bottom: 20px; /* Adjust margin as needed */
 }

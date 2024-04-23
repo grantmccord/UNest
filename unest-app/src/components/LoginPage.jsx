@@ -22,7 +22,7 @@ export default function LoginPage() {
             setUser(data);
             alert('Login Successful!');
             setRedirect(true);
-        }catch(e){
+        } catch(e){
             alert('Login Failed, Please Try Again');
         }
     }

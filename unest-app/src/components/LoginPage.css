@@ -1,5 +1,5 @@
 .outercontainer{
-    margin-top: 15vh;
+    margin-top: 5px;
 }
 .container{
     display: flex;
@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 .text{
     color: black;
