@@ -229,8 +229,8 @@ function MessagesPage() {
         {display ? (
         <div>
         <div className="my">
-            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "25px", left: "-40px", borderRadius: "10px"}}>
-                My Properties
+            <h2 style={{backgroundColor: "#F2CF59", color: "black", fontSize:"30px", position: "relative", top: "25px", left: "-40px", borderRadius: "10px"}}>
+                 My Properties
             </h2>
         </div>
         <div className="other">
@@ -337,7 +337,7 @@ function MessagesPage() {
             </button>
         </div>
         <div className="other">
-            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "-25px", left: "34px", borderRadius: "10px"}}>
+            <h2 style={{backgroundColor: "#F2CF59", color: "black", fontSize:"30px", position: "relative", top: "-25px", left: "34px", borderRadius: "10px"}}>
                 Other Properties
             </h2>
         </div>

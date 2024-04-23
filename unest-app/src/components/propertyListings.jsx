@@ -207,14 +207,14 @@ const viewProperty = async () => {
       </button>
       </div>
       <div>
-      <h3 style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
+      <h3 className={"py-8"} style={{position: "relative", top: "-400px", left: "140px", fontWeight: "bold", fontSize: "30px"}}>
         Amenities
       </h3>
       </div>
       <div style={{position: "relative", top: "70px"}}>
       <ul>
       {property.perks.map((amenity, index) => (
-        <li style={{ fontSize: '30px', marginBottom: '8px', listStyleType: 'disc' }} key={index}>{amenity}</li>
+        <li className={"py: 5"} style={{ fontSize: '30px', marginBottom: '15px', listStyleType: 'disc' }} key={index}>{amenity}</li>
       ))}
     </ul>
       </div>
