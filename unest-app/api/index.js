@@ -362,7 +362,10 @@ app.post('/findUser', async(req, res) => {
 app.post('/login', async(req,res) => {
     mongoose.connect(process.env.MONGO_URL);
     const {email, password} = req.body;
-    const userDoc = await User.findOne({email})
+    if (!email || !password) {
+        return res.status(400).json({ error: "Email and password are required." });
+    }
+    const userDoc = await User.findOne({email});
     if(userDoc) {
         const checkPass = bcrypt.compareSync(password, userDoc.password);
         if(checkPass){
@@ -386,10 +389,10 @@ app.post('/validate', async(req,res) => {
         if((username === userDoc.username)){
             res.json({status:"FOUND" , pass: bcrypt.hashSync(userDoc.password, 8)})
         } else {
-            res.status(422).json("No Such User")
+            res.status(422).json("User with the provided credentials not found.")
         }
     } else{
-        res.json("Not Found")
+        res.json("Not found, Please try again.")
     }
 })
 
