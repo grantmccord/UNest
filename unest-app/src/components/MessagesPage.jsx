@@ -187,13 +187,17 @@ function MessagesPage() {
             <img src={Logo} alt="" style={{width: "100px", height: "100px"}} />
         </div>
         <div>
-            <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium" style={{position: "relative", top: "-70px", left :"550px", backgroundColor: "#EA5455", color: "white", width: "300px"}}>Chat Messages</h1>
+            <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium" style={{position: "relative", top: "-70px", left :"550px", backgroundColor: "#EA5455", color: "white", width: "300px", borderRadius: "10px"}}>Chat Messages</h1>
         </div>
         <div className="house">
+          <button style={{backgroundColor: "white", height: "5px", width: "100px"}}>
         <img src={House} alt="" onClick={navigateToHome} style={{width: "50px", height: "50px"}} />
+        </button>
         </div>
         <div className="profile">
+          <button style={{backgroundColor: "white", height: "5px", width: "100px"}}>
         <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "50px", height: "50px"}} />
+        </button>
         </div>
         <div className="search">
         <input type="text" value={inputSearch} onClick={fetchUsers} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>
@@ -225,7 +229,7 @@ function MessagesPage() {
         {display ? (
         <div>
         <div className="my">
-            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "25px", left: "-40px"}}>
+            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "25px", left: "-40px", borderRadius: "10px"}}>
                 My Properties
             </h2>
         </div>
@@ -333,7 +337,7 @@ function MessagesPage() {
             </button>
         </div>
         <div className="other">
-            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "-25px", left: "34px"}}>
+            <h2 style={{backgroundColor: "#ccc", color: "black", fontSize:"30px", position: "relative", top: "-25px", left: "34px", borderRadius: "10px"}}>
                 Other Properties
             </h2>
         </div>

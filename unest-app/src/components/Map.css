@@ -1,7 +1,8 @@
 .map-container {
-    width: 50%;
-    height: 120vh;
-    float: right
+    width: 90%;
+    height: 60vh;
+    float: left;
+    left: 5%;
 }
 
 .map {
