@@ -35,6 +35,15 @@ const ProfilePage = () => {
         fetchUserData();
     }, []);
 
+    // const handleCancel2 = () => {
+    //     // Reset name to its original value (fetched from database)
+    //     fetch('/api/user')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setName(data.name); // Reset name to original fetched value
+    //         })
+    //         .catch(error => console.error('Error fetching user:', error));
+    // };
     //get user data for a specific user from the database
     //TODO: see if I can fetch anytime there is a change in the database (not just when the page is mounted)
 
@@ -422,8 +431,18 @@ const ProfilePage = () => {
                         <div>
                             <Box sx={{ pl: 15, pb: 2 }}>
                                 <div className='aboutMeEditButtons'>
-                                    <Button variant="contained" sx={{ width: 50, height: 40, boxShadow: 3, backgroundColor: "#21b6ae" }} onClick={handleSave}>Save</Button>
-                                    <Button variant="outlined" sx={{ width: 80, marginLeft: 5, height: 40, boxShadow: 3, color: "#21b6ae" }} onClick={handleCancel}>Cancel</Button>
+                                    <Button variant="contained" sx={{
+                                        width: 50, height: 40, boxShadow: 3, backgroundColor: "#ea5455", '&:hover': {
+                                            backgroundColor: '#eb3131',
+                                            outlineColor: '#eb3131',
+                                        }
+                                    }} onClick={handleSave}>Save</Button>
+                                    <Button variant="outlined" sx={{
+                                        width: 80, marginLeft: 5, height: 40, boxShadow: 3, color: "#ea5455", borderColor: "#ea5455", '&:hover': {
+                                            color: '#eb3131',
+                                            borderColor: '#eb3131',
+                                        }
+                                    }} onClick={handleCancel}>Cancel</Button>
                                 </div>
                             </Box>
 
@@ -434,7 +453,7 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                <Box sx={{ width: "80%", pl: 47, display: "flex", flexDirection: 'row' }} >
+                <Box sx={{ width: "80%", justifyContent: "center", pl: 35, display: "flex", flexDirection: 'row' }} >
                     <Typography variant="h4" sx={{ textAlign: "center", fontWeight: "bold" }} gutterBottom>
                         Profile Page
                     </Typography>
@@ -443,7 +462,12 @@ const ProfilePage = () => {
 
 
                 <Box display="flex" flexDirection='row' sx={{ justifyContent: 'space-around' }}>
-                    <Button onClick={routeToCreateListing} variant="contained" width="10%" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Add Listing</Button>
+                    <Button onClick={routeToCreateListing} variant="contained" width="10%" sx={{
+                        boxShadow: 3, backgroundColor: "#ea5455", '&:hover': {
+                            backgroundColor: '#eb3131',
+                            outlineColor: '#eb3131',
+                        }
+                    }}>Add Listing</Button>
                     <Box sx={{ width: 50 }}></Box>
                     <EmailOutlinedIcon style={{ fontSize: '50px' }}></EmailOutlinedIcon>
                     {/* <Box sx={{ width: 50, pl: 6 }}></Box> */}
@@ -532,8 +556,18 @@ const ProfilePage = () => {
                         </div>
                         <div className='basicInfoButtons'>
                             <Stack spacing={2} direction="column" sx={{ pt: 2 }}>
-                                <Button variant="contained" sx={{ boxShadow: 3, backgroundColor: "#21b6ae" }}>Message</Button>
-                                <Button variant="outlined" sx={{ boxShadow: 3, color: "#21b6ae", outlineColor: "#21b6ae" }}>Properties Viewed</Button>
+                                <Button variant="contained" sx={{
+                                    boxShadow: 3, backgroundColor: "#ea5455", outlineColor: "#ea5455", '&:hover': {
+                                        backgroundColor: '#eb3131',
+                                        outlineColor: '#eb3131',
+                                    },
+                                }}>Message</Button>
+                                <Button variant="outlined" sx={{
+                                    boxShadow: 3, color: "#ea5455", borderColor: "#ea5455", '&:hover': {
+                                        color: '#eb3131',
+                                        borderColor: '#eb3131',
+                                    }
+                                }}>Properties Viewed</Button>
                             </Stack>
                         </div>
                     </Box>
