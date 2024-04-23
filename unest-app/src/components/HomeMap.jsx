@@ -49,9 +49,9 @@ export default function HomeMap({ inputValue, filterValue, sliderValue, listings
         setZoom(map.current.getZoom().toFixed(2));
       });
 
-      map.current.on('load', () => {
-        map.current.resize();
-      });
+      // map.current.on('idle', () => {
+      //   map.current.resize();
+      // });
       
       new mapboxgl.Marker().setLngLat([-86.9110, 40.4248]).setPopup(new mapboxgl.Popup({ offset: 20 }).setHTML('Purdue Memorial Union')).addTo(map.current);
 
@@ -73,8 +73,8 @@ export default function HomeMap({ inputValue, filterValue, sliderValue, listings
     });
   
     return (
-      <div className='flex justify-center w-full h-full'>
-        <div ref={mapContainer} className="map-container w-full" />
-      </div>
+      // <div className='flex justify-center'>
+      <div ref={mapContainer} className="map-container" />
+      // {/* </div> */}
     );
 }  
