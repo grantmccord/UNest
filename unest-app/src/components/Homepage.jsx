@@ -258,7 +258,7 @@ const Header = () => {
           </nav>
         </header>
       </div>
-      {!mapActive ? <Properties inputValue={inputValue} filterValue={filterValue} sliderValue={sliderValue} listings={adjListings} /> : <Map inputValue={inputValue} filterValue={filterValue} sliderValue={sliderValue} listings={adjListings} />}
+      {!mapActive ? <Properties inputValue={inputValue} filterValue={filterValue} sliderValue={sliderValue} listings={adjListings} /> : <Map inputValue={inputValue} sliderValue={sliderValue} listings={adjListings} />}
     </div>
   );
 };
