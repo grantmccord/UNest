@@ -190,10 +190,14 @@ function MessagesPage() {
             <h1 className="font-oswald text-primary-800 mb-4 text-4xl font-medium" style={{position: "relative", top: "-70px", left :"550px", backgroundColor: "#EA5455", color: "white", width: "300px", borderRadius: "10px"}}>Chat Messages</h1>
         </div>
         <div className="house">
+          <button style={{backgroundColor: "white", height: "5px", width: "100px"}}>
         <img src={House} alt="" onClick={navigateToHome} style={{width: "50px", height: "50px"}} />
+        </button>
         </div>
         <div className="profile">
+          <button style={{backgroundColor: "white", height: "5px", width: "100px"}}>
         <img src={profileIcon} alt="" onClick={navigateToProfile} style={{width: "50px", height: "50px"}} />
+        </button>
         </div>
         <div className="search">
         <input type="text" value={inputSearch} onClick={fetchUsers} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} style={{width: "800px", textAlign: "center", position: "relative", top: "-315px"}}/>

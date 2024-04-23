@@ -1,15 +1,16 @@
 .house {
     display: flex;
     position: relative;
-    top: -150px;
-    left: 1280px;
+    top: -158px;
+    left: 1350px;
+    z-index: 1;
 }
 
 .profile {
     display: flex;
     position: relative;
-    top: -198px;
-    left: 1350px;
+    top: -223px;
+    left: 1280px;
 }
 
 .search {
